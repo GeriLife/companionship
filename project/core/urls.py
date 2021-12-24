@@ -17,9 +17,15 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import TemplateView
 
+mockup_urlpatterns = [
+    path("groups/", TemplateView.as_view(template_name="mockups/groups.html"), name="groups"),
+    path("groups/jane", TemplateView.as_view(template_name="mockups/group_jane.html"),
+         name="group_jane"),
+]
+
 urlpatterns = [
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("admin/", admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-]
+] + mockup_urlpatterns
