@@ -3,7 +3,21 @@
 {% block content %}
 <h1>Groups</h1>
 
-{% for group in groups %}
-    {{ group }}
-{% endfor %}
+<div class="row row-cols-lg-4 row-cols-md-2">
+    <div class="col mb-4">
+        {% for group in groups %}
+        <div class="card">
+            <img
+            src="https://source.unsplash.com/VMGAbeeJTKo/200x200"
+            class="img-fluid rounded-start"
+            alt="..."
+            />
+            <div class="card-body">
+            <h2 class="card-title">{{ group }}</h2>
+            <a href="{% url 'care-group-detail' group.id %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock content %}
