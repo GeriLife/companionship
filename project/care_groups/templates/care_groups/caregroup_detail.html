@@ -1,7 +1,15 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
+
+{% load i18n %}
 
 {% block content %}
-<h1>{{ group }}</h1>
+<h1>
+    {{ group }}
+    <a class="btn btn-primary btn-sm" href="{% url 'care-group-update' group.id %}">
+        <i class="bi bi-pencil"></i>
+        {% translate "Edit" %}
+    </a>
+</h1>
 
 <div class="row">
     <div class="col">
