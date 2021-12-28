@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 
@@ -18,3 +19,13 @@ class Activity(models.Model):
         choices=ActivityTypeChoices.choices,
         default=ActivityTypeChoices.APPOINTMENT,
     )
+
+    class Meta:
+        verbose_name = _("activity")
+        verbose_name_plural = _("activities")
+
+    def __str__(self):
+        return self.get_activity_type_display()
+
+    def get_absolute_url(self):
+        return reverse("care-group-detail", kwargs={"pk": self.pk})
