@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -20,7 +21,7 @@ class Activity(models.Model):
         default=ActivityTypeChoices.APPOINTMENT,
     )
 
-    activity_date = models.DateField(auto_now=True,)
+    activity_date = models.DateField(default=datetime.date.today)
 
     class Meta:
         verbose_name = _("activity")
