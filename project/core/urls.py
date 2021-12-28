@@ -18,9 +18,9 @@ from django.urls import include, path
 from django.views.generic.base import TemplateView
 
 mockup_urlpatterns = [
-    path("groups/", TemplateView.as_view(template_name="mockups/groups.html"), name="groups"),
-    path("groups/jane", TemplateView.as_view(template_name="mockups/group_jane.html"),
-         name="group_jane"),
+    path("mockup/groups/", TemplateView.as_view(template_name="mockups/groups.html"), name="mockup_groups"),
+    path("mockup/groups/jane", TemplateView.as_view(template_name="mockups/group_jane.html"),
+         name="modkup_group_jane"),
 ]
 
 urlpatterns = [
@@ -28,4 +28,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('groups/', include('care_groups.urls')),
 ] + mockup_urlpatterns

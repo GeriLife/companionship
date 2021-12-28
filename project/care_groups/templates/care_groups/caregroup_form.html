@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if object %}
+        <h1>{% translate "Edit care group" %}</h1>
+    {% else %}
+        <h1>{% translate "Create care group" %}</h1>
+    {% endif %}
+    
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+
+        {% if object %}
+        <button type="submit" class="btn btn-success">
+            {% translate "Update" %}
+        </button>
+        {% else %}
+        <button type="submit" class="btn btn-success">
+            {% translate "Create" %}
+        </button>
+        {% endif %}
+    </form>
+{% endblock content %}

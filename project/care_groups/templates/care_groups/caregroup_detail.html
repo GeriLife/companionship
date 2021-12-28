@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h1>
+    {{ group }}
+    <a class="btn btn-primary btn-sm" href="{% url 'care-group-update' group.id %}">
+        <i class="bi bi-pencil"></i>
+        {% translate "Edit" %}
+    </a>
+</h1>
+
+<div class="row">
+    <div class="col">
+        <h2>
+            {% translate "Activities" %}
+        </h2>
+    </div>
+
+    {% if group.members.count %}
+        <div class="col-md-4 mt-2">
+            <h2>
+                {% translate "Members" %}
+            </h2>
+
+            {% for member in group.members.all %}
+                {{ member}}
+            {% endfor %}
+        </div>
+    {% endif %}    
+</div>
+{% endblock content %}
