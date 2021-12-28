@@ -20,6 +20,8 @@ class Activity(models.Model):
         default=ActivityTypeChoices.APPOINTMENT,
     )
 
+    activity_date = models.DateField(auto_now=True,)
+
     class Meta:
         verbose_name = _("activity")
         verbose_name_plural = _("activities")
