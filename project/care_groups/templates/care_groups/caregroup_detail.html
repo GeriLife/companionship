@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
 {% load i18n %}
 
 {% block content %}
+
 <h1>
     {{ group }}
     <a class="btn btn-outline-primary btn-sm" href="{% url 'care-group-update' group.id %}">
@@ -15,6 +17,10 @@
     <div class="col">
         <h2>
             {% translate "Activities" %}
+            <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add-activity-modal">
+                <i class="bi bi-plus-circle"></i>
+                {% translate "Add activity" %}
+            </button>
         </h2>
         {% if group.activities.count %}
             {% for activity in group.activities.all %}
@@ -30,16 +36,37 @@
         {% endif %}
     </div>
 
-    {% if group.members.count %}
-        <div class="col-md-4 mt-2">
-            <h2>
-                {% translate "Members" %}
-            </h2>
+    <div class="col-md-4 mt-2">
+        {% if group.members.count %}
+            
+                <h2>
+                    {% translate "Members" %}
+                </h2>
 
-            {% for member in group.members.all %}
-                {{ member}}
-            {% endfor %}
+                {% for member in group.members.all %}
+                    {{ member}}
+                {% endfor %}
+            
+        {% endif %}    
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="add-activity-modal" tabindex="-1" aria-labelledby="add-activity-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add-activity-modal-label">Add activity</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    {{ add_activity_form | crispy }}
+                </form>
+
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
         </div>
-    {% endif %}    
+    </div>
 </div>
 {% endblock content %}
