@@ -3,6 +3,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from care_groups.models import CareGroup
+
 
 class Activity(models.Model):
     class ActivityTypeChoices(models.TextChoices):
@@ -22,6 +24,13 @@ class Activity(models.Model):
     )
 
     activity_date = models.DateField(default=datetime.date.today)
+
+    care_group = models.ForeignKey(
+        to=CareGroup,
+        related_name="activities",
+        on_delete=models.CASCADE,
+        null=True,
+    )
 
     class Meta:
         verbose_name = _("activity")
