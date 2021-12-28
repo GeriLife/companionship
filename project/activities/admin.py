@@ -5,4 +5,4 @@ from .models import Activity
 
 @admin.register(Activity)
 class ActivityModelAdmin(admin.ModelAdmin):
-    pass
+    fields = ["activity_type", "activity_date",]
