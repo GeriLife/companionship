@@ -14,6 +14,6 @@ urlpatterns = [
         CareGroupCreateView.as_view(),
         name="care-group-create",
     ),
-    path("update/<slug:pk>/", CareGroupUpdateView.as_view(), name="care-group-detail"),
+    path("update/<slug:pk>/", CareGroupUpdateView.as_view(), name="care-group-update"),
     path("<slug:pk>/", CareGroupDetailView.as_view(), name="care-group-detail"),
 ]
