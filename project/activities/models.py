@@ -30,4 +30,4 @@ class Activity(models.Model):
         return self.get_activity_type_display()
 
     def get_absolute_url(self):
-        return reverse("care-group-detail", kwargs={"pk": self.pk})
+        return reverse("activity-detail", kwargs={"pk": self.pk})
