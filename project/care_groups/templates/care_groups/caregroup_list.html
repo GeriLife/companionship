@@ -3,16 +3,22 @@
 {% load i18n %}
 
 {% block content %}
-<h1>{% translate "Groups" %}</h1>
+<h1>
+    {% translate "Groups" %}
+    <a class="btn btn-primary btn-sm" href="{% url 'care-group-create' %}">
+        <i class="bi bi-plus-circle"></i>
+        {% translate "Create" %}
+    </a>
+</h1>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for group in groups %}
     <div class="col">
         <div class="card h-100">
             <img
-            src="https://source.unsplash.com/VMGAbeeJTKo/200x200"
-            class="img-fluid rounded-start"
-            alt="..."
+                src="https://source.unsplash.com/VMGAbeeJTKo/200x200"
+                class="img-fluid rounded-start"
+                alt="..."
             />
             <div class="card-body">
                 <p class="card-title">{{ group }}</p>
