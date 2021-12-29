@@ -1,3 +1,4 @@
+from datetime import datetime
 import uuid
 from django.db import models
 from django.db.models.fields import CharField
@@ -21,3 +22,9 @@ class CareGroup(models.Model):
 
     def get_absolute_url(self):
         return reverse("care-group-detail", kwargs={"pk": self.pk})
+
+    @property
+    def upcoming_activities(self):
+        today = datetime.today()
+
+        return self.activities.filter(activity_date__gte=today)

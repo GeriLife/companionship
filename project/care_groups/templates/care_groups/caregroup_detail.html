@@ -16,14 +16,14 @@
 <div class="row">
     <div class="col">
         <h2>
-            {% translate "Activities" %}
+            {% translate "Upcoming activities" %}
             <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add-activity-modal">
                 <i class="bi bi-plus-circle"></i>
                 {% translate "Add activity" %}
             </button>
         </h2>
-        {% if group.activities.count %}
-            {% for activity in group.activities.all %}
+        {% if group.upcoming_activities.count %}
+            {% for activity in group.upcoming_activities %}
             <div class="card mb-2">
                 <div class="card-body">
                     <p class="card-title">{{ activity }}</p>
