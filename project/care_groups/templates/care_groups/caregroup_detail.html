@@ -24,7 +24,7 @@
         </h2>
         {% if group.activities.count %}
             {% for activity in group.activities.all %}
-            <div class="card">
+            <div class="card mb-2">
                 <div class="card-body">
                     <p class="card-title">{{ activity }}</p>
                     <p class="text-muted mb-0">{{ activity.activity_date }}</p>
