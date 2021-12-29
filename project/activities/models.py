@@ -35,6 +35,7 @@ class Activity(models.Model):
     class Meta:
         verbose_name = _("activity")
         verbose_name_plural = _("activities")
+        ordering = ["activity_date",]
 
     def __str__(self):
         return self.get_activity_type_display()
