@@ -1,4 +1,5 @@
 import datetime
+from enum import Enum
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -7,6 +8,16 @@ from care_groups.models import CareGroup
 
 
 class Activity(models.Model):
+    class ActivityTypeIcons(Enum):
+        APPOINTMENT = "bi-calendar-event"
+        CALL = "bi-camera-video"
+        ENTERTAINMENT = "bi-ticket-perforated"
+        ERRAND = "bi-building"
+        HOUSEWORK = "bi-house"
+        NATURE = "bi-tree"
+        OUTING = "bi-cup-straw"
+        SHOPPING = "bi-cart"
+
     class ActivityTypeChoices(models.TextChoices):
         APPOINTMENT = "APPOINTMENT", _("Appointment")
         CALL = "CALL", _("Call")
@@ -42,3 +53,7 @@ class Activity(models.Model):
 
     def get_absolute_url(self):
         return reverse("activity-detail", kwargs={"pk": self.pk})
+
+    @property
+    def icon(self):
+        return self.ActivityTypeIcons[self.activity_type].value

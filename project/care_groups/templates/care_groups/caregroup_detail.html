@@ -26,8 +26,15 @@
             {% for activity in group.upcoming_activities %}
             <div class="card mb-2">
                 <div class="card-body">
-                    <p class="card-title">{{ activity }}</p>
-                    <p class="text-muted mb-0">{{ activity.activity_date }}</p>
+                    <div class="row">
+                        <div class="col-1 fs-4 d-flex flex-column justify-content-center">
+                            <i class="{{ activity.icon }}"></i>
+                        </div>
+                        <div class="col">
+                            <p class="card-title">{{ activity }}</p>
+                            <p class="text-muted mb-0">{{ activity.activity_date }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             {% endfor %}
