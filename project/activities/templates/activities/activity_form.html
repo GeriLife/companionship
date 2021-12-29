@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% include i18n %}
+
+{% block content %}
+    <h1>{% translate "Add activity" %}</h1>
+
+    {{ form | crispy }}
+{% endblock content %}
