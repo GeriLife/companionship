@@ -70,3 +70,15 @@
     </div>
 </div>
 {% endblock content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock extra_css %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script type="text/javascript">
+    flatpickr('#id_activity_date');
+</script>
+{% endblock extra_js %}
