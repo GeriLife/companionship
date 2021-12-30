@@ -12,8 +12,8 @@ urlpatterns = [
         name="activity-create",
     ),
     path(
-        "update",
+        "update/<slug:pk>/",
         ActivityUpdateView.as_view(),
-        name="activity-create",
+        name="activity-update",
     ),
 ]
