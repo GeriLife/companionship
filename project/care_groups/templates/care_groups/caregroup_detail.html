@@ -24,7 +24,7 @@
         </h2>
         {% if group.upcoming_activities.count %}
             {% for activity in group.upcoming_activities %}
-             {% include "care_groups/caregroup_activity.html" with activity=activity %}
+                {% include "care_groups/caregroup_activity.html" with activity=activity form=add_activity_form %}
             {% endfor %}
         {% else %}
         <p>{% translate "No activities found." %}</p>
@@ -51,8 +51,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="add-activity-modal-label">Add activity</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="add-activity-modal-label">
+                    {% translate "Add activity" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
             </div>
             <div class="modal-body">
                 <form action="{% url 'activity-create' %}" method="post">
