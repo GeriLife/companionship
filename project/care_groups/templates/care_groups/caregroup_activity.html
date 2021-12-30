@@ -12,7 +12,12 @@
                 <p class="text-muted mb-0">{{ activity.activity_date }}</p>
             </div>
             <div class="col-2 pr-0">
-                <button type="button" class="btn btn-sm btn-outline-primary rounded-circle float-end" data-bs-toggle="modal" data-bs-target="#edit-activity-modal-{{ activity.id }}">
+                <button 
+                    type="button"
+                    title="{% translate 'Edit activity' %}"
+                    class="btn btn-sm btn-outline-primary rounded-circle float-end"
+                    data-bs-toggle="modal"
+                    data-bs-target="#edit-activity-modal-{{ activity.id }}">
                     <i class="bi bi-pencil"></i>
                 </button>
             </div>
