@@ -10,10 +10,27 @@
             <div class="col">
                 <p class="card-title">{{ activity }}</p>
                 <p class="text-muted mb-0">{{ activity.activity_date }}</p>
+                
+                {% if user not in activity.participants.all %}
+                <form action="{% url 'activity-add-participant' activity.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                    <button
+                        type="submit"
+                        title="{% translate 'Participate' %}"
+                        style="border: none;"
+                        class="badge rounded-pill bg-success"
+                    >
+                        Join
+                        <i class="bi bi-person-plus"></i>
+                    </button>
+                </form>
+                {% endif %}
+
                 {% if activity.participants.count %}
                     {% for participant in activity.participants.all %}
                         {% if participant.id == user.id %}
-                        <form action="{% url 'activity-remove-participant' activity.id %}" method="post">
+                        <form action="{% url 'activity-remove-participant' activity.id %}" method="post" style="display: inline;">
                             {% csrf_token %}
                             <input type="hidden" name="user_id" value="{{ user.id }}">
                             <button 
@@ -33,6 +50,8 @@
                 {% else %}
                     <span class="badge rounded-pill bg-warning text-dark">{% translate "No participants" %}</span>
                 {% endif %}
+
+
             </div>
             <div class="col-2 pr-0 d-flex flex-column align-items-end justify-content-between">
                 <button 
@@ -43,18 +62,6 @@
                     data-bs-target="#edit-activity-modal-{{ activity.id }}">
                     <i class="bi bi-pencil"></i>
                 </button>
-
-                <form action="{% url 'activity-add-participant' activity.id %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="user_id" value="{{ user.id }}">
-                    <button
-                        type="submit"
-                        title="{% translate 'Participate' %}"
-                        class="btn btn-sm btn-outline-primary rounded-circle"
-                    >
-                        <i class="bi bi-person-plus"></i>
-                    </button>
-                </form>
             </div>
         </div>
     </div>
