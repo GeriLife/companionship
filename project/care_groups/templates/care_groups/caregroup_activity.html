@@ -12,14 +12,26 @@
                 <p class="text-muted mb-0">{{ activity.activity_date }}</p>
                 {% if activity.participants.count %}
                     {% for participant in activity.participants.all %}
-                        <span class="small text-muted">
+                        {% if participant.id == user.id %}
+                        <form action="{% url 'activity-remove-participant' activity.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <button 
+                                type="submit"
+                                style="border: none;"
+                                class="badge rounded-pill bg-primary">
+                                    {{ participant }} <i class="bi bi-x-lg"></i>
+                                </button>
+                        </form>
+                        {% else %}
+                        <span class="badge rounded-pill bg-primary">
                             {{ participant }}
                         </span>
+                        {% endif %}
+                        
                     {% endfor %}
                 {% else %}
-                    <span class="small text-muted">
-                        {% translate "No participants" %}
-                    </span>
+                    <span class="badge rounded-pill bg-warning text-dark">{% translate "No participants" %}</span>
                 {% endif %}
             </div>
             <div class="col-2 pr-0 d-flex flex-column align-items-end justify-content-between">
