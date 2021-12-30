@@ -7,9 +7,11 @@
 
 <h1>
     {{ group }}
-    <a class="btn btn-outline-primary btn-sm" href="{% url 'care-group-update' group.id %}">
+    <a 
+        class="btn btn-outline-primary btn-sm rounded-circle"
+        href="{% url 'care-group-update' group.id %}"
+        title="{% translate 'Edit care group' %}">
         <i class="bi bi-pencil"></i>
-        {% translate "Edit" %}
     </a>
 </h1>
 
@@ -17,9 +19,13 @@
     <div class="col">
         <h2>
             {% translate "Upcoming activities" %}
-            <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add-activity-modal">
-                <i class="bi bi-plus-circle"></i>
-                {% translate "Add activity" %}
+            <button 
+                type="button"
+                class="btn btn-sm btn-outline-primary rounded-circle"
+                data-bs-toggle="modal"
+                data-bs-target="#add-activity-modal"
+                title="{% translate "Add activity" %}">
+                <i class="bi bi-plus-lg"></i>
             </button>
         </h2>
         {% if group.upcoming_activities.count %}
