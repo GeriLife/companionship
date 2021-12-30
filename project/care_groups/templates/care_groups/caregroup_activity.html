@@ -10,12 +10,58 @@
             <div class="col">
                 <p class="card-title">{{ activity }}</p>
                 <p class="text-muted mb-0">{{ activity.activity_date }}</p>
+                
+                {% if user not in activity.participants.all %}
+                <form action="{% url 'activity-add-participant' activity.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                    <button
+                        type="submit"
+                        title="{% translate 'Participate' %}"
+                        style="border: none;"
+                        class="badge rounded-pill bg-success"
+                    >
+                        <i class="bi bi-person"></i>
+                        {% translate 'Join' %}
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+                </form>
+                {% endif %}
+
+                {% if activity.participants.count %}
+                    {% for participant in activity.participants.all %}
+                        {% if participant.id == user.id %}
+                        <form action="{% url 'activity-remove-participant' activity.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <button 
+                                type="submit"
+                                style="border: none;"
+                                class="badge rounded-pill bg-primary">
+                                    <i class="bi bi-person"></i>
+                                    {{ participant }}
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                        </form>
+                        {% else %}
+                        <span class="badge rounded-pill bg-primary">
+                            <i class="bi bi-person"></i>
+                            {{ participant }}
+                        </span>
+                        {% endif %}
+                        
+                    {% endfor %}
+                {% else %}
+                    <span class="badge rounded-pill bg-warning text-dark">{% translate "No participants" %}</span>
+                {% endif %}
+
+
             </div>
-            <div class="col-2 pr-0">
+            <div class="col-2 pr-0 d-flex flex-column align-items-end justify-content-between">
                 <button 
                     type="button"
                     title="{% translate 'Edit activity' %}"
-                    class="btn btn-sm btn-outline-primary rounded-circle float-end"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
                     data-bs-toggle="modal"
                     data-bs-target="#edit-activity-modal-{{ activity.id }}">
                     <i class="bi bi-pencil"></i>

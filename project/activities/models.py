@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from accounts.models import User
 from care_groups.models import CareGroup
 
 
@@ -42,6 +43,8 @@ class Activity(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
+
+    participants = models.ManyToManyField(User, related_name="activities")
 
     class Meta:
         verbose_name = _("activity")
