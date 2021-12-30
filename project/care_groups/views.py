@@ -3,7 +3,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
-from activities.forms import ActivitModelForm
+from activities.forms import ActivityModelForm
 
 from .models import CareGroup
 
@@ -21,7 +21,7 @@ class CareGroupDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["add_activity_form"] = ActivitModelForm
+        context["add_activity_form"] = ActivityModelForm
 
         return context
 
