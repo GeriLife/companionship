@@ -39,11 +39,24 @@ class ActivityAddParticipantView(View):
 
         activity.participants.add(user_id)
 
+        return redirect(
+            reverse(
+                "care-group-detail",
+                kwargs={"pk": activity.care_group.id},
+            )
+        )
+
+
+class ActivityRemoveParticipantView(View):
+    def post(self, request, activity_id, *args, **kwargs):
+        user_id = request.POST["user_id"]
+        activity = Activity.objects.get(id=activity_id)
+
+        activity.participants.remove(user_id)
 
         return redirect(
             reverse(
                 "care-group-detail",
-                # kwargs={"pk": activity.care_group.id},
-                kwargs={"pk": "126dcfb6-b4db-4379-b213-93c168483565"},
+                kwargs={"pk": activity.care_group.id},
             )
         )
