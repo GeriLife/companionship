@@ -1,33 +1,89 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
 {% load i18n %}
 
 {% block content %}
+
 <h1>
     {{ group }}
-    <a class="btn btn-primary btn-sm" href="{% url 'care-group-update' group.id %}">
+    <a 
+        class="btn btn-outline-primary btn-sm rounded-circle"
+        href="{% url 'care-group-update' group.id %}"
+        title="{% translate 'Edit care group' %}">
         <i class="bi bi-pencil"></i>
-        {% translate "Edit" %}
     </a>
 </h1>
 
 <div class="row">
     <div class="col">
         <h2>
-            {% translate "Activities" %}
+            {% translate "Upcoming activities" %}
+            <button 
+                type="button"
+                class="btn btn-sm btn-outline-primary rounded-circle"
+                data-bs-toggle="modal"
+                data-bs-target="#add-activity-modal"
+                title="{% translate "Add activity" %}">
+                <i class="bi bi-plus-lg"></i>
+            </button>
         </h2>
+        {% if group.upcoming_activities.count %}
+            {% for activity in group.upcoming_activities %}
+                {% include "care_groups/caregroup_activity.html" with activity=activity form=add_activity_form %}
+            {% endfor %}
+        {% else %}
+        <p>{% translate "No activities found." %}</p>
+        {% endif %}
     </div>
 
-    {% if group.members.count %}
-        <div class="col-md-4 mt-2">
-            <h2>
-                {% translate "Members" %}
-            </h2>
+    <div class="col-md-4 mt-2">
+        {% if group.members.count %}
+            
+                <h2>
+                    {% translate "Members" %}
+                </h2>
 
-            {% for member in group.members.all %}
-                {{ member}}
-            {% endfor %}
+                {% for member in group.members.all %}
+                    {{ member}}
+                {% endfor %}
+            
+        {% endif %}    
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="add-activity-modal" tabindex="-1" aria-labelledby="add-activity-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add-activity-modal-label">
+                    {% translate "Add activity" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'activity-create' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="care_group" value="{{ group.id }}">
+                    {{ add_activity_form.activity_type|as_crispy_field }}
+                    {{ add_activity_form.activity_date|as_crispy_field }}
+                    <button type="submit" class="btn btn-success ml-auto">Submit</button>
+                </form>
+            </div>
         </div>
-    {% endif %}    
+    </div>
 </div>
 {% endblock content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock extra_css %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script type="text/javascript">
+    flatpickr('#id_activity_date');
+</script>
+{% endblock extra_js %}

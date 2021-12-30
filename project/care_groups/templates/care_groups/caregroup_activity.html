@@ -1,0 +1,68 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+<div class="card mb-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-1 fs-4 d-flex flex-column justify-content-center">
+                <i class="{{ activity.icon }}"></i>
+            </div>
+            <div class="col">
+                <p class="card-title">{{ activity }}</p>
+                <p class="text-muted mb-0">{{ activity.activity_date }}</p>
+            </div>
+            <div class="col-2 pr-0">
+                <button 
+                    type="button"
+                    title="{% translate 'Edit activity' %}"
+                    class="btn btn-sm btn-outline-primary rounded-circle float-end"
+                    data-bs-toggle="modal"
+                    data-bs-target="#edit-activity-modal-{{ activity.id }}">
+                    <i class="bi bi-pencil"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="edit-activity-modal-{{ activity.id }}" tabindex="-1" aria-labelledby="edit-activity-modal-label-{{ activity.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edit-activity-modal-label-{{ activity.id }}">
+                    {% translate "Edit activity" %}
+                </h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'activity-update' activity.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="care_group" value="{{ group.id }}">
+
+                    <select class="form-select mb-2" aria-label="Activity type select" name="activity_type">
+                        {% for value, text in form.activity_type.field.choices %}
+                            <option value="{{ value }}"
+                                {% if activity.activity_type == value %}selected="selected"{% endif %}>
+                                {{ text }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    
+                    <input 
+                        type="text" 
+                        name="activity_date" 
+                        value="{{ activity.activity_date | date:'c' }}"
+                        class="dateinput form-control mb-2" 
+                        required="" 
+                        id="id_activity_date">
+                    
+                    <button type="submit" class="btn btn-success ml-auto">
+                        {% translate "Save" %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
