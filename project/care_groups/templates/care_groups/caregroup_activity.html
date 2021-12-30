@@ -21,8 +21,9 @@
                         style="border: none;"
                         class="badge rounded-pill bg-success"
                     >
+                        <i class="bi bi-person"></i>
                         {% translate 'Join' %}
-                        <i class="bi bi-person-plus"></i>
+                        <i class="bi bi-plus-lg"></i>
                     </button>
                 </form>
                 {% endif %}
@@ -37,11 +38,14 @@
                                 type="submit"
                                 style="border: none;"
                                 class="badge rounded-pill bg-primary">
-                                    {{ participant }} <i class="bi bi-x-lg"></i>
+                                    <i class="bi bi-person"></i>
+                                    {{ participant }}
+                                    <i class="bi bi-x-lg"></i>
                                 </button>
                         </form>
                         {% else %}
                         <span class="badge rounded-pill bg-primary">
+                            <i class="bi bi-person"></i>
                             {{ participant }}
                         </span>
                         {% endif %}
