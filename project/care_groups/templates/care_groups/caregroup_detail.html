@@ -39,39 +39,37 @@
 
     <div class="col-md-4 mt-2">
         {% if group.members.count %}
-            
-                <h2>
-                    {% translate "Members" %}
-                    <button 
-                        type="button"
-                        class="btn btn-sm btn-outline-primary rounded-circle"
-                        data-bs-toggle="modal"
-                        data-bs-target="#add-member-modal"
-                        title="{% translate 'Add Member' %}">
-                        <i class="bi bi-plus-lg"></i>
-            </button>
-                </h2>
+            <h2>
+                {% translate "Members" %}
+                <button 
+                    type="button"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
+                    data-bs-toggle="modal"
+                    data-bs-target="#add-member-modal"
+                    title="{% translate 'Add Member' %}">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+            </h2>
 
-                {% for member in group.members.all %}
-                <div class="card mb-1">
-                    <div class="card-body">
-                        <div class="card-title">
-                            {{ member }}
-                        </div>
-                        <small class="text-muted">
-                            {% if member.last_login %}
-                            
-                                {% blocktranslate with last_login_timesince=member.last_login|timesince %}
-                                    Last seen {{ last_login_timesince }} ago
-                                {% endblocktranslate %}
-                            {% else %}
-                                {% translate "Not yet seen" %}
-                            {% endif %}
-                        </small>
+            {% for member in group.members.all %}
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div class="card-title">
+                        {{ member }}
                     </div>
+                    <small class="text-muted">
+                        {% if member.last_login %}
+                        
+                            {% blocktranslate with last_login_timesince=member.last_login|timesince %}
+                                Last seen {{ last_login_timesince }} ago
+                            {% endblocktranslate %}
+                        {% else %}
+                            {% translate "Not yet seen" %}
+                        {% endif %}
+                    </small>
                 </div>
-                {% endfor %}
-            
+            </div>
+            {% endfor %}
         {% endif %}    
     </div>
 </div>
