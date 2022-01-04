@@ -58,14 +58,16 @@
                         <div class="card-title">
                             {{ member }}
                         </div>
-                        {% if member.last_login %}
                         <small class="text-muted">
-                            {% blocktranslate with last_login_timesince=member.last_login|timesince %}
-                                Last seen {{ last_login_timesince }} ago.
-                            {% endblocktranslate %}
+                            {% if member.last_login %}
+                            
+                                {% blocktranslate with last_login_timesince=member.last_login|timesince %}
+                                    Last seen {{ last_login_timesince }} ago
+                                {% endblocktranslate %}
+                            {% else %}
+                                {% translate "Not yet seen" %}
+                            {% endif %}
                         </small>
-                        {% else %}
-                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
