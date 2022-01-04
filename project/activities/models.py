@@ -60,3 +60,14 @@ class Activity(models.Model):
     @property
     def icon(self):
         return self.ActivityTypeIcons[self.activity_type].value
+
+    @property
+    def remaining_eligible_participants(self):
+        # Only care group members are eligible to participate
+        care_group_members = self.care_group.members.all()
+
+        # Get current activity participants
+        current_participants = self.participants.all()
+
+        # Exclude existing participants from care group members
+        return care_group_members.difference(current_participants)

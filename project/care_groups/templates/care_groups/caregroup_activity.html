@@ -10,6 +10,21 @@
             <div class="col">
                 <p class="card-title">{{ activity }}</p>
                 <p class="text-muted mb-0">{{ activity.activity_date }}</p>
+
+                {% if activity.remaining_eligible_participants.count %}
+                <button
+                    type="button"
+                    title="{% translate 'Add' %}"
+                    style="border: none;"
+                    class="badge rounded-pill bg-default text-dark"
+                    data-bs-toggle="modal"
+                    data-bs-target="#add-activity-participant-modal-{{ activity.id }}"
+                >
+                    <i class="bi bi-person"></i>
+                    {% translate 'Add' %}
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+                {% endif %}
                 
                 {% if user not in activity.participants.all %}
                 <form action="{% url 'activity-add-participant' activity.id %}" method="post" style="display: inline;">
@@ -71,7 +86,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Edit activity modal -->
 <div class="modal fade" id="edit-activity-modal-{{ activity.id }}" tabindex="-1" aria-labelledby="edit-activity-modal-label-{{ activity.id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -104,6 +119,38 @@
                         required="" 
                         id="id_activity_date">
                     
+                    <button type="submit" class="btn btn-success ml-auto">
+                        {% translate "Save" %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add activity participant modal -->
+<div class="modal fade" id="add-activity-participant-modal-{{ activity.id }}" tabindex="-1" aria-labelledby="add-activity-participant-modal-label-{{ activity.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add-activity-participant-modal-label-{{ activity.id }}">
+                    {% translate "Add participant" %}
+                </h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'activity-add-participant' activity.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <select class="form-select mb-2" aria-label="Participant select" name="user_id">
+                        {% for person in activity.remaining_eligible_participants %}
+                            <option value="{{ person.id }}">
+                                {{ person }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
                     <button type="submit" class="btn btn-success ml-auto">
                         {% translate "Save" %}
                     </button>
