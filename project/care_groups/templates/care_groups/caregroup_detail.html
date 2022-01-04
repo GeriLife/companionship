@@ -38,6 +38,43 @@
     </div>
 
     <div class="col-md-4 mt-2">
+        <!-- coordinators list -->
+        {% if group.coordinators.count %}
+            <h2>
+                {% translate "Coordinators" %}
+                <button 
+                    type="button"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
+                    data-bs-toggle="modal"
+                    data-bs-target="#add-coordinator-modal"
+                    title="{% translate 'Add Coordinator' %}">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+            </h2>
+
+            <ul class="list-group">
+                {% for coordinator in group.coordinators.all %}
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">
+                                {{ coordinator }}
+                            </div>
+                            <small class="text-muted">
+                                {% if coordinator.last_login %}
+                                    {% blocktranslate with last_login_timesince=coordinator.last_login|timesince %}
+                                        Last seen {{ last_login_timesince }} ago
+                                    {% endblocktranslate %}
+                                {% else %}
+                                    {% translate "Not yet seen" %}
+                                {% endif %}
+                            </small>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <!-- members list -->
         {% if group.members.count %}
             <h2>
                 {% translate "Members" %}
@@ -70,7 +107,7 @@
                 </div>
             </div>
             {% endfor %}
-        {% endif %}    
+        {% endif %}  
     </div>
 </div>
 
