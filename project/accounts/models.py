@@ -15,3 +15,11 @@ class User(AbstractUser):
             activity_count = self.activities.count
 
         return activity_count
+
+    @property
+    def care_groups(self):
+        """
+        Alias "care_groups" property since splitting out membership into "coordinating" and "participating"
+        TODO: remove alias if consolidating care group membership
+        """
+        return self.care_groups_participating.all()
