@@ -58,7 +58,7 @@
                     <div class="ms-2 me-auto">
                         <div class="fw-bold">
                             {% if member.is_coordinator %}
-                            <i class="bi bi-magic"></i>
+                            <i class="bi bi-magic" data-bs-toggle="tooltip" data-bs-placement="left" title="Group coordinator"></i>
                             {% endif %}
                             {{ member }}
                         </div>
@@ -73,7 +73,7 @@
                         </small>
                     </div>
                     
-                    <span class="badge bg-primary rounded-pill">
+                    <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="Activity count">
                         {{ member.activity_count }}
                     </span>
                 </li>
