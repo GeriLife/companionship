@@ -45,7 +45,21 @@
                 </h2>
 
                 {% for member in group.members.all %}
-                    {{ member}}
+                <div class="card mb-1">
+                    <div class="card-body">
+                        <div class="card-title">
+                            {{ member }}
+                        </div>
+                        {% if member.last_login %}
+                        <small class="text-muted">
+                            {% blocktranslate with last_login_timesince=member.last_login|timesince %}
+                                Last seen {{ last_login_timesince }} ago.
+                            {% endblocktranslate %}
+                        </small>
+                        {% else %}
+                        {% endif %}
+                    </div>
+                </div>
                 {% endfor %}
             
         {% endif %}    
