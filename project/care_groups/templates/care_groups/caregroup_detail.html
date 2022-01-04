@@ -24,7 +24,7 @@
                 class="btn btn-sm btn-outline-primary rounded-circle"
                 data-bs-toggle="modal"
                 data-bs-target="#add-activity-modal"
-                title="{% translate "Add activity" %}">
+                title="{% translate 'Add activity' %}">
                 <i class="bi bi-plus-lg"></i>
             </button>
         </h2>
@@ -42,6 +42,14 @@
             
                 <h2>
                     {% translate "Members" %}
+                    <button 
+                        type="button"
+                        class="btn btn-sm btn-outline-primary rounded-circle"
+                        data-bs-toggle="modal"
+                        data-bs-target="#add-member-modal"
+                        title="{% translate 'Add Member' %}">
+                        <i class="bi bi-plus-lg"></i>
+            </button>
                 </h2>
 
                 {% for member in group.members.all %}
@@ -66,7 +74,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Add Activity modal -->
 <div class="modal fade" id="add-activity-modal" tabindex="-1" aria-labelledby="add-activity-modal-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -84,6 +92,29 @@
                     {{ add_activity_form.activity_date|as_crispy_field }}
                     <button type="submit" class="btn btn-success ml-auto">Submit</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Member modal -->
+<div class="modal fade" id="add-member-modal" tabindex="-1" aria-labelledby="add-member-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add-member-modal-label">
+                    {% translate "Add Member" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+            <div class="modal-body">
+                <p>🚧 TODO: create care group invitation feature.</p>
+                {% comment %} <form action="{% url 'care-group-add-member' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="care_group" value="{{ group.id }}">
+
+                    <button type="submit" class="btn btn-success ml-auto">Submit</button>
+                </form> {% endcomment %}
             </div>
         </div>
     </div>
