@@ -13,13 +13,24 @@ class CareGroupCreateView(LoginRequiredMixin, CreateView):
     model = CareGroup
     fields = ["name"]
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+
+        form.fields["name"].widget.attrs.update({"autofocus": "autofocus"})
+
+        return form
+
     def form_valid(self, form):
-        # Save care group 
+        # Save care group
         # so we can add request user as coordinator
         care_group = form.save()
 
         # Add user who creates a care group as coordinator
         care_group.coordinators.add(self.request.user)
+
+        # Add user who creates a care group as member
+        # TODO: refactor memberships to use single model
+        care_group.members.add(self.request.user)
 
         care_group.save()
 
@@ -47,3 +58,10 @@ class CareGroupListView(LoginRequiredMixin, ListView):
 class CareGroupUpdateView(LoginRequiredMixin, UpdateView):
     model = CareGroup
     fields = ["name"]
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+
+        form.fields["name"].widget.attrs.update({"autofocus": "autofocus"})
+
+        return form
