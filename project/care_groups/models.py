@@ -11,6 +11,8 @@ from accounts.models import User
 class CareGroup(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
+    # TODO: refactor members to use single model
+    # with properties for "is_coordinator" and "activity_count" (which can be cached)
     members = models.ManyToManyField(
         User,
         related_name="care_groups_participating",
@@ -52,7 +54,7 @@ class CareGroup(models.Model):
             annotated_members.append(coordinator)
 
 
-        for member in self.members.all():
+        for member in self.members.difference(self.coordinators.all()):
             member.activity_count = member.get_activity_count(care_group=self)
 
             annotated_members.append(member)
