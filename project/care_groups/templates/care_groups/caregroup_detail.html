@@ -18,13 +18,14 @@
 <div class="row">
     <div class="col">
         <h2>
+            <i class="bi bi-calendar3"></i>
             {% translate "Upcoming activities" %}
             <button 
                 type="button"
                 class="btn btn-sm btn-outline-primary rounded-circle"
                 data-bs-toggle="modal"
                 data-bs-target="#add-activity-modal"
-                title="{% translate "Add activity" %}">
+                title="{% translate 'Add activity' %}">
                 <i class="bi bi-plus-lg"></i>
             </button>
         </h2>
@@ -38,21 +39,51 @@
     </div>
 
     <div class="col-md-4 mt-2">
-        {% if group.members.count %}
-            
-                <h2>
-                    {% translate "Members" %}
-                </h2>
+        <!-- Annotated members list -->
+        <h2>
+            <i class="bi bi-people"></i>
+            {% translate "Members" %}
+            <button 
+                type="button"
+                class="btn btn-sm btn-outline-primary rounded-circle"
+                data-bs-toggle="modal"
+                data-bs-target="#add-member-modal"
+                title="{% translate 'Add Coordinator' %}">
+                <i class="bi bi-plus-lg"></i>
+            </button>
+        </h2>
 
-                {% for member in group.members.all %}
-                    {{ member}}
-                {% endfor %}
-            
-        {% endif %}    
+        <ul class="list-group">
+            {% for member in group.annotated_members %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">
+                            {% if member.is_coordinator %}
+                            <i class="bi bi-magic" data-bs-toggle="tooltip" data-bs-placement="left" title="Group coordinator"></i>
+                            {% endif %}
+                            {{ member }}
+                        </div>
+                        <small class="text-muted">
+                            {% if member.last_login %}
+                                {% blocktranslate with last_login_timesince=member.last_login|timesince %}
+                                    Last seen {{ last_login_timesince }} ago
+                                {% endblocktranslate %}
+                            {% else %}
+                                {% translate "Not yet seen" %}
+                            {% endif %}
+                        </small>
+                    </div>
+                    
+                    <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="Activity count">
+                        {{ member.activity_count }}
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Add Activity modal -->
 <div class="modal fade" id="add-activity-modal" tabindex="-1" aria-labelledby="add-activity-modal-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -70,6 +101,29 @@
                     {{ add_activity_form.activity_date|as_crispy_field }}
                     <button type="submit" class="btn btn-success ml-auto">Submit</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Member modal -->
+<div class="modal fade" id="add-member-modal" tabindex="-1" aria-labelledby="add-member-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add-member-modal-label">
+                    {% translate "Add Member" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+            <div class="modal-body">
+                <p>🚧 TODO: create care group invitation feature.</p>
+                {% comment %} <form action="{% url 'care-group-add-member' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="care_group" value="{{ group.id }}">
+
+                    <button type="submit" class="btn btn-success ml-auto">Submit</button>
+                </form> {% endcomment %}
             </div>
         </div>
     </div>

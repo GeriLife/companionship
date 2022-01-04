@@ -12,7 +12,7 @@
 </h1>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
-    {% for group in groups %}
+    {% for group in user.care_groups.all %}
     <div class="col">
         <div class="card h-100">
             <img

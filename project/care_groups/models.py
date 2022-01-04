@@ -11,7 +11,13 @@ from accounts.models import User
 class CareGroup(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
-    members = models.ManyToManyField(User, related_name="care_groups",)
+    # TODO: refactor members to use single model
+    # with properties for "is_coordinator" and "activity_count" (which can be cached)
+    members = models.ManyToManyField(
+        User,
+        related_name="care_groups_participating",
+    )
+    coordinators = models.ManyToManyField(User, related_name="care_groups_coordinating")
 
     class Meta:
         verbose_name = _("care group")
@@ -28,3 +34,29 @@ class CareGroup(models.Model):
         today = datetime.today()
 
         return self.activities.filter(activity_date__gte=today)
+
+    @property
+    def annotated_members(self):
+        """
+        Return a member list annotated with activity count for current group.
+
+        TODO: refactor for performance, 
+            such as by defining a specific CareGroupMember model with "activity_count" property that can be cached.
+            This will also provide a unified list of coordinators and members.
+        """
+        annotated_members = []
+
+        for coordinator in self.coordinators.all():
+            coordinator.is_coordinator = True
+
+            coordinator.activity_count = coordinator.get_activity_count(care_group=self)
+
+            annotated_members.append(coordinator)
+
+
+        for member in self.members.difference(self.coordinators.all()):
+            member.activity_count = member.get_activity_count(care_group=self)
+
+            annotated_members.append(member)
+
+        return annotated_members
