@@ -41,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.username
+        return self.email
 
     def get_activity_count(self, care_group=None):
         if care_group:
