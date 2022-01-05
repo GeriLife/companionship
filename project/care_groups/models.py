@@ -60,3 +60,15 @@ class CareGroup(models.Model):
             annotated_members.append(member)
 
         return annotated_members
+
+    @property
+    def companionship_score(self):
+        """
+        Companionship score is the number of times people have participated in care group activities.
+        E.g., if a care group has ten activities and each activity has had two participants, the companionship score will be 20.
+
+        Thanks goes to Marcel from StackOverflow
+        https://stackoverflow.com/a/70592240/1191545
+        """
+
+        return User.objects.filter(activities__care_group=self).count()
