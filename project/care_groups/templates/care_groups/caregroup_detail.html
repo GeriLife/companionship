@@ -7,6 +7,17 @@
 
 <h1>
     {{ group }}
+
+    {% if group.companionship_score %}
+    <small>
+        <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="{% translate 'Companionship score' %}">
+            {{ group.companionship_score }}
+        </span>
+    </small>
+    {% else %}
+    {% endif %}
+    
+
     <a 
         class="btn btn-outline-primary btn-sm rounded-circle"
         href="{% url 'care-group-update' group.id %}"
@@ -74,7 +85,7 @@
                         </small>
                     </div>
                     
-                    <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="Activity count">
+                    <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="{% translate 'Companionship score' %}">
                         {{ member.activity_count }}
                     </span>
                 </li>
