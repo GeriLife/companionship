@@ -28,7 +28,13 @@ class CustomUserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_('email address'), blank=True, unique=True)
+    email = models.EmailField(_('email address'), unique=True)
+    display_name = models.CharField(
+        _('display name'),
+        max_length=15,
+        help_text=_('Helps other team members recognise you, such as by your given name or nickname.'),
+        default="Given name",
+    )
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
