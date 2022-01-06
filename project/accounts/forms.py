@@ -5,14 +5,22 @@ from .models import User
 
 
 class CustomUserCreationForm(UserCreationForm):
-
     class Meta:
         model = User
-        fields = ('username', 'email',)
+        fields = ("email", "display_name")
+        widgets = {
+            "email": forms.TextInput(attrs={"placeholder": "person@domain.com"}),
+            "display_name": forms.TextInput(attrs={"placeholder": "Given name"}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+
+        # Clear the default value for display name
+        self.fields["display_name"].initial = None
 
 
 class CustomUserChangeForm(UserChangeForm):
-
     class Meta:
         model = User
-        fields = ('username', 'email',)
+        fields = ("email", "display_name")

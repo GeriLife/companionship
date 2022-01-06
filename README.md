@@ -15,4 +15,5 @@ More information about the EUPL, including translations in over 20 languages, ca
 
 This project was made possible by the following resources.
 
+- Roshan Chokshi [How to Use Email as Username for Django Authentication.](https://dev.to/chokshiroshan/how-to-use-email-as-username-for-django-authentication-8if)
 - Will Vincent [Django Best Practices: Custom User Model](https://learndjango.com/tutorials/django-custom-user-model)
