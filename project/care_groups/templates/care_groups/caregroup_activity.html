@@ -162,7 +162,7 @@
                     <select class="form-select mb-2" aria-label="Participant select" name="user_id">
                         {% for person in activity.remaining_eligible_participants %}
                             <option value="{{ person.id }}">
-                                {{ person }}
+                                {{ person.display_name }}
                             </option>
                         {% endfor %}
                     </select>
