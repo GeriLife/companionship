@@ -25,6 +25,12 @@ class CareGroup(models.Model):
         return reverse("care-group-detail", kwargs={"pk": self.pk})
 
     @property
+    def organizers(self):
+        organizers = User.objects.filter(care_group_memberships__care_group=self, care_group_memberships__is_organizer=True)
+        print(organizers)
+        return organizers
+
+    @property
     def upcoming_activities(self):
         today = datetime.today()
 
