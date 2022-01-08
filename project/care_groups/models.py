@@ -31,22 +31,22 @@ class CareGroup(models.Model):
         return self.activities.filter(activity_date__gte=today)
 
     @property
-    def annotated_members(self):
+    def annotated_memberships(self):
         """
-        Return a member list annotated with activity count for current group.
+        Return a membership list annotated with activity count for current group.
 
         TODO: refactor for performance,
             such as by defining a specific CareGroupMember model with "activity_count" property that can be cached.
             This will also provide a unified list of coordinators and members.
         """
-        annotated_members = []
+        annotated_memberships = []
 
-        for member in self.members.all():
+        for member in self.memberships.all():
             member.activity_count = member.get_activity_count(care_group=self)
 
-            annotated_members.append(member)
+            annotated_memberships.append(member)
 
-        return annotated_members
+        return annotated_memberships
 
     @property
     def companionship_score(self):
