@@ -1,12 +1,14 @@
 import datetime
 from enum import Enum
+
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from accounts.models import User
 from care_groups.models import CareGroup
 
+User = get_user_model()
 
 class Activity(models.Model):
     class ActivityTypeIcons(Enum):
@@ -64,7 +66,7 @@ class Activity(models.Model):
     @property
     def remaining_eligible_participants(self):
         # Only care group members are eligible to participate
-        care_group_members = self.care_group.members.all()
+        care_group_members = User.objects.filter(care_group_memberships__care_group=self.care_group)
 
         # Get current activity participants
         current_participants = self.participants.all()
