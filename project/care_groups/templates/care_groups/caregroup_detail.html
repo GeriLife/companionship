@@ -65,18 +65,18 @@
         </h2>
 
         <ul class="list-group">
-            {% for member in group.annotated_members %}
+            {% for membership in group.annotated_memberships %}
                 <li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
                         <div class="fw-bold">
-                            {% if member.is_coordinator %}
+                            {% if membership.is_organizer %}
                             <i class="bi bi-magic" data-bs-toggle="tooltip" data-bs-placement="left" title="Group coordinator"></i>
                             {% endif %}
-                            {{ member.display_name }}
+                            {{ membership }}
                         </div>
                         <small class="text-muted">
-                            {% if member.last_login %}
-                                {% blocktranslate with last_login_timesince=member.last_login|timesince %}
+                            {% if membership.user.last_login %}
+                                {% blocktranslate with last_login_timesince=membership.user.last_login|timesince %}
                                     Last seen {{ last_login_timesince }} ago
                                 {% endblocktranslate %}
                             {% else %}
@@ -86,7 +86,7 @@
                     </div>
                     
                     <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="{% translate 'Companionship score' %}">
-                        {{ member.activity_count }}
+                        {{ membership.activity_count }}
                     </span>
                 </li>
             {% endfor %}

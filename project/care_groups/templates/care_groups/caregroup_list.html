@@ -12,7 +12,7 @@
 </h1>
 
 <div class="row row-cols-2 row-cols-md-6 g-4">
-    {% for group in user.care_groups.all %}
+    {% for membership in user.care_group_memberships.all %}
     <div class="col">
         <div class="card h-100">
             <img
@@ -21,8 +21,8 @@
                 alt="..."
             />
             <div class="card-body">
-                <p class="card-title">{{ group }}</p>
-                <a href="{% url 'care-group-detail' group.id %}" class="btn btn-primary">
+                <p class="card-title">{{ membership.care_group }}</p>
+                <a href="{% url 'care-group-detail' membership.care_group.id %}" class="btn btn-primary">
                     {% translate "View" %}
                 </a>
             </div>

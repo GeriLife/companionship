@@ -1,23 +1,18 @@
 from datetime import datetime
 import uuid
+
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.fields import CharField
 from django.utils.translation import gettext as _
 from django.urls import reverse
 
-from accounts.models import User
+User = get_user_model()
 
 
 class CareGroup(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
-    # TODO: refactor members to use single model
-    # with properties for "is_coordinator" and "activity_count" (which can be cached)
-    members = models.ManyToManyField(
-        User,
-        related_name="care_groups_participating",
-    )
-    coordinators = models.ManyToManyField(User, related_name="care_groups_coordinating")
 
     class Meta:
         verbose_name = _("care group")
@@ -30,36 +25,34 @@ class CareGroup(models.Model):
         return reverse("care-group-detail", kwargs={"pk": self.pk})
 
     @property
+    def organizers(self):
+        organizers = User.objects.filter(care_group_memberships__care_group=self, care_group_memberships__is_organizer=True)
+        print(organizers)
+        return organizers
+
+    @property
     def upcoming_activities(self):
         today = datetime.today()
 
         return self.activities.filter(activity_date__gte=today)
 
     @property
-    def annotated_members(self):
+    def annotated_memberships(self):
         """
-        Return a member list annotated with activity count for current group.
+        Return a membership list annotated with activity count for current group.
 
-        TODO: refactor for performance, 
+        TODO: refactor for performance,
             such as by defining a specific CareGroupMember model with "activity_count" property that can be cached.
             This will also provide a unified list of coordinators and members.
         """
-        annotated_members = []
+        annotated_memberships = []
 
-        for coordinator in self.coordinators.all():
-            coordinator.is_coordinator = True
-
-            coordinator.activity_count = coordinator.get_activity_count(care_group=self)
-
-            annotated_members.append(coordinator)
-
-
-        for member in self.members.difference(self.coordinators.all()):
+        for member in self.memberships.all():
             member.activity_count = member.get_activity_count(care_group=self)
 
-            annotated_members.append(member)
+            annotated_memberships.append(member)
 
-        return annotated_members
+        return annotated_memberships
 
     @property
     def companionship_score(self):
@@ -72,3 +65,19 @@ class CareGroup(models.Model):
         """
 
         return User.objects.filter(activities__care_group=self).count()
+
+
+class CareGroupMembership(models.Model):
+    care_group = models.ForeignKey(
+        to=CareGroup, related_name="memberships", on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(
+        to=User, related_name="care_group_memberships", on_delete=models.CASCADE
+    )
+    is_organizer = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.display_name
+
+    def get_activity_count(self, care_group=None):
+        return self.user.get_activity_count(care_group=self.care_group)

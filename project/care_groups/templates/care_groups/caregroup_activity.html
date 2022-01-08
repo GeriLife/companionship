@@ -45,8 +45,8 @@
 
                 {% if activity.participants.count %}
                     {% for participant in activity.participants.all %}
-                        {% if user in group.coordinators.all %}
-                        <!-- coordinators can remove other participants -->
+                        {% if user in group.organizers %}
+                        <!-- group organizers can remove other participants -->
                         <form action="{% url 'activity-remove-participant' activity.id %}" method="post" style="display: inline;">
                             {% csrf_token %}
                             <input type="hidden" name="user_id" value="{{ participant.id }}">
