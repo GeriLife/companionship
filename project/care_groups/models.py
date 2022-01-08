@@ -1,24 +1,19 @@
 from datetime import datetime
 import uuid
+
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.fields import CharField
 from django.utils.translation import gettext as _
 from django.urls import reverse
 
-from accounts.models import User
+User = get_user_model()
 
 
 class CareGroup(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
-    # TODO: refactor members to use single model
-    # with properties for "is_coordinator" and "activity_count" (which can be cached)
-    members = models.ManyToManyField(
-        User,
-        related_name="care_groups_participating",
-    )
-    coordinators = models.ManyToManyField(User, related_name="care_groups_coordinating")
-
+   
     class Meta:
         verbose_name = _("care group")
         verbose_name_plural = _("care groups")
