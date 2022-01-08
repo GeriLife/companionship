@@ -42,8 +42,7 @@ class CareGroup(models.Model):
         Return a membership list annotated with activity count for current group.
 
         TODO: refactor for performance,
-            such as by defining a specific CareGroupMember model with "activity_count" property that can be cached.
-            This will also provide a unified list of coordinators and members.
+            such as by adding a cached "activity_count" property to CareGroupMembership model
         """
         annotated_memberships = []
 
