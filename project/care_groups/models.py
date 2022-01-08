@@ -13,7 +13,7 @@ User = get_user_model()
 class CareGroup(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
-   
+
     class Meta:
         verbose_name = _("care group")
         verbose_name_plural = _("care groups")
@@ -35,7 +35,7 @@ class CareGroup(models.Model):
         """
         Return a member list annotated with activity count for current group.
 
-        TODO: refactor for performance, 
+        TODO: refactor for performance,
             such as by defining a specific CareGroupMember model with "activity_count" property that can be cached.
             This will also provide a unified list of coordinators and members.
         """
@@ -47,7 +47,6 @@ class CareGroup(models.Model):
             coordinator.activity_count = coordinator.get_activity_count(care_group=self)
 
             annotated_members.append(coordinator)
-
 
         for member in self.members.difference(self.coordinators.all()):
             member.activity_count = member.get_activity_count(care_group=self)
@@ -67,3 +66,13 @@ class CareGroup(models.Model):
         """
 
         return User.objects.filter(activities__care_group=self).count()
+
+
+class CareGroupMembership(models.Model):
+    care_group = models.ForeignKey(
+        to=CareGroup, related_name="members", on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(
+        to=User, related_name="care_groups", on_delete=models.CASCADE
+    )
+    is_organizer = models.BooleanField(default=False)
