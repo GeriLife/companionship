@@ -73,3 +73,5 @@ class CareGroupMembership(models.Model):
     def __str__(self):
         return self.user.display_name
 
+    def get_activity_count(self, care_group=None):
+        return self.user.get_activity_count(care_group=self.care_group)
