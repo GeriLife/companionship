@@ -41,14 +41,7 @@ class CareGroup(models.Model):
         """
         annotated_members = []
 
-        for coordinator in self.coordinators.all():
-            coordinator.is_coordinator = True
-
-            coordinator.activity_count = coordinator.get_activity_count(care_group=self)
-
-            annotated_members.append(coordinator)
-
-        for member in self.members.difference(self.coordinators.all()):
+        for member in self.members.all():
             member.activity_count = member.get_activity_count(care_group=self)
 
             annotated_members.append(member)
