@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 
 from activities.forms import ActivityModelForm
 
-from .models import CareGroup
+from .models import CareGroup, CareGroupMembership
 
 
 class CareGroupCreateView(LoginRequiredMixin, CreateView):
@@ -25,14 +25,14 @@ class CareGroupCreateView(LoginRequiredMixin, CreateView):
         # so we can add request user as coordinator
         care_group = form.save()
 
-        # Add user who creates a care group as coordinator
-        care_group.coordinators.add(self.request.user)
+        # Add user who creates a care group as organizer
+        membership = CareGroupMembership(
+            care_group=care_group,
+            user=self.request.user,
+            is_organizer=True,
+        )
 
-        # Add user who creates a care group as member
-        # TODO: refactor memberships to use single model
-        care_group.members.add(self.request.user)
-
-        care_group.save()
+        membership.save()
 
         return HttpResponseRedirect(care_group.get_absolute_url())
 
