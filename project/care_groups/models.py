@@ -63,7 +63,7 @@ class CareGroup(models.Model):
 
 class CareGroupMembership(models.Model):
     care_group = models.ForeignKey(
-        to=CareGroup, related_name="members", on_delete=models.CASCADE
+        to=CareGroup, related_name="memberships", on_delete=models.CASCADE
     )
     user = models.ForeignKey(
         to=User, related_name="care_group_memberships", on_delete=models.CASCADE
