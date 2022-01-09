@@ -130,3 +130,8 @@ dmypy.json
 
 # IDE related ignores
 .vscode
+
+# Static files
+# keep the directory but ignore the files
+project/static/*
+!project/static/.gitkeep
