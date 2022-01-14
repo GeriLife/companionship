@@ -2,6 +2,7 @@
 
 {% load crispy_forms_tags %}
 {% load i18n %}
+{% load thumbnail %}
 
 {% block content %}
 
@@ -50,6 +51,12 @@
     </div>
 
     <div class="col-md-4 mt-2">
+        <!-- Care group photo -->
+        <img
+            src="{{ group.photo|thumbnail_url:'square_thumbnail' }}"
+            class="img-fluid img-thumbnail mb-3"
+            alt="{{ group.name }} care group photo" />
+        
         <!-- Annotated members list -->
         <h2>
             <i class="bi bi-people"></i>
