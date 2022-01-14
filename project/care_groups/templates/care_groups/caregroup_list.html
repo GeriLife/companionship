@@ -22,7 +22,7 @@
                 alt="{{ membership.care_group.name }} care group photo"
             />
             <div class="card-body">
-                <p class="card-title">{{ membership.care_group }}</p>
+                <h2 class="card-title">{{ membership.care_group }}</h2>
                 <a href="{% url 'care-group-detail' membership.care_group.id %}" class="btn btn-primary">
                     {% translate "View" %}
                 </a>
