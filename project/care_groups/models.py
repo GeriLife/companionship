@@ -1,6 +1,8 @@
 from datetime import datetime
 import uuid
 
+from easy_thumbnails.fields import ThumbnailerImageField
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.fields import CharField
@@ -13,6 +15,7 @@ User = get_user_model()
 class CareGroup(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
+    photo = ThumbnailerImageField(upload_to="care_group_photos", blank=True)
 
     class Meta:
         verbose_name = _("care group")
