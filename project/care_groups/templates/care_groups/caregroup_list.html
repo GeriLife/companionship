@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load thumbnail %}
 
 {% block content %}
 <h1>
@@ -16,7 +17,7 @@
     <div class="col">
         <div class="card h-100">
             <img
-                src="https://source.unsplash.com/VMGAbeeJTKo/200x200"
+                src="{{ membership.care_group.photo|thumbnail_url:'square_thumbnail' }}"
                 class="img-fluid rounded-start"
                 alt="..."
             />
