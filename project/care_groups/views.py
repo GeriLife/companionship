@@ -11,7 +11,7 @@ from .models import CareGroup, CareGroupMembership
 
 class CareGroupCreateView(LoginRequiredMixin, CreateView):
     model = CareGroup
-    fields = ["name"]
+    fields = ["name", "photo",]
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -57,7 +57,7 @@ class CareGroupListView(LoginRequiredMixin, ListView):
 
 class CareGroupUpdateView(LoginRequiredMixin, UpdateView):
     model = CareGroup
-    fields = ["name"]
+    fields = ["name", "photo",]
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
