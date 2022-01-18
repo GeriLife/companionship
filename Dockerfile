@@ -34,7 +34,7 @@ RUN poetry install --no-dev
 # Collect static files.
 #RUN python project/manage.py collectstatic --noinput --clear
 
-RUN useradd companionship
+RUN useradd companionship --uid 33777
 RUN chown -R companionship /app
 
 USER companionship
