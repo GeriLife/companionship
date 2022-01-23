@@ -19,12 +19,6 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import TemplateView
 
-mockup_urlpatterns = [
-    path("mockup/groups/", TemplateView.as_view(template_name="mockups/groups.html"), name="mockup_groups"),
-    path("mockup/groups/jane", TemplateView.as_view(template_name="mockups/group_jane.html"),
-         name="modkup_group_jane"),
-]
-
 media_urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = [
@@ -33,6 +27,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('activities/', include('activities.urls')),
-    path('groups/', include('care_groups.urls')),
     path('people/', include('people.urls')),
-] + media_urlpatterns + mockup_urlpatterns
+] + media_urlpatterns
