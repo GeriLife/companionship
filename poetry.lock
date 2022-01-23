@@ -1,10 +1,10 @@
 [[package]]
 name = "asgiref"
-version = "3.4.1"
+version = "3.5.0"
 description = "ASGI specs, helper code, and adapters"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.extras]
 tests = ["pytest", "pytest-asyncio", "mypy (>=0.800)"]
@@ -138,19 +138,12 @@ description = "Easy thumbnails for Django"
 category = "main"
 optional = false
 python-versions = ">=3.6"
-develop = false
 
 [package.dependencies]
-django = ">=2.2,<4.1"
+django = ">=2.2"
 pillow = "*"
 reportlab = "*"
 svglib = "*"
-
-[package.source]
-type = "git"
-url = "https://github.com/SmileyChris/easy-thumbnails.git"
-reference = "master"
-resolved_reference = "92060b9fd7b617cab1ac88d149dc5021d43b35c3"
 
 [[package]]
 name = "flake8"
@@ -285,11 +278,11 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "svglib"
-version = "1.1.0"
+version = "1.2.0"
 description = "A pure-Python library for reading and converting SVG"
 category = "main"
 optional = false
-python-versions = ">=3"
+python-versions = ">=3.7"
 
 [package.dependencies]
 cssselect2 = ">=0.2.0"
@@ -361,12 +354,12 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "0f646826577d7ea8a73f2695129f52684feb4104160fd184dd550ea75b1c6c27"
+content-hash = "6dd32cf69f99647864269b67612dc78983ed7f32f15134d0445136940cf1749b"
 
 [metadata.files]
 asgiref = [
-    {file = "asgiref-3.4.1-py3-none-any.whl", hash = "sha256:ffc141aa908e6f175673e7b1b3b7af4fdb0ecb738fc5c8b88f69f055c2415214"},
-    {file = "asgiref-3.4.1.tar.gz", hash = "sha256:4ef1ab46b484e3c706329cedeff284a5d40824200638503f5768edb6de7d58e9"},
+    {file = "asgiref-3.5.0-py3-none-any.whl", hash = "sha256:88d59c13d634dcffe0510be048210188edd79aeccb6a6c9028cdad6f31d730a9"},
+    {file = "asgiref-3.5.0.tar.gz", hash = "sha256:2f8abc20f7248433085eda803936d98992f1343ddb022065779f37c5da0181d0"},
 ]
 black = [
     {file = "black-21.12b0-py3-none-any.whl", hash = "sha256:a615e69ae185e08fdd73e4715e260e2479c861b5740057fde6e8b4e3b7dd589f"},
@@ -449,7 +442,10 @@ django-environ = [
     {file = "django-environ-0.8.1.tar.gz", hash = "sha256:6f0bc902b43891656b20486938cba0861dc62892784a44919170719572a534cb"},
     {file = "django_environ-0.8.1-py2.py3-none-any.whl", hash = "sha256:42593bee519a527602a467c7b682aee1a051c2597f98c45f4f4f44169ecdb6e5"},
 ]
-easy-thumbnails = []
+easy-thumbnails = [
+    {file = "easy-thumbnails-2.8.1.tar.gz", hash = "sha256:1a283fe8a3569c3feab4605e8279929d75c85c1151b2fd627f95b1863b5fc6c2"},
+    {file = "easy_thumbnails-2.8.1-py3-none-any.whl", hash = "sha256:5f59f722508469d482d8d76b99c7b9e6c1abbce19aefd5932dc6e1b9eacd2473"},
+]
 flake8 = [
     {file = "flake8-4.0.1-py2.py3-none-any.whl", hash = "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d"},
     {file = "flake8-4.0.1.tar.gz", hash = "sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d"},
@@ -687,7 +683,7 @@ sqlparse = [
     {file = "sqlparse-0.4.2.tar.gz", hash = "sha256:0c00730c74263a94e5a9919ade150dfc3b19c574389985446148402998287dae"},
 ]
 svglib = [
-    {file = "svglib-1.1.0.tar.gz", hash = "sha256:520ee5290ee2ebeebd20ca0d7d995c08c903b364fcf515826bab43a1288d422e"},
+    {file = "svglib-1.2.0.tar.gz", hash = "sha256:33f075dc853807e56e92d6dc404104c6ccc7fb5388d96ab943d7b349b1c924c7"},
 ]
 tinycss2 = [
     {file = "tinycss2-1.1.1-py3-none-any.whl", hash = "sha256:fe794ceaadfe3cf3e686b22155d0da5780dd0e273471a51846d0a02bc204fec8"},
