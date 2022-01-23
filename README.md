@@ -1,6 +1,6 @@
 # Companionship Care
 
-Promoting companionship and wellbeing for elderly persons.
+Promoting companionship and wellness for elderly persons.
 
 ## Copyright
 
