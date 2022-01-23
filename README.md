@@ -1,6 +1,6 @@
-# django-bootstrap-quick-start
+# Companionship Care
 
-A Django boilerplate to start your projects faster.
+Promoting companionship and wellbeing for elderly persons.
 
 ## Copyright
 
