@@ -116,7 +116,7 @@
             <div class="modal-body">
                 <form action="{% url 'activity-update' activity.id %}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="care_group" value="{{ group.id }}">
+                    <input type="hidden" name="person" value="{{ person.id }}">
 
                     <select class="form-select mb-2" aria-label="Activity type select" name="activity_type">
                         {% for value, text in form.activity_type.field.choices %}
@@ -160,9 +160,9 @@
                 <form action="{% url 'activity-add-participant' activity.id %}" method="post" style="display: inline;">
                     {% csrf_token %}
                     <select class="form-select mb-2" aria-label="Participant select" name="user_id">
-                        {% for person in activity.remaining_eligible_participants %}
-                            <option value="{{ person.id }}">
-                                {{ person.display_name }}
+                        {% for companion in activity.remaining_person_companions %}
+                            <option value="{{ companion.id }}">
+                                {{ companion.display_name }}
                             </option>
                         {% endfor %}
                     </select>

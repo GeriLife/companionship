@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load thumbnail %}
+
+{% block content %}
+<h1>
+    {% translate "People" %}
+    <a class="btn btn-primary btn-sm" href="{% url 'person-create' %}">
+        <i class="bi bi-plus-circle"></i>
+        {% translate "Add person" %}
+    </a>
+</h1>
+
+<div class="row row-cols-lg-5 row-cols-md-3 row-cols-2 g-4">
+    {% for companion in user.companions.all %}
+    <div class="col">
+        <div class="card h-100">
+            <img
+                src="{{ companion.person.photo|thumbnail_url:'square_thumbnail_200' }}"
+                class="img-fluid rounded-start"
+                alt="{{ companion.person.name }} person photo"
+            />
+            <div class="card-body">
+                <h2 class="card-title">{{ companion.person }}</h2>
+                <a href="{% url 'person-detail' companion.person.id %}" class="btn btn-primary stretched-link">
+                    {% translate "View" %}
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+</div>
+{% endblock content %}
