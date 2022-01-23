@@ -49,20 +49,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-    def get_activity_count(self, care_group=None):
-        if care_group:
+    def get_activity_count(self, person=None):
+        if person:
             activity_count = self.activities.filter(
-                care_group=care_group
+                person=person
             ).count
         else:
             activity_count = self.activities.count
 
         return activity_count
-
-    @property
-    def care_groups(self):
-        """
-        Alias "care_groups" property since splitting out membership into "coordinating" and "participating"
-        TODO: remove alias if consolidating care group membership
-        """
-        return self.care_groups_participating.all()

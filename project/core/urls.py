@@ -34,4 +34,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('activities/', include('activities.urls')),
     path('groups/', include('care_groups.urls')),
+    path('people/', include('people.urls')),
 ] + media_urlpatterns + mockup_urlpatterns

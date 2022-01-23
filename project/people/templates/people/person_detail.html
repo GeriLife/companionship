@@ -7,12 +7,12 @@
 {% block content %}
 
 <h1>
-    {{ group }}
+    {{ person }}
 
-    {% if group.companionship_score %}
+    {% if person.companionship_score %}
     <small>
         <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="{% translate 'Companionship score' %}">
-            {{ group.companionship_score }}
+            {{ person.companionship_score }}
         </span>
     </small>
     {% else %}
@@ -21,8 +21,8 @@
 
     <a 
         class="btn btn-outline-primary btn-sm rounded-circle"
-        href="{% url 'care-group-update' group.id %}"
-        title="{% translate 'Edit care group' %}">
+        href="{% url 'person-update' person.id %}"
+        title="{% translate 'Edit person' %}">
         <i class="bi bi-pencil"></i>
     </a>
 </h1>
@@ -41,9 +41,9 @@
                 <i class="bi bi-plus-lg"></i>
             </button>
         </h2>
-        {% if group.upcoming_activities.count %}
-            {% for activity in group.upcoming_activities %}
-                {% include "care_groups/caregroup_activity.html" with activity=activity form=add_activity_form %}
+        {% if person.upcoming_activities.count %}
+            {% for activity in person.upcoming_activities %}
+                {% include "people/person_activity.html" with activity=activity form=add_activity_form %}
             {% endfor %}
         {% else %}
         <p>{% translate "No activities found." %}</p>
@@ -51,39 +51,39 @@
     </div>
 
     <div class="col-md-4 mt-2">
-        <!-- Care group photo -->
+        <!-- Person photo -->
         <img
-            src="{{ group.photo|thumbnail_url:'square_thumbnail_400' }}"
+            src="{{ person.photo|thumbnail_url:'square_thumbnail_400' }}"
             class="img-fluid img-thumbnail mb-3"
-            alt="{{ group.name }} care group photo" />
+            alt="{{ person.name }} care group photo" />
         
-        <!-- Annotated members list -->
+        <!-- Annotated companions list -->
         <h2>
             <i class="bi bi-people"></i>
-            {% translate "Members" %}
+            {% translate "Companions" %}
             <button 
                 type="button"
                 class="btn btn-sm btn-outline-primary rounded-circle"
                 data-bs-toggle="modal"
-                data-bs-target="#add-member-modal"
-                title="{% translate 'Add Coordinator' %}">
+                data-bs-target="#add-companion-modal"
+                title="{% translate 'Add Companion' %}">
                 <i class="bi bi-plus-lg"></i>
             </button>
         </h2>
 
         <ul class="list-group">
-            {% for membership in group.annotated_memberships %}
+            {% for companion in person.annotated_companions %}
                 <li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
                         <div class="fw-bold">
-                            {% if membership.is_organizer %}
+                            {% if companion.is_organizer %}
                             <i class="bi bi-magic" data-bs-toggle="tooltip" data-bs-placement="left" title="Group coordinator"></i>
                             {% endif %}
-                            {{ membership }}
+                            {{ companion }}
                         </div>
                         <small class="text-muted">
-                            {% if membership.user.last_login %}
-                                {% blocktranslate with last_login_timesince=membership.user.last_login|timesince %}
+                            {% if companion.user.last_login %}
+                                {% blocktranslate with last_login_timesince=companion.user.last_login|timesince %}
                                     Last seen {{ last_login_timesince }} ago
                                 {% endblocktranslate %}
                             {% else %}
@@ -93,7 +93,7 @@
                     </div>
                     
                     <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="{% translate 'Companionship score' %}">
-                        {{ membership.activity_count }}
+                        {{ companion.activity_count }}
                     </span>
                 </li>
             {% endfor %}
@@ -114,7 +114,7 @@
             <div class="modal-body">
                 <form action="{% url 'activity-create' %}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="care_group" value="{{ group.id }}">
+                    <input type="hidden" name="person" value="{{ person.id }}">
                     {{ add_activity_form.activity_type|as_crispy_field }}
                     {{ add_activity_form.activity_date|as_crispy_field }}
                     <button type="submit" class="btn btn-success ml-auto">Submit</button>
@@ -125,20 +125,20 @@
 </div>
 
 <!-- Add Member modal -->
-<div class="modal fade" id="add-member-modal" tabindex="-1" aria-labelledby="add-member-modal-label" aria-hidden="true">
+<div class="modal fade" id="add-companion-modal" tabindex="-1" aria-labelledby="add-companion-modal-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="add-member-modal-label">
-                    {% translate "Add Member" %}
+                <h5 class="modal-title" id="add-companion-modal-label">
+                    {% translate "Add companion" %}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
             </div>
             <div class="modal-body">
-                <p>🚧 TODO: create care group invitation feature.</p>
-                {% comment %} <form action="{% url 'care-group-add-member' %}" method="post">
+                <p>🚧 TODO: create companion invitation feature.</p>
+                {% comment %} <form action="{% url 'person-add-companion' %}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="care_group" value="{{ group.id }}">
+                    <input type="hidden" name="person" value="{{ person.id }}">
 
                     <button type="submit" class="btn btn-success ml-auto">Submit</button>
                 </form> {% endcomment %}

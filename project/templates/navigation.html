@@ -16,6 +16,11 @@
                         {% translate "Groups" %}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{% url 'person-list' %}" class="nav-link">
+                        {% translate "People" %}
+                    </a>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 {% if user.is_authenticated %}

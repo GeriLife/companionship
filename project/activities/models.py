@@ -6,7 +6,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from care_groups.models import CareGroup
+from people.models import Person
 
 User = get_user_model()
 
@@ -39,8 +39,8 @@ class Activity(models.Model):
 
     activity_date = models.DateField(default=datetime.date.today)
 
-    care_group = models.ForeignKey(
-        to=CareGroup,
+    person = models.ForeignKey(
+        to=Person,
         related_name="activities",
         on_delete=models.CASCADE,
         null=True,
@@ -64,12 +64,12 @@ class Activity(models.Model):
         return self.ActivityTypeIcons[self.activity_type].value
 
     @property
-    def remaining_eligible_participants(self):
+    def remaining_person_companions(self):
         # Only care group members are eligible to participate
-        care_group_members = User.objects.filter(care_group_memberships__care_group=self.care_group)
+        companions = User.objects.filter(companions__person=self.person)
 
         # Get current activity participants
         current_participants = self.participants.all()
 
         # Exclude existing participants from care group members
-        return care_group_members.difference(current_participants)
+        return companions.difference(current_participants)

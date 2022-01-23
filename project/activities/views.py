@@ -8,27 +8,27 @@ from .models import Activity
 class ActivityCreateView(CreateView):
     model = Activity
     fields = [
-        "care_group",
+        "person",
         "activity_type",
         "activity_date",
     ]
 
     def get_success_url(self):
-        return reverse("care-group-detail", kwargs={"pk": self.object.care_group.id})
+        return reverse("person-detail", kwargs={"pk": self.object.person.id})
 
 
 class ActivityUpdateView(UpdateView):
     model = Activity
     fields = [
-        "care_group",
+        "person",
         "activity_type",
         "activity_date",
     ]
 
     def get_success_url(self):
         return reverse(
-            "care-group-detail",
-            kwargs={"pk": self.object.care_group.id},
+            "person-detail",
+            kwargs={"pk": self.object.person.id},
         )
 
 
@@ -41,8 +41,8 @@ class ActivityAddParticipantView(View):
 
         return redirect(
             reverse(
-                "care-group-detail",
-                kwargs={"pk": activity.care_group.id},
+                "person-detail",
+                kwargs={"pk": activity.person.id},
             )
         )
 
@@ -56,7 +56,7 @@ class ActivityRemoveParticipantView(View):
 
         return redirect(
             reverse(
-                "care-group-detail",
-                kwargs={"pk": activity.care_group.id},
+                "person-detail",
+                kwargs={"pk": activity.person.id},
             )
         )

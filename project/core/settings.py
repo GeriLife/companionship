@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'accounts',
     'activities',
     'care_groups',
+    'people',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
