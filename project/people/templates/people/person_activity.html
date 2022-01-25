@@ -123,6 +123,8 @@
                     {% csrf_token %}
                     <input type="hidden" name="person" value="{{ person.id }}">
 
+
+                    {{ add_activity_form.activity_type.label_tag }}
                     <select class="form-select mb-2" aria-label="Activity type select" name="activity_type">
                         {% for value, text in form.activity_type.field.choices %}
                             <option value="{{ value }}"
@@ -132,6 +134,7 @@
                         {% endfor %}
                     </select>
                     
+                    {{ add_activity_form.activity_date.label_tag }}
                     <input 
                         type="text" 
                         name="activity_date" 
