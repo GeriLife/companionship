@@ -39,6 +39,13 @@ class Activity(models.Model):
 
     activity_date = models.DateField(default=datetime.date.today)
 
+    note = models.CharField(
+        max_length=50,
+        help_text=_("Optionally, add a brief note. For privacy, avoid adding sensitive information."),
+        null=True,
+        blank=True,
+    )
+
     person = models.ForeignKey(
         to=Person,
         related_name="activities",
