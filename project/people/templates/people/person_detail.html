@@ -117,6 +117,7 @@
                     <input type="hidden" name="person" value="{{ person.id }}">
                     {{ add_activity_form.activity_type|as_crispy_field }}
                     {{ add_activity_form.activity_date|as_crispy_field }}
+                    {{ add_activity_form.note|as_crispy_field }}
                     <button type="submit" class="btn btn-success ml-auto">Submit</button>
                 </form>
             </div>

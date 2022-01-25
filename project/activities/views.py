@@ -11,6 +11,7 @@ class ActivityCreateView(CreateView):
         "person",
         "activity_type",
         "activity_date",
+        "note",
     ]
 
     def get_success_url(self):
@@ -23,6 +24,7 @@ class ActivityUpdateView(UpdateView):
         "person",
         "activity_type",
         "activity_date",
+        "note",
     ]
 
     def get_success_url(self):
