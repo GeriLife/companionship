@@ -10,6 +10,11 @@
             <div class="col">
                 <p class="card-title">{{ activity }}</p>
                 <p class="text-muted mb-0">{{ activity.activity_date }}</p>
+                {% if activity.note %}
+                    <p class="text-muted mb-0">
+                        {{ activity.note }}
+                    </p>
+                {% endif %}
 
                 {% if activity.remaining_eligible_participants.count %}
                 <button
@@ -134,6 +139,18 @@
                         class="dateinput form-control mb-2" 
                         required="" 
                         id="id_activity_date">
+                    
+                    {{ add_activity_form.note.label_tag }}
+                    <input
+                        type="text" 
+                        name="note" 
+                        value="{{ activity.note }}"
+                        class="form-control mb-2" 
+                        required="" 
+                        id="id_note">
+                    <p id="hint_id_note" class="form-text text-muted mx-2">
+                        {{ add_activity_form.note.help_text | safe }}
+                    </p>
                     
                     <button type="submit" class="btn btn-success ml-auto">
                         {% translate "Save" %}
