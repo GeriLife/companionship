@@ -146,10 +146,12 @@
                     {{ add_activity_form.note.label_tag }}
                     <input
                         type="text" 
-                        name="note" 
+                        name="note"
+                        {% if activity.note %}
+                        {% comment %}Prevent empty activity note from displaying as None{% endcomment %}
                         value="{{ activity.note }}"
+                        {% endif %}
                         class="form-control mb-2" 
-                        required="" 
                         id="id_note">
                     <p id="hint_id_note" class="form-text text-muted mx-2">
                         {{ add_activity_form.note.help_text | safe }}
