@@ -14,6 +14,6 @@ urlpatterns = [
         PersonCreateView.as_view(),
         name="person-create",
     ),
-    path("update/<slug:pk>/", PersonUpdateView.as_view(), name="person-update"),
+    path("<slug:person_id>/join/", join_as_companion, name="person-join"),
     path("<slug:pk>/", PersonDetailView.as_view(), name="person-detail"),
 ]
