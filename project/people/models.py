@@ -85,3 +85,24 @@ class Companion(models.Model):
 
     class Meta:
         unique_together = ('person', 'user',)
+
+
+class JoinRequest(models.Model):
+    """Request to join as a personal companion."""
+
+    class JoinRequestStatusChoices(models.TextChoices):
+        PENDING = "PENDING", _("Pending")
+        APPROVED = "APPROVED", _("Approved")
+        REJECTED = "REJECTED", _("Rejected")
+
+    person = models.ForeignKey(
+        to=Person, related_name="join_requests", on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(
+        to=User, related_name="join_requests", on_delete=models.CASCADE
+    )
+    status = models.CharField(
+        max_length=15,
+        choices=JoinRequestStatusChoices.choices,
+        default=JoinRequestStatusChoices.PENDING,
+    )
