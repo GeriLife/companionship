@@ -1,17 +1,24 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.utils.translation import gettext as _
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
 from activities.forms import ActivityModelForm
 
-from .models import Person, Companion
+from .models import JoinRequest, Person, Companion
 
 
 class PersonCreateView(LoginRequiredMixin, CreateView):
     model = Person
-    fields = ["name", "photo",]
+    fields = [
+        "name",
+        "photo",
+    ]
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -57,7 +64,10 @@ class PersonListView(LoginRequiredMixin, ListView):
 
 class PersonUpdateView(LoginRequiredMixin, UpdateView):
     model = Person
-    fields = ["name", "photo",]
+    fields = [
+        "name",
+        "photo",
+    ]
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -65,3 +75,40 @@ class PersonUpdateView(LoginRequiredMixin, UpdateView):
         form.fields["name"].widget.attrs.update({"autofocus": "autofocus"})
 
         return form
+
+
+@login_required
+def join_as_companion(request, person_id):
+    try:
+        person = Person.objects.get(pk=person_id)
+    except Person.DoesNotExist:
+        message = _("Could not find person at the requested URL")
+        raise Http404(message)
+
+    # Redirect to person page if user is already a companion
+    if Companion.objects.filter(
+        person=person_id,
+        user=request.user,
+    ).exists():
+        return redirect(person)
+
+    # Show "request received" if user has already submitted a join request
+    if JoinRequest.objects.filter(
+        person=person_id,
+        user=request.user,
+    ).exists():
+        return render(request, "people/person_join_received.html")
+
+    # Handle join request
+    if request.method == "POST":
+        join_request = JoinRequest(
+            person=person,
+            user=request.user,
+        )
+
+        join_request.save()
+
+        return render(request, "people/person_join_received.html")
+
+    # Show join form by default
+    return render(request, "people/person_join.html")
