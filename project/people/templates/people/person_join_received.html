@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load i18n %} 
+
+{% block content %}
+    <h1>
+        {% translate "Join request received" %}
+    </h1>
+    <p>
+        {% translate "To protect privacy, the care coordinator will review your request as soon as possible." %}
+    </p>
+    <p>
+        {% translate "Please contact the care coordinator directly, if you have any questions." %}
+    </p>
+{% endblock content %}
