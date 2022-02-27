@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<!-- Add Member modal -->
+<div class="modal fade" id="add-companion-modal" tabindex="-1" aria-labelledby="add-companion-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add-companion-modal-label">
+                    {% translate "Add companion" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+            <div class="modal-body">
+                <p>🚧 TODO: create companion invitation feature.</p>
+                {% comment %} <form action="{% url 'person-add-companion' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="person" value="{{ person.id }}">
+
+                    <button type="submit" class="btn btn-success ml-auto">Submit</button>
+                </form> {% endcomment %}
+            </div>
+        </div>
+    </div>
+</div>

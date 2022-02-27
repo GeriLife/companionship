@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-{% load crispy_forms_tags %}
 {% load i18n %}
 {% load thumbnail %}
 
@@ -101,52 +100,11 @@
     </div>
 </div>
 
-<!-- Add Activity modal -->
-<div class="modal fade" id="add-activity-modal" tabindex="-1" aria-labelledby="add-activity-modal-label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="add-activity-modal-label">
-                    {% translate "Add activity" %}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{% url 'activity-create' %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="person" value="{{ person.id }}">
-                    {{ add_activity_form.activity_type|as_crispy_field }}
-                    {{ add_activity_form.activity_date|as_crispy_field }}
-                    {{ add_activity_form.note|as_crispy_field }}
-                    <button type="submit" class="btn btn-success ml-auto">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Add Member modal -->
-<div class="modal fade" id="add-companion-modal" tabindex="-1" aria-labelledby="add-companion-modal-label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="add-companion-modal-label">
-                    {% translate "Add companion" %}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
-            </div>
-            <div class="modal-body">
-                <p>🚧 TODO: create companion invitation feature.</p>
-                {% comment %} <form action="{% url 'person-add-companion' %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="person" value="{{ person.id }}">
+{% include "people/person_add_activity_modal.html" %}
 
-                    <button type="submit" class="btn btn-success ml-auto">Submit</button>
-                </form> {% endcomment %}
-            </div>
-        </div>
-    </div>
-</div>
+{% include "people/person_invite_companion_modal.html" %}
+
 {% endblock content %}
 
 {% block extra_css %}
