@@ -11,15 +11,25 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
             </div>
             <div class="modal-body">
-                <p>🚧 TODO: create companion invitation feature.</p>
-                {% comment %} <form action="{% url 'person-add-companion' %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="person" value="{{ person.id }}">
+                <p>
+                    {% translate "Invite a new companion by following the steps below." %}</p>
+
+                <ol>
+                    <li>
+                        {% translate "Copy the invitation link below." %}
+                    </li>
+                    <li>
+                        {% translate "Send the invitation link to the desired companion." %}
+                    </li>
+                    <li>
+                        {% translate "Approve their companionship request once they follow the link." %}
+                    </li>
+                </ol>
 
                 <div class="input-group mb-3">
                     <input class="form-control" type="text" value="{{ invitation_url }}" aria-label="Invitation link" id="invitation-link" readonly>
                     <button class="btn btn-outline-success" type="button" id="copy-invitation-button" data-clipboard-target="#invitation-link">
-                        Copy
+                        {% translate "Copy" %}
                     </button>
                 </div>
             </div>
