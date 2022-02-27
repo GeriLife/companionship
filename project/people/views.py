@@ -52,6 +52,17 @@ class PersonDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        """
+        {{ request.get_host }}{% url 'person-join' person.id %}
+        """
+
+        # Create companion invitation URL
+        person_id = context["person"].id
+        invitation_path = reverse("person-join", kwargs={"person_id": person_id})
+        invitation_url = self.request.build_absolute_uri(invitation_path)
+
+        context["invitation_url"] = invitation_url
+
         context["add_activity_form"] = ActivityModelForm
 
         return context
