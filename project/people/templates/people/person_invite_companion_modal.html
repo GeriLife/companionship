@@ -16,8 +16,12 @@
                     {% csrf_token %}
                     <input type="hidden" name="person" value="{{ person.id }}">
 
-                    <button type="submit" class="btn btn-success ml-auto">Submit</button>
-                </form> {% endcomment %}
+                <div class="input-group mb-3">
+                    <input class="form-control" type="text" value="{{ invitation_url }}" aria-label="Invitation link" id="invitation-link" readonly>
+                    <button class="btn btn-outline-success" type="button" id="copy-invitation-button" data-clipboard-target="#invitation-link">
+                        Copy
+                    </button>
+                </div>
             </div>
         </div>
     </div>
