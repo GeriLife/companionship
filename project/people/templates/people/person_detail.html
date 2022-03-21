@@ -123,28 +123,12 @@
                     </div>
                     <div class="d-flex flex-column align-self-center">
                         <div>
-                            <button 
-                                type="button"
-                                class="btn btn-outline-success rounded-circle"
-                                data-bs-toggle="modal"
-                                data-bs-target="#applicant-confirmation-modal"
-                                data-applicant-id="{{ applicant.id }}"
-                                data-applicant-name="{{ applicant.user.display_name }}"
-                                data-applicant-status="APPROVED"
-                                title="{% translate 'Accept applicant' %}">
+                            <a href="{% url 'update-join-request' person.id applicant.id %}?status=APPROVED" class="btn btn-outline-primary">
                                 <i class="bi bi-check"></i>
-                            </button>
-                            <button 
-                                type="button"
-                                class="btn btn-outline-danger rounded-circle"
-                                data-bs-toggle="modal"
-                                data-bs-target="#applicant-confirmation-modal"
-                                data-applicant-id="{{ applicant.id }}"
-                                data-applicant-name="{{ applicant.user.display_name }}"
-                                data-applicant-status="REJECTED"
-                                title="{% translate 'Reject applicant' %}">
+                            </a>
+                            <a href="{% url 'update-join-request' person.id applicant.id %}?status=DENIED" class="btn btn-outline-danger">
                                 <i class="bi bi-x"></i>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -157,40 +141,6 @@
 {% include "people/person_add_activity_modal.html" %}
 
 {% include "people/person_invite_companion_modal.html" %}
-
-<!-- Applicant confirmation modal -->
-<div class="modal fade" id="applicant-confirmation-modal" tabindex="-1" aria-labelledby="applicant-confirmation-modal-label" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header">
-        <p class="modal-title" id="applicant-confirmation-modal-label">
-            {% translate "Accept applicant" %}
-        </p>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-        <form>
-        <div class="mb-3">
-            <label for="applicant-id" class="col-form-label">Applicant:</label>
-            <input type="text" class="form-control" id="applicant-id">
-        </div>
-        <div class="mb-3">
-            <label for="applicant-status" class="col-form-label">Status:</label>
-            <input type="text" class="form-control" id="applicant-status">
-        </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            {% translate "Cancel" %}
-        </button>
-        <button type="button" class="btn btn-primary">
-            {% translate "Submit" %}
-        </button>
-    </div>
-    </div>
-</div>
-</div>
 
 {% endblock content %}
 
@@ -209,31 +159,5 @@
     // E.g., via a tooltip or toast
 
     flatpickr('#id_activity_date');
-</script>
-
-
-<script type="text/javascript">
-    // Applicant button pressed
-    var applicantConfirmationModal = document.getElementById('applicant-confirmation-modal');
-
-    applicantConfirmationModal.addEventListener('show.bs.modal', function (event) {
-        // Get the button that triggered the modal
-        var button = event.relatedTarget;
-
-        // Extract applicant data from button data- attributes
-        var applicantId = button.getAttribute('data-applicant-id');
-        var applicantName = button.getAttribute('data-applicant-name');
-        var applicantStatus = button.getAttribute('data-applicant-status');
-
-        // Select the modal content that should change
-        var modalTitle = applicantConfirmationModal.querySelector('.modal-title')
-        var applicantIdInput = applicantConfirmationModal.querySelector('#applicant-id')
-        var applicantStatusInput = applicantConfirmationModal.querySelector('#applicant-status')
-
-        // Update modal content with desired data
-        modalTitle.textContent = 'Accept applicant ' + applicantName;
-        applicantIdInput.value = applicantId;
-        applicantStatusInput.value = applicantStatus;
-    });
 </script>
 {% endblock extra_js %}
