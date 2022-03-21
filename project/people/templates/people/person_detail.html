@@ -112,9 +112,15 @@
 {% endblock extra_css %}
 
 {% block extra_js %}
+<script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script type="text/javascript">
+    var clipboard = new ClipboardJS('#copy-invitation-button');
+    
+    // TODO: indicate to user that the invitation code was copied,
+    // E.g., via a tooltip or toast
+
     flatpickr('#id_activity_date');
 </script>
 {% endblock extra_js %}
