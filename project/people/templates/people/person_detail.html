@@ -70,7 +70,7 @@
             </button>
         </h2>
 
-        <ul class="list-group">
+        <ul class="list-group mb-3">
             {% for companion in person.annotated_companions %}
                 <li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
@@ -94,6 +94,33 @@
                     <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="{% translate 'Companionship score' %}">
                         {{ companion.activity_count }}
                     </span>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Applicants list -->
+        <h2>
+            <i class="bi bi-people"></i>
+            {% translate "Applicants" %}
+        </h2>
+
+        <ul class="list-group">
+            {% for applicant in person.join_requests.all %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">
+                            {{ applicant.user.display_name }}
+                        </div>
+                        <small class="text-muted">
+                            {% if applicant.user.last_login %}
+                                {% blocktranslate with last_login_timesince=applicant.user.last_login|timesince %}
+                                    Last seen {{ last_login_timesince }} ago
+                                {% endblocktranslate %}
+                            {% else %}
+                                {% translate "Not yet seen" %}
+                            {% endif %}
+                        </small>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
