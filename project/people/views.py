@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404, HttpResponseRedirect
+from django.core.exceptions import PermissionDenied
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from django.views import View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
@@ -123,3 +125,20 @@ def join_as_companion(request, person_id):
 
     # Show join form by default
     return render(request, "people/person_join.html")
+
+
+class JoinRequestUpdateView(View):
+    def get(self, request, person_id, join_request_id, *args, **kwargs):
+        person = Person.objects.get(id=person_id)
+
+        # Only organizer can update join requests
+        if request.user in person.organizers:
+            join_request = JoinRequest.objects.get(id=join_request_id, person=person)
+
+            join_request_status = request.GET["status"]
+            join_request.status = join_request_status
+            join_request.save()
+
+            return redirect(person)
+        else:
+            raise PermissionDenied()

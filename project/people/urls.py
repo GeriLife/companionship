@@ -6,6 +6,7 @@ from .views import (
     PersonListView,
     PersonUpdateView,
     join_as_companion,
+    JoinRequestUpdateView,
 )
 
 urlpatterns = [
@@ -18,4 +19,5 @@ urlpatterns = [
     path("<slug:pk>/update/", PersonUpdateView.as_view(), name="person-update"),
     path("<slug:person_id>/join/", join_as_companion, name="person-join"),
     path("<slug:pk>/", PersonDetailView.as_view(), name="person-detail"),
+    path("<slug:person_id>/join-request/<slug:join_request_id>", JoinRequestUpdateView.as_view(), name="update-join-request"),
 ]
