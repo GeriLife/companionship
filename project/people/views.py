@@ -140,5 +140,15 @@ class JoinRequestUpdateView(View):
             join_request_status = request.GET["status"]
             join_request.status = join_request_status
             join_request.save()
+            
+            # If approved, add join request user as companion to person
+            if join_request_status == "APPROVED":
+                companion = Companion(
+                    person=person,
+                    user=join_request.user,
+                )
+                companion.save()
+
+                person.companions.add(companion)
 
             return redirect(person)
