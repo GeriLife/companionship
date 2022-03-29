@@ -132,7 +132,9 @@ class JoinRequestUpdateView(View):
         person = Person.objects.get(id=person_id)
 
         # Only organizer can update join requests
-        if request.user in person.organizers:
+        if not request.user in person.organizers:
+            raise PermissionDenied()
+        else:
             join_request = JoinRequest.objects.get(id=join_request_id, person=person)
 
             join_request_status = request.GET["status"]
@@ -140,5 +142,3 @@ class JoinRequestUpdateView(View):
             join_request.save()
 
             return redirect(person)
-        else:
-            raise PermissionDenied()
