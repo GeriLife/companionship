@@ -105,12 +105,17 @@
                     <i class="bi bi-pencil"></i>
                 </button>
 
-                <button 
+                {% if not activity.done %}
+                <a 
                     type="button"
+                    href="{% url 'activity-set-done' activity.id %}"
                     title="{% translate 'Mark activity as complete' %}"
                     class="btn btn-sm btn-success rounded-circle">
                     <i class="bi bi-check-lg"></i>
-                </button>
+                </a>
+                {% else %}
+                    {% translate "Done" %}
+                {% endif %}
             </div>
         </div>
     </div>
