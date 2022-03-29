@@ -5,6 +5,7 @@ from .views import (
     ActivityUpdateView,
     ActivityAddParticipantView,
     ActivityRemoveParticipantView,
+    ActivitySetDoneView,
 )
 
 urlpatterns = [
@@ -27,5 +28,10 @@ urlpatterns = [
         "update/<slug:activity_id>/remove_participant",
         ActivityRemoveParticipantView.as_view(),
         name="activity-remove-participant",
+    ),
+    path(
+        "update/<slug:activity_id>/set_done",
+        ActivitySetDoneView.as_view(),
+        name="activity-set-done",
     ),
 ]
