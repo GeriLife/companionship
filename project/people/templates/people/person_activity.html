@@ -15,20 +15,23 @@
                         {{ activity.note }}
                     </p>
                 {% endif %}
-
-                {% if activity.remaining_eligible_participants.count %}
-                <button
-                    type="button"
-                    title="{% translate 'Add' %}"
-                    style="border: none;"
-                    class="badge rounded-pill bg-default text-dark"
-                    data-bs-toggle="modal"
-                    data-bs-target="#add-activity-participant-modal-{{ activity.id }}"
-                >
-                    <i class="bi bi-person"></i>
-                    {% translate 'Add' %}
-                    <i class="bi bi-plus-lg"></i>
-                </button>
+                
+                <!-- organizer can add other eligible participants -->
+                {% if user in person.organizers %}
+                    {% if activity.remaining_eligible_participants %}
+                    <button
+                        type="button"
+                        title="{% translate 'Add' %}"
+                        style="border: none;"
+                        class="badge rounded-pill bg-default text-dark"
+                        data-bs-toggle="modal"
+                        data-bs-target="#add-activity-participant-modal-{{ activity.id }}"
+                    >
+                        <i class="bi bi-person"></i>
+                        {% translate 'Add' %}
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+                    {% endif %}
                 {% endif %}
                 
                 {% if user not in activity.participants.all %}
