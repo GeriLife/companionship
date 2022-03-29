@@ -16,9 +16,9 @@
                     </p>
                 {% endif %}
                 
-                <!-- organizer can add other eligible participants -->
+                <!-- organizer can add other eligible companions -->
                 {% if user in person.organizers %}
-                    {% if activity.remaining_eligible_participants %}
+                    {% if activity.remaining_eligible_companions %}
                     <button
                         type="button"
                         title="{% translate 'Add' %}"
@@ -185,7 +185,7 @@
                 <form action="{% url 'activity-add-participant' activity.id %}" method="post" style="display: inline;">
                     {% csrf_token %}
                     <select class="form-select mb-2" aria-label="Participant select" name="user_id">
-                        {% for companion in activity.remaining_person_companions %}
+                        {% for companion in activity.remaining_eligible_companions %}
                             <option value="{{ companion.id }}">
                                 {{ companion.display_name }}
                             </option>
