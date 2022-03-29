@@ -60,14 +60,16 @@
         <h2>
             <i class="bi bi-people"></i>
             {% translate "Companions" %}
-            <button 
-                type="button"
-                class="btn btn-sm btn-outline-primary rounded-circle"
-                data-bs-toggle="modal"
-                data-bs-target="#add-companion-modal"
-                title="{% translate 'Add Companion' %}">
-                <i class="bi bi-plus-lg"></i>
-            </button>
+            {% if request.user in person.organizers.all %}
+                <button 
+                    type="button"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
+                    data-bs-toggle="modal"
+                    data-bs-target="#add-companion-modal"
+                    title="{% translate 'Add Companion' %}">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+            {% endif %}
         </h2>
 
         <ul class="list-group mb-3">
@@ -99,42 +101,44 @@
         </ul>
 
         <!-- Applicants list -->
-        {% if person.pending_join_requests.all %}
-            <h2>
-                <i class="bi bi-people"></i>
-                {% translate "Applicants" %}
-            </h2>
+        {% if user in person.organizers %}
+            {% if person.pending_join_requests.all %}
+                <h2>
+                    <i class="bi bi-people"></i>
+                    {% translate "Applicants" %}
+                </h2>
 
-            <ul class="list-group">
-                {% for applicant in person.pending_join_requests.all %}
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold">
-                                {{ applicant.user.display_name }}
+                <ul class="list-group">
+                    {% for applicant in person.pending_join_requests.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">
+                                    {{ applicant.user.display_name }}
+                                </div>
+                                <small class="text-muted">
+                                    {% if applicant.user.last_login %}
+                                        {% blocktranslate with last_login_timesince=applicant.user.last_login|timesince %}
+                                            Last seen {{ last_login_timesince }} ago
+                                        {% endblocktranslate %}
+                                    {% else %}
+                                        {% translate "Not yet seen" %}
+                                    {% endif %}
+                                </small>
                             </div>
-                            <small class="text-muted">
-                                {% if applicant.user.last_login %}
-                                    {% blocktranslate with last_login_timesince=applicant.user.last_login|timesince %}
-                                        Last seen {{ last_login_timesince }} ago
-                                    {% endblocktranslate %}
-                                {% else %}
-                                    {% translate "Not yet seen" %}
-                                {% endif %}
-                            </small>
-                        </div>
-                        <div class="d-flex flex-column align-self-center">
-                            <div>
-                                <a href="{% url 'update-join-request' person.id applicant.id %}?status=APPROVED" class="btn btn-outline-primary">
-                                    <i class="bi bi-check"></i>
-                                </a>
-                                <a href="{% url 'update-join-request' person.id applicant.id %}?status=DENIED" class="btn btn-outline-danger">
-                                    <i class="bi bi-x"></i>
-                                </a>
+                            <div class="d-flex flex-column align-self-center">
+                                <div>
+                                    <a href="{% url 'update-join-request' person.id applicant.id %}?status=APPROVED" class="btn btn-outline-primary">
+                                        <i class="bi bi-check"></i>
+                                    </a>
+                                    <a href="{% url 'update-join-request' person.id applicant.id %}?status=DENIED" class="btn btn-outline-danger">
+                                        <i class="bi bi-x"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         {% endif %}
     </div>
 </div>
