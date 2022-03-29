@@ -28,12 +28,14 @@ class Person(models.Model):
 
     @property
     def organizers(self):
+        """Return a list of users who are care organizers for this person."""
         organizers = User.objects.filter(companions__is_organizer=True)
 
         return organizers
 
     @property
     def upcoming_activities(self):
+        """Return a list of activities that happen today or later."""
         today = datetime.today()
 
         return self.activities.filter(activity_date__gte=today)
@@ -86,10 +88,14 @@ class Companion(models.Model):
         return self.user.display_name
 
     def get_activity_count(self, person=None):
+        """Return a count of activities between the related user and person."""
         return self.user.get_activity_count(person=self.person)
 
     class Meta:
-        unique_together = ('person', 'user',)
+        unique_together = (
+            "person",
+            "user",
+        )
 
 
 class JoinRequest(models.Model):
