@@ -10,6 +10,7 @@ from people.models import Person
 
 User = get_user_model()
 
+
 class Activity(models.Model):
     class ActivityTypeIcons(Enum):
         APPOINTMENT = "bi-calendar-event"
@@ -41,7 +42,9 @@ class Activity(models.Model):
 
     note = models.CharField(
         max_length=50,
-        help_text=_("Optionally, add a brief note. For privacy, avoid adding sensitive information."),
+        help_text=_(
+            "Optionally, add a brief note. For privacy, avoid adding sensitive information."
+        ),
         null=True,
         blank=True,
     )
@@ -58,7 +61,9 @@ class Activity(models.Model):
     class Meta:
         verbose_name = _("activity")
         verbose_name_plural = _("activities")
-        ordering = ["activity_date",]
+        ordering = [
+            "activity_date",
+        ]
 
     def __str__(self):
         return self.get_activity_type_display()
@@ -71,7 +76,8 @@ class Activity(models.Model):
         return self.ActivityTypeIcons[self.activity_type].value
 
     @property
-    def remaining_person_companions(self):
+    def remaining_eligible_participants(self):
+        """Return a QuerySet of the person's companions who are not already activity participants."""
         # Only care group members are eligible to participate
         companions = User.objects.filter(companions__person=self.person)
 
@@ -79,4 +85,6 @@ class Activity(models.Model):
         current_participants = self.participants.all()
 
         # Exclude existing participants from care group members
-        return companions.difference(current_participants)
+        remaining_eligible_participants = companions.difference(current_participants)
+
+        return remaining_eligible_participants
