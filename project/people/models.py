@@ -28,7 +28,7 @@ class Person(models.Model):
 
     @property
     def organizers(self):
-        organizers = User.objects.filter(companions__person=self, companions__is_organizer=True)
+        organizers = User.objects.filter(companions__is_organizer=True)
 
         return organizers
 
