@@ -58,6 +58,8 @@ class Activity(models.Model):
 
     participants = models.ManyToManyField(User, related_name="activities")
 
+    done = models.BooleanField(default=False)
+
     class Meta:
         verbose_name = _("activity")
         verbose_name_plural = _("activities")
