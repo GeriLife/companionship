@@ -67,6 +67,11 @@ class Person(models.Model):
 
         return User.objects.filter(activities__person=self).count()
 
+    @property
+    def pending_join_requests(self):
+        """Get join requests who have not been approved or rejected."""
+        return self.join_requests.filter(status="PENDING")
+
 
 class Companion(models.Model):
     person = models.ForeignKey(
