@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from accounts.models import User
+from people.models import Person, Companion
 
 
 class PersonCreateViewTest(TestCase):
@@ -32,3 +33,58 @@ class PersonCreateViewTest(TestCase):
 
     def tearDown(self):
         self.user.delete()
+
+
+class PersonDetailViewTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            "test@user.com", 
+            "test12345"
+        )
+        # This person won't have any companion
+        self.person_without_companion = Person.objects.create(
+            name="Non-companion person"
+        )
+        self.person_without_companion_detail_url = reverse("person-detail", kwargs={"pk": self.person_without_companion.id})
+
+        # This person will have the user as a companion
+        self.person_with_companion = Person.objects.create(
+            name="Companion person"
+        )
+        self.companionship_through = Companion.objects.create(
+            person=self.person_with_companion,
+            user=self.user
+        )
+        self.person_with_companion_detail_url = reverse("person-detail", kwargs={"pk": self.person_with_companion.id})
+
+    def test_anonymous_access(self):
+        """Anonymous user should see not found error"""
+        not_found_status_code = 404
+
+        response = self.client.get(self.person_without_companion)
+
+        self.assertEqual(response.status_code, not_found_status_code)
+
+    def test_authenticated_non_companion_access(self):
+        """Authenticated user should see erro when accessing to whom they aren't a companion"""
+        not_authorized_status_code = 403
+        self.client.force_login(self.user)
+
+        response = self.client.get(self.person_without_companion_detail_url)
+
+        self.assertEqual(response.status_code, not_authorized_status_code)
+
+    def test_authenticated_companion_access(self):
+        """Authenticated user should be able to access person to whom they are a companion"""
+        success_status_code = 200
+        self.client.force_login(self.user)
+
+        response = self.client.get(self.person_with_companion_detail_url)
+
+        self.assertEqual(response.status_code, success_status_code)
+
+    def tearDown(self):
+        self.companionship_through.delete()
+        self.user.delete()
+        self.person_with_companion.delete()
+        self.person_without_companion.delete()
