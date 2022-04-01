@@ -27,9 +27,19 @@ class Person(models.Model):
         return reverse("person-detail", kwargs={"pk": self.pk})
 
     @property
+    def companions(self):
+        """Return a list of users who are companions for this person."""
+        companions = User.objects.filter(companions_through__person=self)
+
+        return companions
+
+    @property
     def organizers(self):
         """Return a list of users who are care organizers for this person."""
-        organizers = User.objects.filter(companions__is_organizer=True)
+        organizers = User.objects.filter(
+            companions_through__person=self,
+            companions_through__is_organizer=True,
+        )
 
         return organizers
 
