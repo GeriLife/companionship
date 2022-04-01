@@ -62,6 +62,7 @@ class ActivityRemoveParticipantView(View):
                 "person-detail",
                 kwargs={"pk": activity.person.id},
             )
+        )
 
 class ActivitySetDoneView(UserPassesTestMixin, View):
 
