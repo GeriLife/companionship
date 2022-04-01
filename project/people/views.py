@@ -85,12 +85,23 @@ class PersonListView(LoginRequiredMixin, ListView):
     context_object_name = "people"
 
 
-class PersonUpdateView(LoginRequiredMixin, UpdateView):
+# First, ensure user is logged in, then make sure they pass test (are an organizer)
+class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Person
     fields = [
         "name",
         "photo",
     ]
+
+    def test_func(self, *args, **kwargs):
+        """Only organizers can update the person's details"""
+        person = Person.objects.get(id=self.kwargs["pk"])
+        user = self.request.user
+
+        # Check whether user is person's care organizer
+        user_can_update_person = user in person.organizers
+        
+        return user_can_update_person
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
