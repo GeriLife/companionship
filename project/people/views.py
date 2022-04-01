@@ -6,9 +6,9 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views import View
+from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic.list import ListView
 
 from activities.forms import ActivityModelForm
 
@@ -80,9 +80,8 @@ class PersonDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         return context
 
 
-class PersonListView(LoginRequiredMixin, ListView):
-    model = Person
-    context_object_name = "people"
+class PersonListView(LoginRequiredMixin, TemplateView):
+    template_name = "people/person_list.html"
 
 
 # First, ensure user is logged in, then make sure they pass test (are an organizer)
