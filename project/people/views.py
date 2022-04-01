@@ -51,6 +51,16 @@ class PersonDetailView(LoginRequiredMixin, DetailView):
     context_object_name = "person"
     template_name = "people/person_detail.html"
 
+    def test_func(self, *args, **kwargs):
+        """Only companions (and organizers) can access the person detail view"""
+        person = Person.objects.get(id=self.kwargs["pk"])
+        user = self.request.user
+
+        # Check whether user is person's companion
+        user_can_access_person = user in person.companions
+        
+        return user_can_access_person
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
