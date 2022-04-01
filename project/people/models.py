@@ -60,7 +60,7 @@ class Person(models.Model):
         """
         annotated_companions = []
 
-        for member in self.companions.all():
+        for member in self.companions_through.all():
             member.activity_count = member.get_activity_count(person=self)
 
             annotated_companions.append(member)
