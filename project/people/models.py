@@ -77,10 +77,10 @@ class Person(models.Model):
 
 class Companion(models.Model):
     person = models.ForeignKey(
-        to=Person, related_name="companions", on_delete=models.CASCADE
+        to=Person, related_name="companions_through", on_delete=models.CASCADE
     )
     user = models.ForeignKey(
-        to=User, related_name="companions", on_delete=models.CASCADE
+        to=User, related_name="companions_through", on_delete=models.CASCADE
     )
     is_organizer = models.BooleanField(default=False)
 
