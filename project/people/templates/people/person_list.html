@@ -13,7 +13,7 @@
 </h1>
 
 <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2 g-4">
-    {% for companion in user.companions.all %}
+    {% for companion in user.companions_through.all %}
     <div class="col">
         <div class="card h-100">
             <img
