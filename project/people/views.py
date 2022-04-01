@@ -45,8 +45,8 @@ class PersonCreateView(LoginRequiredMixin, CreateView):
 
         return HttpResponseRedirect(person.get_absolute_url())
 
-
-class PersonDetailView(LoginRequiredMixin, DetailView):
+# First, ensure user is logged in, then make sure they pass test (are a companion)
+class PersonDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Person
     context_object_name = "person"
     template_name = "people/person_detail.html"
