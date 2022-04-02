@@ -7,6 +7,8 @@ This section is a work-in-progress and outlines issues that arise during or rela
 Configure the initial Dokku app and database with the following commands.
 
 - create app `dokku apps:create companionship-care-app`
+- clear default proxy ports `dokku proxy:ports-clear companionship-care-app`
+- configure correct app proxy port `dokku proxy:ports-add companionship-care-app https:443:8000`
 - configure app domain `sudo dokku domains:add companionship-care-app <example.com>`
 - set `DJANGO_ALLOWED_HOSTS` to include app domain `dokku config:set companionship-care-app DJANGO_ALLOWED_HOSTS=<example.com>`
 - set `DJANGO_CSRF_TRUSTED_ORIGINS` to include app domain `dokku config:set companionship-care-app DJANGO_CSRF_TRUSTED_ORIGINS=<https://example.com>`
