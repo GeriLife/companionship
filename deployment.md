@@ -9,7 +9,7 @@ Configure the initial Dokku app and database with the following commands.
 - create app `dokku apps:create companionship-care-app`
 - configure app domain `sudo dokku domains:add companionship-care-app <example.com>`
 - set `DJANGO_ALLOWED_HOSTS` to include app domain `dokku config:set companionship-care-app DJANGO_ALLOWED_HOSTS=<example.com>`
-- set `DJANGO_CSRF_TRUSTED_ORIGINS` to include app domain `dokku config:set companionship-care-app DJANGO_CSRF_TRUSTED_ORIGINS=<example.com>`
+- set `DJANGO_CSRF_TRUSTED_ORIGINS` to include app domain `dokku config:set companionship-care-app DJANGO_CSRF_TRUSTED_ORIGINS=<https://example.com>`
 - install Postgres plugin `dokku plugin:install https://github.com/dokku/dokku-postgres.git`
 - create Postgres DB `dokku postgres:create companionship-care-db`
 - link DB to app `dokku postgres:link companionship-care-db companionship-care-app`
