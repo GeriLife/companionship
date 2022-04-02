@@ -2,6 +2,41 @@
 
 This section is a work-in-progress and outlines issues that arise during or relate to deployment. The main assumption is that we are deploying to [Dokku PaaS](https://dokku.com).
 
+## Configure initial app and database
+
+Configure the initial Dokku app and database with the following commands.
+
+- create app `dokku apps:create companionship-care-app`
+- configure app domain `sudo dokku domains:add companionship-care-app <example.com>`
+- install Postgres plugin `dokku plugin:install https://github.com/dokku/dokku-postgres.git`
+- create Postgres DB `dokku postgres:create companionship-care-db`
+- link DB to app `dokku postgres:link companionship-care-db companionship-care-app`
+
+## Set up SSL
+
+Enable HTTPS support with the following commands on the Dokku server.
+
+- install Let's Encrypt `dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git`
+- configure Let's Encrypt email `sudo dokku config:set --no-restart --global DOKKU_LETSENCRYPT_EMAIL=<user@email.com>`
+- enable Let's Encrypt for app `sudo dokku letsencrypt:enable companionship-care-app`
+- auto-update Let's Encrypt certificate `sudo dokku letsencrypt:cron-job --add`
+
+## Push code from local computer
+
+Now that the Dokku app and database are configured, push code from a local computer to the Dokku server.
+
+- add Git remote on local computer `git remote add dokku dokku@<dokku_server>:django-dokku-example`
+- push changes to `dokku` remote `git push dokku main:main`
+
+Follow the prompts to create the initial superuser.
+
+## Create initial Django superuser
+
+Create an initial superuser on the deployed app with the following commands.
+
+- enter the Dokku app `dokku enter companionship-care-app`
+- create the Django superuser `python project/manage.py createsuperuser`
+
 ## File storage
 
 The following steps will allow persistent file uploads for the Companionship Care app. Below, we assume the Dokku app name is `companionship-care-app` and create a filesystem storage directory with the same name for consistency.
@@ -55,11 +90,11 @@ dokku ps:restart companionship-care-app
 In order to upload images, we need to override the Dokku default filesize limit of 1 megabyte.
 
 ```sh
-dokku nginx:set <dokku-app-name> client-max-body-size 10m
+dokku nginx:set companionship-care-app client-max-body-size 10m
 ```
 
 After setting `client-max-body-size`, the nginx config needs to be rebuilt.
 
 ```sh
-dokku proxy:build-config <dokku-app-name>
+dokku proxy:build-config companionship-care-app
 ```
