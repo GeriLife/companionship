@@ -88,3 +88,53 @@ class PersonDetailViewTest(TestCase):
         self.user.delete()
         self.person_with_companion.delete()
         self.person_without_companion.delete()
+
+class PersonListViewTest(TestCase):
+    def setUp(self):
+        self.person_list_url = reverse("person-list")
+        self.user_without_companion = User.objects.create_user(
+            "user_without_companion@user.com", 
+            "test12345"
+        )
+        self.user_with_companion = User.objects.create_user(
+            "user_with_companion@user.com", 
+            "test12345"
+        )
+        # This person won't have any companion
+        self.person_without_companion_name = "Person without companion"
+        self.person_without_companion = Person.objects.create(
+            name=self.person_without_companion_name
+        )
+
+        # This person will have the user as a companion
+        self.person_with_companion_name = "Person with companion"
+        self.person_with_companion = Person.objects.create(
+            name=self.person_with_companion_name
+        )
+        self.companionship_through = Companion.objects.create(
+            person=self.person_with_companion,
+            user=self.user_with_companion
+        )
+
+    def test_anonymous_access(self):
+        """Anonymous user should be redirected to login with person list as next URL"""
+        redirect_url = "/accounts/login/?next=/people/"
+
+        response = self.client.get(self.person_list_url)
+
+        self.assertRedirects(response, redirect_url)
+
+    def test_authenticated_user_without_companion(self):
+        """Authenticated user should be able to access person to whom they are a companion"""
+        success_status_code = 200
+        self.client.force_login(self.user_without_companion)
+
+        response = self.client.get(self.person_list_url)
+
+        # User should be able to access the people list
+        self.assertEqual(response.status_code, success_status_code)
+
+        response_html = response.content.decode()
+        # People list should not contain any existing people
+        # self.assertNotContains(response_html, self.person_with_companion_name)
+        # self.assertNotContains(response_html, self.person_without_companion_name, html=True)
