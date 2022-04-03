@@ -124,7 +124,7 @@ class PersonListViewTest(TestCase):
         self.assertRedirects(response, redirect_url)
 
     def test_authenticated_user_without_companion(self):
-        """Authenticated user should be able to access person to whom they are a companion"""
+        """Authenticated user without any companion should not see people in the list"""
         success_status_code = 200
         self.client.force_login(self.user_without_companion)
 
@@ -133,7 +133,20 @@ class PersonListViewTest(TestCase):
         # User should be able to access the people list
         self.assertEqual(response.status_code, success_status_code)
 
-        response_html = response.content.decode()
         # People list should not contain any existing people
-        # self.assertNotContains(response_html, self.person_with_companion_name)
-        # self.assertNotContains(response_html, self.person_without_companion_name, html=True)
+        self.assertNotContains(response, self.person_with_companion_name)
+        self.assertNotContains(response, self.person_without_companion_name)
+
+    def test_authenticated_user_with_companion(self):
+        """Authenticated user should be able to see person to whom they are a companion"""
+        success_status_code = 200
+        self.client.force_login(self.user_with_companion)
+
+        response = self.client.get(self.person_list_url)
+
+        # User should be able to access the people list
+        self.assertEqual(response.status_code, success_status_code)
+
+        # People list should not contain any existing people
+        self.assertContains(response, self.person_with_companion_name)
+        self.assertNotContains(response, self.person_without_companion_name)
