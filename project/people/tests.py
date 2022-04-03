@@ -14,13 +14,11 @@ class PersonCreateViewTest(TestCase):
 
     def test_anonymous_access(self):
         """Anonymous user should be redirected to login"""
-        redirect_status_code = 302
         redirect_url = "/accounts/login/?next=/people/create"
 
         response = self.client.get(reverse("person-create"))
 
-        self.assertEqual(response.status_code, redirect_status_code)
-        self.assertEqual(response.url, redirect_url)
+        self.assertRedirects(response, redirect_url)
 
     def test_authenticated_access(self):
         """Authenticated user should be able to access view"""
@@ -88,6 +86,7 @@ class PersonDetailViewTest(TestCase):
         self.user.delete()
         self.person_with_companion.delete()
         self.person_without_companion.delete()
+
 
 class PersonListViewTest(TestCase):
     def setUp(self):
