@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'accounts',
     'activities',
-    'addresses',
     'caregivers',
     'people',
 ]
