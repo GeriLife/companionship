@@ -12,3 +12,6 @@ class Caregiver(models.Model):
     type = models.CharField(
         max_length=15, choices=CaregiverType.choices, default=CaregiverType.INDIVIDUAL
     )
+
+    def __str__(self):
+        return f"{ self.type } - { self.display_name }"
