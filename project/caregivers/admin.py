@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Caregiver
+
+
+@admin.register(Caregiver)
+class CaregiverModelAdmin(admin.ModelAdmin):
+    pass
