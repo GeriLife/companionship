@@ -1,7 +1,5 @@
 from django.db import models
 
-from django_countries.fields import CountryField
-
 
 class Caregiver(models.Model):
     class CaregiverType(models.TextChoices):
