@@ -7,6 +7,6 @@ urlpatterns = [
     path(
         "",
         CaregiverListView.as_view(),
-        name="caregiver-list-view",
+        name="caregiver-list",
     )
 ]
