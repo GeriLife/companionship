@@ -1,6 +1,21 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<h1>Caregivers</h1>
+{% load i18n %}
 
+{% block content %}
+<h1>{% translate "Caregivers" %}</h1>
+
+<div class="row row-cols-2 row-cols-md-3 row-cols-lg-4">
+    {% for caregiver in caregivers %}
+    <div class="col mb-2">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    {{ caregiver.display_name }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock content %}
