@@ -81,7 +81,7 @@ class Activity(models.Model):
     def remaining_eligible_companions(self):
         """Return a QuerySet of the person's companions who are not already activity participants."""
         # Only care group members are eligible to participate
-        companions = User.objects.filter(companions__person=self.person)
+        companions = self.person.companions
 
         # Get current activity participants
         current_participants = self.participants.all()
