@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<form method="post" class="form mt-2">{% csrf_token %}
+    {% blocktrans with companion=companion person=companion.person %}
+    <p>Are you sure you want to remove the companion {{ companion }} from {{ person }}?</p>
+    {% endblocktrans %}
+    
+    {{ form }}
+    
+    <input class="btn btn-danger" type="submit" value="Confirm">
+    <a href="{{ companion.person.get_absolute_url }}" class="btn btn-success">Cancel</a>
+</form>
+
+{% endblock content %}
