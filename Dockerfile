@@ -12,7 +12,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     zlib1g-dev \
     libwebp-dev \
     curl \
- && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip
 
@@ -43,4 +43,4 @@ USER companionship
 EXPOSE 8000
 
 # Run the server
-CMD set -xe; gunicorn --chdir project/ core.wsgi:application --workers 3
+CMD set -xe; gunicorn --chdir project/ core.wsgi:application --bind 0.0.0.0:5000 --workers 3
