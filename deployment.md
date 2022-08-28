@@ -2,28 +2,37 @@
 
 This section is a work-in-progress and outlines issues that arise during or relate to deployment. The main assumption is that we are deploying to [Dokku PaaS](https://dokku.com).
 
-## Configure initial app and database
+## Configure initial app
 
 Configure the initial Dokku app and database with the following commands.
 
 - create app `dokku apps:create companionship-care-app`
-- clear default proxy ports `dokku proxy:ports-clear companionship-care-app`
-- configure correct app proxy port `dokku proxy:ports-add companionship-care-app https:443:8000`
 - configure app domain `sudo dokku domains:add companionship-care-app <example.com>`
 - set `DJANGO_ALLOWED_HOSTS` to include app domain `dokku config:set companionship-care-app DJANGO_ALLOWED_HOSTS=<example.com>`
 - set `DJANGO_CSRF_TRUSTED_ORIGINS` to include app domain `dokku config:set companionship-care-app DJANGO_CSRF_TRUSTED_ORIGINS=<https://example.com>`
+
+## Database
+
+If this is the first time going througn this guide, install the Postgres extension.
+
 - install Postgres plugin `dokku plugin:install https://github.com/dokku/dokku-postgres.git`
+
+Create the Postgres database as described below.
+
 - create Postgres DB `dokku postgres:create companionship-care-db`
 - link DB to app `dokku postgres:link companionship-care-db companionship-care-app`
 
 ## Set up SSL
 
-Enable HTTPS support with the following commands on the Dokku server.
+If this is the first time going through this guide, install the LestEncrypt extension.
 
 - install Let's Encrypt `dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git`
 - configure Let's Encrypt email `sudo dokku config:set --no-restart --global DOKKU_LETSENCRYPT_EMAIL=<user@email.com>`
-- enable Let's Encrypt for app `sudo dokku letsencrypt:enable companionship-care-app`
 - auto-update Let's Encrypt certificate `sudo dokku letsencrypt:cron-job --add`
+
+Enable HTTPS support with the following commands on the Dokku server.
+
+- enable Let's Encrypt for app `sudo dokku letsencrypt:enable companionship-care-app`
 
 ## Push code from local computer
 
