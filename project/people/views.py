@@ -45,6 +45,7 @@ class PersonCreateView(LoginRequiredMixin, CreateView):
 
         return HttpResponseRedirect(person.get_absolute_url())
 
+
 # First, ensure user is logged in, then make sure they pass test (are a companion)
 class PersonDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Person
@@ -58,7 +59,7 @@ class PersonDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
         # Check whether user is person's companion
         user_can_access_person = user in person.companions
-        
+
         return user_can_access_person
 
     def get_context_data(self, **kwargs):
@@ -99,7 +100,7 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
         # Check whether user is person's care organizer
         user_can_update_person = user in person.organizers
-        
+
         return user_can_update_person
 
     def get_form(self, form_class=None):
@@ -160,7 +161,7 @@ class JoinRequestUpdateView(View):
             join_request_status = request.GET["status"]
             join_request.status = join_request_status
             join_request.save()
-            
+
             # If approved, add join request user as companion to person
             if join_request_status == "APPROVED":
                 companion = Companion(
@@ -168,7 +169,5 @@ class JoinRequestUpdateView(View):
                     user=join_request.user,
                 )
                 companion.save()
-
-                person.companions.add(companion)
 
             return redirect(person)
