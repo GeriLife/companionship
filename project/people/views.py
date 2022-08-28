@@ -1,18 +1,48 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from activities.forms import ActivityModelForm
 
 from .models import JoinRequest, Person, Companion
+
+
+class CompanionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Companion
+    context_object_name = "companion"
+
+    def get_success_url(self):
+        return reverse("person-detail", kwargs={"pk": self.object.person.id})
+
+    def test_func(self):
+        """
+        Only care organizer can remove companions for the related person
+
+        Also, make sure the Person ID in the URL path matches the Person ID from the Companion object.
+        This is to encourage that the requesting user knows the correct Person ID, since Companion PKs are sequential.
+        """
+        request_person_id = self.kwargs["person_id"]
+
+        companion = self.get_object()
+
+        person = companion.person
+
+        user = self.request.user
+
+        # Tests
+        # TODO: determine if there is a more idiomatic way to validate the request person_id
+        user_can_remove_companion = user in person.organizers
+        request_person_id_matches_person_id = request_person_id == str(person.id)
+
+        return user_can_remove_companion and request_person_id_matches_person_id
 
 
 class PersonCreateView(LoginRequiredMixin, CreateView):
