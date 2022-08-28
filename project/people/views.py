@@ -159,8 +159,6 @@ class JoinRequestUpdateView(View):
             join_request = JoinRequest.objects.get(id=join_request_id, person=person)
 
             join_request_status = request.GET["status"]
-            join_request.status = join_request_status
-            join_request.save()
 
             # If approved, add join request user as companion to person
             if join_request_status == "APPROVED":
@@ -169,5 +167,8 @@ class JoinRequestUpdateView(View):
                     user=join_request.user,
                 )
                 companion.save()
+
+            # Always delete the join request once it has been handled by the organizer
+            join_request.delete()
 
             return redirect(person)
