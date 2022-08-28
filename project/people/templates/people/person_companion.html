@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+        <div class="fw-bold">
+            {% if companion.is_organizer %}
+            <i class="bi bi-magic" data-bs-toggle="tooltip" data-bs-placement="left" title="Group coordinator"></i>
+            {% endif %}
+            {{ companion }}
+        </div>
+        <small class="text-muted">
+            {% if companion.user.last_login %}
+                {% blocktranslate with last_login_timesince=companion.user.last_login|timesince %}
+                    Last seen {{ last_login_timesince }} ago
+                {% endblocktranslate %}
+            {% else %}
+                {% translate "Not yet seen" %}
+            {% endif %}
+        </small>
+    </div>
+    
+    <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="{% translate 'Companionship score' %}">
+        {{ companion.activity_count }}
+    </span>
+</li>

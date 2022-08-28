@@ -74,29 +74,7 @@
 
         <ul class="list-group mb-3">
             {% for companion in person.annotated_companions %}
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">
-                            {% if companion.is_organizer %}
-                            <i class="bi bi-magic" data-bs-toggle="tooltip" data-bs-placement="left" title="Group coordinator"></i>
-                            {% endif %}
-                            {{ companion }}
-                        </div>
-                        <small class="text-muted">
-                            {% if companion.user.last_login %}
-                                {% blocktranslate with last_login_timesince=companion.user.last_login|timesince %}
-                                    Last seen {{ last_login_timesince }} ago
-                                {% endblocktranslate %}
-                            {% else %}
-                                {% translate "Not yet seen" %}
-                            {% endif %}
-                        </small>
-                    </div>
-                    
-                    <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="{% translate 'Companionship score' %}">
-                        {{ companion.activity_count }}
-                    </span>
-                </li>
+                {% include "people/person_companion.html" %}
             {% endfor %}
         </ul>
 
@@ -110,32 +88,7 @@
 
                 <ul class="list-group">
                     {% for applicant in person.pending_join_requests.all %}
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">
-                                    {{ applicant.user.display_name }}
-                                </div>
-                                <small class="text-muted">
-                                    {% if applicant.user.last_login %}
-                                        {% blocktranslate with last_login_timesince=applicant.user.last_login|timesince %}
-                                            Last seen {{ last_login_timesince }} ago
-                                        {% endblocktranslate %}
-                                    {% else %}
-                                        {% translate "Not yet seen" %}
-                                    {% endif %}
-                                </small>
-                            </div>
-                            <div class="d-flex flex-column align-self-center">
-                                <div>
-                                    <a href="{% url 'update-join-request' person.id applicant.id %}?status=APPROVED" class="btn btn-outline-primary">
-                                        <i class="bi bi-check"></i>
-                                    </a>
-                                    <a href="{% url 'update-join-request' person.id applicant.id %}?status=DENIED" class="btn btn-outline-danger">
-                                        <i class="bi bi-x"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
+                        {% include "people/person_applicant.html" %}
                     {% endfor %}
                 </ul>
             {% endif %}
