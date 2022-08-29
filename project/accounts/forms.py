@@ -10,7 +10,7 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ("email", "display_name")
         widgets = {
             "email": forms.TextInput(attrs={"placeholder": "person@domain.com"}),
-            "display_name": forms.TextInput(attrs={"placeholder": "Given name"}),
+            "display_name": forms.TextInput(attrs={"placeholder": "Display name"}),
         }
 
     def __init__(self, *args, **kwargs):
