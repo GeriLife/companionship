@@ -1,11 +1,10 @@
-from django.contrib.auth import login
 from django.contrib import messages
+from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
-from django.views.generic.edit import CreateView
-
+from django.views.generic.edit import CreateView, FormView
 
 from .forms import CustomUserCreationForm, UpdateUserForm
 
@@ -24,20 +23,41 @@ class SignUpView(CreateView):
         return redirect(self.success_url)
 
 
-@login_required
-def user_profile(request):
-    if request.method == "POST":
-        user_form = UpdateUserForm(request.POST, instance=request.user)
+# @login_required
+# def user_profile(request):
+#     if request.method == "POST":
+#         user_form = UpdateUserForm(request.POST, instance=request.user)
 
-        if user_form.is_valid():
-            user_form.save()
+#         if user_form.is_valid():
+#             user_form.save()
 
-            messages.success(request, _("Profile updated successfully"))
+#             messages.success(request, _("Profile updated successfully"))
 
-            return redirect(to="user-profile")
-        else:
-            messages.error(request, _("Profile form isn't valid"))
-    else:
-        user_form = UpdateUserForm(instance=request.user)
+#             return redirect(to="user-profile")
+#         else:
+#             messages.error(request, _("Profile form isn't valid"))
+#     else:
+#         user_form = UpdateUserForm(instance=request.user)
 
-    return render(request, "accounts/profile.html", {"user_form": user_form})
+#     return render(request, "accounts/profile.html", {"user_form": user_form})
+
+
+class UserProfileUpdateView(FormView):
+    form_class = UpdateUserForm
+    template_name = "accounts/profile.html"
+    success_url = reverse_lazy("user-profile")
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial["display_name"] = self.request.user.display_name
+        initial["email"] = self.request.user.email
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super(UserProfileUpdateView, self).get_context_data(**kwargs)
+        context["user_form"] = self.get_form()
+        return context
+
+    def form_valid(self, form):
+        get_user_model().objects.filter(id=self.request.user.id).update(**form.cleaned_data)
+        return super().form_valid(form)
