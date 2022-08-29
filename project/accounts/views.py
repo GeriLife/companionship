@@ -21,16 +21,14 @@ def user_profile(request):
         user_form = UpdateUserForm(request.POST, instance=request.user)
 
         if user_form.is_valid():
-            print("form is valid")
             user_form.save()
 
             messages.success(request, _("Profile updated successfully"))
 
             return redirect(to="user-profile")
         else:
-            print("form isn't valid")
+            messages.error(request, _("Profile form isn't valid"))
     else:
-        print("Didn't post")
         user_form = UpdateUserForm(instance=request.user)
 
     return render(request, "accounts/profile.html", {"user_form": user_form})
