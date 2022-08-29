@@ -1,7 +1,6 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
@@ -18,16 +17,11 @@ class SignUpView(CreateView):
 
     def form_valid(self, form):
         """If the form is valid, save the associated model and log the user in."""
-        form.save()
-
-        email = form.cleaned_data.get("email")
-        password = form.cleaned_data.get("password1")
-
-        user = authenticate(email=email, password=password)
+        user = form.save()
 
         login(self.request, user)
 
-        return HttpResponseRedirect(self.success_url)
+        return redirect(self.success_url)
 
 
 @login_required
