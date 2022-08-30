@@ -23,9 +23,6 @@ class SignUpView(CreateView):
         return redirect(self.success_url)
 
 
-
-
-
 class UserProfileUpdateView(FormView):
     form_class = UpdateUserForm
     template_name = "accounts/profile.html"
@@ -37,11 +34,8 @@ class UserProfileUpdateView(FormView):
         initial["email"] = self.request.user.email
         return initial
 
-    def get_context_data(self, **kwargs):
-        context = super(UserProfileUpdateView, self).get_context_data(**kwargs)
-        context["user_form"] = self.get_form()
-        return context
-
     def form_valid(self, form):
-        get_user_model().objects.filter(id=self.request.user.id).update(**form.cleaned_data)
+        get_user_model().objects.filter(id=self.request.user.id).update(
+            **form.cleaned_data
+        )
         return super().form_valid(form)
