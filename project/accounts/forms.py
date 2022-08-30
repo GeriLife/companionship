@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.utils.translation import gettext_lazy as _
 
 from .models import User
 
@@ -10,7 +11,7 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ("email", "display_name")
         widgets = {
             "email": forms.TextInput(attrs={"placeholder": "person@domain.com"}),
-            "display_name": forms.TextInput(attrs={"placeholder": "Display name"}),
+            "display_name": forms.TextInput(attrs={"placeholder": _("Display name")}),
         }
 
     def __init__(self, *args, **kwargs):
