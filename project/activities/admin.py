@@ -5,4 +5,8 @@ from .models import Activity
 
 @admin.register(Activity)
 class ActivityModelAdmin(admin.ModelAdmin):
-    fields = ["activity_type", "activity_date", "person",]
+    fields = [
+        "activity_type",
+        "activity_date",
+        "person",
+    ]
