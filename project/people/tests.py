@@ -7,10 +7,7 @@ from people.models import Person, Companion
 
 class PersonCreateViewTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(
-            "test@user.com", 
-            "test12345"
-        )
+        self.user = User.objects.create_user("test@user.com", "test12345")
 
     def test_anonymous_access(self):
         """Anonymous user should be redirected to login"""
@@ -35,25 +32,23 @@ class PersonCreateViewTest(TestCase):
 
 class PersonDetailViewTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(
-            "test@user.com", 
-            "test12345"
-        )
+        self.user = User.objects.create_user("test@user.com", "test12345")
         # This person won't have any companion
         self.person_without_companion = Person.objects.create(
             name="Non-companion person"
         )
-        self.person_without_companion_detail_url = reverse("person-detail", kwargs={"pk": self.person_without_companion.id})
+        self.person_without_companion_detail_url = reverse(
+            "person-detail", kwargs={"pk": self.person_without_companion.id}
+        )
 
         # This person will have the user as a companion
-        self.person_with_companion = Person.objects.create(
-            name="Companion person"
-        )
+        self.person_with_companion = Person.objects.create(name="Companion person")
         self.companionship_through = Companion.objects.create(
-            person=self.person_with_companion,
-            user=self.user
+            person=self.person_with_companion, user=self.user
         )
-        self.person_with_companion_detail_url = reverse("person-detail", kwargs={"pk": self.person_with_companion.id})
+        self.person_with_companion_detail_url = reverse(
+            "person-detail", kwargs={"pk": self.person_with_companion.id}
+        )
 
     def test_anonymous_access(self):
         """Anonymous user should see not found error"""
@@ -92,12 +87,10 @@ class PersonListViewTest(TestCase):
     def setUp(self):
         self.person_list_url = reverse("person-list")
         self.user_without_companion = User.objects.create_user(
-            "user_without_companion@user.com", 
-            "test12345"
+            "user_without_companion@user.com", "test12345"
         )
         self.user_with_companion = User.objects.create_user(
-            "user_with_companion@user.com", 
-            "test12345"
+            "user_with_companion@user.com", "test12345"
         )
         # This person won't have any companion
         self.person_without_companion_name = "Person without companion"
@@ -111,8 +104,7 @@ class PersonListViewTest(TestCase):
             name=self.person_with_companion_name
         )
         self.companionship_through = Companion.objects.create(
-            person=self.person_with_companion,
-            user=self.user_with_companion
+            person=self.person_with_companion, user=self.user_with_companion
         )
 
     def test_anonymous_access(self):
