@@ -1,0 +1,393 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-30 22:19+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: accounts/forms.py:14
+msgid "Display name"
+msgstr ""
+
+#: accounts/models.py:13
+msgid "User must have an email address"
+msgstr ""
+
+#: accounts/models.py:36
+msgid "email address"
+msgstr ""
+
+#: accounts/models.py:38
+msgid "display name"
+msgstr ""
+
+#: accounts/models.py:41
+msgid ""
+"Helps other team members recognise you, such as by your given name or "
+"nickname."
+msgstr ""
+
+#: accounts/models.py:46
+msgid "staff status"
+msgstr ""
+
+#: accounts/models.py:48
+msgid "Designates whether the user can log into this admin site."
+msgstr ""
+
+#: accounts/templates/accounts/profile.html:7
+msgid "User profile"
+msgstr ""
+
+#: accounts/templates/accounts/profile.html:15
+#: people/templates/people/person_activity.html:178
+#: people/templates/people/person_activity.html:210
+msgid "Save"
+msgstr ""
+
+#: accounts/templates/registration/login.html:6
+#: accounts/templates/registration/login.html:9
+#: accounts/templates/registration/login.html:14
+msgid "Log in"
+msgstr ""
+
+#: accounts/templates/registration/signup.html:6
+#: accounts/templates/registration/signup.html:9
+#: accounts/templates/registration/signup.html:14
+msgid "Sign up"
+msgstr ""
+
+#: activities/models.py:26
+msgid "Appointment"
+msgstr ""
+
+#: activities/models.py:27
+msgid "Call"
+msgstr ""
+
+#: activities/models.py:28
+msgid "Entertainment"
+msgstr ""
+
+#: activities/models.py:29
+msgid "Errand"
+msgstr ""
+
+#: activities/models.py:30
+msgid "Housework"
+msgstr ""
+
+#: activities/models.py:31
+msgid "Nature"
+msgstr ""
+
+#: activities/models.py:32
+msgid "Outing"
+msgstr ""
+
+#: activities/models.py:33
+msgid "Shopping"
+msgstr ""
+
+#: activities/models.py:46
+msgid ""
+"Optionally, add a brief note. For privacy, avoid adding sensitive "
+"information."
+msgstr ""
+
+#: activities/models.py:64
+msgid "activity"
+msgstr ""
+
+#: activities/models.py:65
+msgid "activities"
+msgstr ""
+
+#: activities/templates/activities/activity_form.html:6
+msgid "Activity form"
+msgstr ""
+
+#: caregivers/models.py:7
+msgid "Individual"
+msgstr ""
+
+#: caregivers/models.py:8
+msgid "Organization"
+msgstr ""
+
+#: caregivers/templates/caregivers/caregiver_list.html:6
+msgid "Caregivers"
+msgstr ""
+
+#: core/settings.py:144
+msgid "English"
+msgstr ""
+
+#: core/settings.py:145
+msgid "Finnish"
+msgstr ""
+
+#: people/models.py:21
+msgid "people"
+msgstr ""
+
+#: people/models.py:115
+msgid "Pending"
+msgstr ""
+
+#: people/models.py:116
+msgid "Approved"
+msgstr ""
+
+#: people/models.py:117
+msgid "Rejected"
+msgstr ""
+
+#: people/templates/people/companion_confirm_delete.html:7
+#, python-format
+msgid ""
+"\n"
+"    <p>Are you sure you want to remove the companion %(companion)s from "
+"%(person)s?</p>\n"
+"    "
+msgstr ""
+
+#: people/templates/people/companion_confirm_delete.html:13
+msgid "Confirm"
+msgstr ""
+
+#: people/templates/people/companion_confirm_delete.html:14
+#: people/templates/people/person_join.html:16
+msgid "Cancel"
+msgstr ""
+
+#: people/templates/people/person_activity.html:24
+#: people/templates/people/person_activity.html:31
+#: people/templates/people/person_form.html:23
+msgid "Add"
+msgstr ""
+
+#: people/templates/people/person_activity.html:43
+msgid "Participate"
+msgstr ""
+
+#: people/templates/people/person_activity.html:48
+msgid "Join"
+msgstr ""
+
+#: people/templates/people/person_activity.html:63
+#: people/templates/people/person_activity.html:78
+msgid "Remove participant"
+msgstr ""
+
+#: people/templates/people/person_activity.html:96
+msgid "No participants"
+msgstr ""
+
+#: people/templates/people/person_activity.html:103
+#: people/templates/people/person_activity.html:132
+msgid "Edit activity"
+msgstr ""
+
+#: people/templates/people/person_activity.html:114
+msgid "Mark activity as complete"
+msgstr ""
+
+#: people/templates/people/person_activity.html:119
+msgid "Done"
+msgstr ""
+
+#: people/templates/people/person_activity.html:135
+#: people/templates/people/person_activity.html:196
+#: people/templates/people/person_add_activity_modal.html:12
+#: people/templates/people/person_invite_companion_modal.html:11
+msgid "Close"
+msgstr ""
+
+#: people/templates/people/person_activity.html:144
+msgid "Activity type select"
+msgstr ""
+
+#: people/templates/people/person_activity.html:193
+msgid "Add participant"
+msgstr ""
+
+#: people/templates/people/person_activity.html:201
+msgid "Participant select"
+msgstr ""
+
+#: people/templates/people/person_add_activity_modal.html:10
+#: people/templates/people/person_detail.html:39
+msgid "Add activity"
+msgstr ""
+
+#: people/templates/people/person_add_activity_modal.html:21
+msgid "Submit"
+msgstr ""
+
+#: people/templates/people/person_applicant.html:10
+#, python-format
+msgid ""
+"\n"
+"                    Last seen %(last_login_timesince)s ago\n"
+"                "
+msgstr ""
+
+#: people/templates/people/person_applicant.html:14
+msgid "Not yet seen"
+msgstr ""
+
+#: people/templates/people/person_companion.html:5
+#: people/templates/people/person_detail.html:13
+msgid "Companionship score"
+msgstr ""
+
+#: people/templates/people/person_companion.html:14
+msgid "Group coordinator"
+msgstr ""
+
+#: people/templates/people/person_companion.html:25
+msgid "Remove companion"
+msgstr ""
+
+#: people/templates/people/person_detail.html:24
+#: people/templates/people/person_form.html:8
+msgid "Edit person"
+msgstr ""
+
+#: people/templates/people/person_detail.html:33
+msgid "Upcoming activities"
+msgstr ""
+
+#: people/templates/people/person_detail.html:48
+msgid "No activities found."
+msgstr ""
+
+#: people/templates/people/person_detail.html:57
+msgid "Care group photo"
+msgstr ""
+
+#: people/templates/people/person_detail.html:62
+msgid "Companions"
+msgstr ""
+
+#: people/templates/people/person_detail.html:69
+msgid "Add Companion"
+msgstr ""
+
+#: people/templates/people/person_detail.html:86
+msgid "Applicants"
+msgstr ""
+
+#: people/templates/people/person_form.html:10
+#: people/templates/people/person_list.html:11
+msgid "Add person"
+msgstr ""
+
+#: people/templates/people/person_form.html:19
+msgid "Update"
+msgstr ""
+
+#: people/templates/people/person_invite_companion_modal.html:9
+msgid "Add companion"
+msgstr ""
+
+#: people/templates/people/person_invite_companion_modal.html:15
+msgid "Invite a new companion by following the steps below."
+msgstr ""
+
+#: people/templates/people/person_invite_companion_modal.html:19
+msgid "Copy the invitation link below."
+msgstr ""
+
+#: people/templates/people/person_invite_companion_modal.html:22
+msgid "Send the invitation link to the desired companion."
+msgstr ""
+
+#: people/templates/people/person_invite_companion_modal.html:25
+msgid "Approve their companionship request once they follow the link."
+msgstr ""
+
+#: people/templates/people/person_invite_companion_modal.html:30
+msgid "Invitation link"
+msgstr ""
+
+#: people/templates/people/person_invite_companion_modal.html:32
+msgid "Copy"
+msgstr ""
+
+#: people/templates/people/person_join.html:7
+msgid "Join as companion"
+msgstr ""
+
+#: people/templates/people/person_join.html:13
+msgid "Request to join as companion"
+msgstr ""
+
+#: people/templates/people/person_join_received.html:7
+msgid "Join request received"
+msgstr ""
+
+#: people/templates/people/person_join_received.html:10
+msgid ""
+"To protect privacy, the care coordinator will review your request as soon as "
+"possible."
+msgstr ""
+
+#: people/templates/people/person_join_received.html:13
+msgid ""
+"Please contact the care coordinator directly, if you have any questions."
+msgstr ""
+
+#: people/templates/people/person_list.html:8 templates/navigation.html:16
+msgid "People"
+msgstr ""
+
+#: people/templates/people/person_list.html:22
+msgid "person photo"
+msgstr ""
+
+#: people/templates/people/person_list.html:27
+msgid "View"
+msgstr ""
+
+#: people/views.py:149
+msgid "Could not find person at the requested URL"
+msgstr ""
+
+#: templates/home.html:3
+msgid "Home"
+msgstr ""
+
+#: templates/home.html:6
+msgid "Welcome to Companionship Care"
+msgstr ""
+
+#: templates/home.html:7
+msgid ""
+"We are working together to enrich the lives of our friends and loved ones."
+msgstr ""
+
+#: templates/navigation.html:9
+msgid "Toggle navigation"
+msgstr ""
+
+#: templates/navigation.html:30
+msgid "Edit profile"
+msgstr ""
+
+#: templates/navigation.html:35
+msgid "Log out"
+msgstr ""
