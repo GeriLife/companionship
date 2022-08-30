@@ -11,7 +11,7 @@
         </span>
 
         {% if companion.is_organizer %}
-            <i class="bi bi-magic" data-bs-toggle="tooltip" data-bs-placement="left" title="Group coordinator"></i>
+            <i class="bi bi-magic" data-bs-toggle="tooltip" data-bs-placement="left" title='{% translate "Group coordinator" %}'></i>
         {% endif %}
     </div>
 
@@ -23,7 +23,6 @@
                 href="{% url 'delete-companion' person.id companion.id %}"
                 class="btn btn-sm btn-outline-danger rounded-circle" 
                 title='{% translate "Remove companion" %}'>
-                
                 
                 <i class="bi bi-dash"></i>
             </a>

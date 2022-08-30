@@ -60,6 +60,7 @@
                             <input type="hidden" name="user_id" value="{{ participant.id }}">
                             <button 
                                 type="submit"
+                                title="{% translate 'Remove participant' %}"
                                 style="border: none;"
                                 class="badge rounded-pill bg-primary">
                                     <i class="bi bi-person"></i>
@@ -74,6 +75,7 @@
                             <input type="hidden" name="user_id" value="{{ user.id }}">
                             <button 
                                 type="submit"
+                                title="{% translate 'Remove participant' %}"
                                 style="border: none;"
                                 class="badge rounded-pill bg-primary">
                                     <i class="bi bi-person"></i>
@@ -139,7 +141,7 @@
 
 
                     {{ add_activity_form.activity_type.label_tag }}
-                    <select class="form-select mb-2" aria-label="Activity type select" name="activity_type">
+                    <select class="form-select mb-2" aria-label='{% translate "Activity type select" %}' name="activity_type">
                         {% for value, text in form.activity_type.field.choices %}
                             <option value="{{ value }}"
                                 {% if activity.activity_type == value %}selected="selected"{% endif %}>
@@ -195,7 +197,7 @@
             <div class="modal-body">
                 <form action="{% url 'activity-add-participant' activity.id %}" method="post" style="display: inline;">
                     {% csrf_token %}
-                    <select class="form-select mb-2" aria-label="Participant select" name="user_id">
+                    <select class="form-select mb-2" aria-label='{% translate "Participant select" %}' name="user_id">
                         {% for companion in activity.remaining_eligible_companions %}
                             <option value="{{ companion.id }}">
                                 {{ companion.display_name }}
