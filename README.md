@@ -1,6 +1,6 @@
 # Companionship Care
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Promoting companionship and wellness for elderly persons.
@@ -31,6 +31,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://www.linkedin.com/in/anykate/"><img src="https://avatars.githubusercontent.com/u/1500690?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aniket Aryamane</b></sub></a><br /><a href="https://github.com/GeriLife/companionship-care/commits?author=anykate" title="Code">💻</a></td>
+    <td align="center"><a href="http://linkedin.com/in/brylie-christopher-oxley/"><img src="https://avatars.githubusercontent.com/u/17307?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Brylie Christopher Oxley</b></sub></a><br /><a href="#design-brylie" title="Design">🎨</a> <a href="https://github.com/GeriLife/companionship-care/commits?author=brylie" title="Documentation">📖</a> <a href="#ideas-brylie" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
