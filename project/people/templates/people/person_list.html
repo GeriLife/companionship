@@ -19,7 +19,7 @@
             <img
                 src="{{ companion.person.photo|thumbnail_url:'square_thumbnail_200' }}"
                 class="img-fluid rounded-start"
-                alt="{{ companion.person.name }} person photo"
+                alt='{% translate "person photo" %}'
             />
             <div class="card-body">
                 <h2 class="card-title">{{ companion.person }}</h2>

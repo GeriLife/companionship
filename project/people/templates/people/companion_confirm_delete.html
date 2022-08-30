@@ -10,7 +10,7 @@
     
     {{ form }}
     
-    <input class="btn btn-danger" type="submit" value="Confirm">
-    <a href="{{ companion.person.get_absolute_url }}" class="btn btn-success">Cancel</a>
+    <input class="btn btn-danger" type="submit" value='{% translate "Confirm" %}'>
+    <a href="{{ companion.person.get_absolute_url }}" class="btn btn-success">{% translate "Cancel" %}</a>
 </form>
 {% endblock content %}
