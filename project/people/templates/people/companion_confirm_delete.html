@@ -4,9 +4,11 @@
 
 {% block content %}
 <form method="post" class="form mt-2">{% csrf_token %}
-    {% blocktrans with companion=companion person=companion.person %}
-    <p>Are you sure you want to remove the companion {{ companion }} from {{ person }}?</p>
+    <p>
+    {% blocktrans trimmed with companion=companion person=companion.person %}
+    Are you sure you want to remove the companion {{ companion }} from {{ person }}?
     {% endblocktrans %}
+    </p>
     
     {{ form }}
     
