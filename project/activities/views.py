@@ -64,8 +64,8 @@ class ActivityRemoveParticipantView(View):
             )
         )
 
-class ActivitySetDoneView(UserPassesTestMixin, View):
 
+class ActivitySetDoneView(UserPassesTestMixin, View):
     def test_func(self, *args, **kwargs):
         """Only activity participants or Person's care organizers can update activity"""
         self.activity = Activity.objects.get(id=self.kwargs["activity_id"])
@@ -73,11 +73,8 @@ class ActivitySetDoneView(UserPassesTestMixin, View):
         user_is_participant = self.request.user in self.activity.participants.all()
         user_is_organizer = self.request.user in self.activity.person.organizers
 
-        user_can_update_activity = (
-            user_is_participant or
-            user_is_organizer
-        )
-        
+        user_can_update_activity = user_is_participant or user_is_organizer
+
         return user_can_update_activity
 
     def get(self, request, activity_id, *args, **kwargs):
