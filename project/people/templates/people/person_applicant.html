@@ -7,7 +7,7 @@
         </div>
         <small class="text-muted">
             {% if applicant.user.last_login %}
-                {% blocktranslate with last_login_timesince=applicant.user.last_login|timesince %}
+                {% blocktranslate trimmed with last_login_timesince=applicant.user.last_login|timesince %}
                     Last seen {{ last_login_timesince }} ago
                 {% endblocktranslate %}
             {% else %}

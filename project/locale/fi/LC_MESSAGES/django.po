@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-30 22:19+0000\n"
+"POT-Creation-Date: 2022-08-30 22:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: accounts/forms.py:14
 msgid "Display name"
 msgstr ""
@@ -59,13 +60,13 @@ msgstr ""
 
 #: accounts/templates/registration/login.html:6
 #: accounts/templates/registration/login.html:9
-#: accounts/templates/registration/login.html:14
+#: accounts/templates/registration/login.html:14 templates/navigation.html:42
 msgid "Log in"
 msgstr ""
 
 #: accounts/templates/registration/signup.html:6
 #: accounts/templates/registration/signup.html:9
-#: accounts/templates/registration/signup.html:14
+#: accounts/templates/registration/signup.html:14 templates/navigation.html:45
 msgid "Sign up"
 msgstr ""
 
@@ -155,20 +156,17 @@ msgstr ""
 msgid "Rejected"
 msgstr ""
 
-#: people/templates/people/companion_confirm_delete.html:7
+#: people/templates/people/companion_confirm_delete.html:8
 #, python-format
 msgid ""
-"\n"
-"    <p>Are you sure you want to remove the companion %(companion)s from "
-"%(person)s?</p>\n"
-"    "
+"Are you sure you want to remove the companion %(companion)s from %(person)s?"
 msgstr ""
 
-#: people/templates/people/companion_confirm_delete.html:13
+#: people/templates/people/companion_confirm_delete.html:15
 msgid "Confirm"
 msgstr ""
 
-#: people/templates/people/companion_confirm_delete.html:14
+#: people/templates/people/companion_confirm_delete.html:16
 #: people/templates/people/person_join.html:16
 msgid "Cancel"
 msgstr ""
@@ -239,10 +237,7 @@ msgstr ""
 
 #: people/templates/people/person_applicant.html:10
 #, python-format
-msgid ""
-"\n"
-"                    Last seen %(last_login_timesince)s ago\n"
-"                "
+msgid "Last seen %(last_login_timesince)s ago"
 msgstr ""
 
 #: people/templates/people/person_applicant.html:14
