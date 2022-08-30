@@ -23,23 +23,7 @@ class SignUpView(CreateView):
         return redirect(self.success_url)
 
 
-# @login_required
-# def user_profile(request):
-#     if request.method == "POST":
-#         user_form = UpdateUserForm(request.POST, instance=request.user)
 
-#         if user_form.is_valid():
-#             user_form.save()
-
-#             messages.success(request, _("Profile updated successfully"))
-
-#             return redirect(to="user-profile")
-#         else:
-#             messages.error(request, _("Profile form isn't valid"))
-#     else:
-#         user_form = UpdateUserForm(instance=request.user)
-
-#     return render(request, "accounts/profile.html", {"user_form": user_form})
 
 
 class UserProfileUpdateView(FormView):
