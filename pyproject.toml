@@ -23,6 +23,10 @@ pyproject-flake8 = "^0.0.1a5"
 isort = "^5.10.1"
 black = "^22.6.0"
 
+[tool.flake8]
+max-line-length = 88
+extend-ignore = E203
+
 [tool.isort]
 profile = "black"
 
