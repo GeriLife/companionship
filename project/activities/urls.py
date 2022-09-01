@@ -1,12 +1,8 @@
 from django.urls import path
 
-from .views import (
-    ActivityCreateView,
-    ActivityUpdateView,
-    ActivityAddParticipantView,
-    ActivityRemoveParticipantView,
-    ActivitySetDoneView,
-)
+from .views import (ActivityAddParticipantView, ActivityCreateView,
+                    ActivityRemoveParticipantView, ActivitySetDoneView,
+                    ActivityUpdateView)
 
 urlpatterns = [
     path(

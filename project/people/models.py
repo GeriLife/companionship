@@ -1,13 +1,12 @@
-from datetime import datetime
 import uuid
-
-from easy_thumbnails.fields import ThumbnailerImageField
+from datetime import datetime
 
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.fields import CharField
-from django.utils.translation import gettext as _
 from django.urls import reverse
+from django.utils.translation import gettext as _
+from easy_thumbnails.fields import ThumbnailerImageField
 
 User = get_user_model()
 

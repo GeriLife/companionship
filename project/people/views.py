@@ -1,3 +1,4 @@
+from activities.forms import ActivityModelForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
@@ -10,9 +11,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from activities.forms import ActivityModelForm
-
-from .models import JoinRequest, Person, Companion
+from .models import Companion, JoinRequest, Person
 
 
 class CompanionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
