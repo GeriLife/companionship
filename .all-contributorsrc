@@ -26,6 +26,16 @@
         "code",
         "projectManagement"
       ]
+    },
+    {
+      "login": "TheMythologist",
+      "name": "TheMythologist",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29896527?v=4",
+      "profile": "http://steamcommunity.com/id/lkx7_adhd",
+      "contributions": [
+        "infra",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
