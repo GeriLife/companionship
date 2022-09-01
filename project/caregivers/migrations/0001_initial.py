@@ -7,16 +7,33 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Caregiver',
+            name="Caregiver",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('display_name', models.CharField(max_length=255)),
-                ('type', models.CharField(choices=[('INDIVIDUAL', 'Individual'), ('ORGANIZATION', 'Organization')], default='INDIVIDUAL', max_length=15)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("display_name", models.CharField(max_length=255)),
+                (
+                    "type",
+                    models.CharField(
+                        choices=[
+                            ("INDIVIDUAL", "Individual"),
+                            ("ORGANIZATION", "Organization"),
+                        ],
+                        default="INDIVIDUAL",
+                        max_length=15,
+                    ),
+                ),
             ],
         ),
     ]
