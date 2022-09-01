@@ -20,7 +20,7 @@ easy-thumbnails = "^2.8.1"
 [tool.poetry.dev-dependencies]
 flake8 = "^5.0.4"
 isort = "^5.10.1"
-black = "^22.6.0"
+black = "^22.8.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
