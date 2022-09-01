@@ -1,8 +1,7 @@
+from accounts.models import User
 from django.test import TestCase
 from django.urls import reverse
-
-from accounts.models import User
-from people.models import Person, Companion
+from people.models import Companion, Person
 
 
 class PersonCreateViewTest(TestCase):
