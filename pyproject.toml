@@ -1,3 +1,6 @@
+[tool.isort]
+profile = "black"
+
 [tool.poetry]
 name = "django-bootstrap-quick-start"
 version = "0.1.0"
