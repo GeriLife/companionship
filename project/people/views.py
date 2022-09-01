@@ -141,41 +141,45 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return form
 
 
-@login_required
 def join_as_companion(request, person_id):
-    try:
-        person = Person.objects.get(pk=person_id)
-    except Person.DoesNotExist:
-        message = _("Could not find person at the requested URL")
-        raise Http404(message)
+    if request.user.is_authenticated:
+        # Ensure person exists
+        try:
+            person = Person.objects.get(pk=person_id)
+        except Person.DoesNotExist:
+            message = _("Could not find person at the requested URL")
+            raise Http404(message)
 
-    # Redirect to person page if user is already a companion
-    if Companion.objects.filter(
-        person=person_id,
-        user=request.user,
-    ).exists():
-        return redirect(person)
-
-    # Show "request received" if user has already submitted a join request
-    if JoinRequest.objects.filter(
-        person=person_id,
-        user=request.user,
-    ).exists():
-        return render(request, "people/person_join_received.html")
-
-    # Handle join request
-    if request.method == "POST":
-        join_request = JoinRequest(
-            person=person,
+        # Redirect to person page if user is already a companion
+        if Companion.objects.filter(
+            person=person_id,
             user=request.user,
-        )
+        ).exists():
+            return redirect(person)
 
-        join_request.save()
+        # Show "request received" if user has already submitted a join request
+        if JoinRequest.objects.filter(
+            person=person_id,
+            user=request.user,
+        ).exists():
+            return render(request, "people/person_join_received.html")
 
-        return render(request, "people/person_join_received.html")
+        # Handle join request
+        if request.method == "POST":
+            join_request = JoinRequest(
+                person=person,
+                user=request.user,
+            )
 
-    # Show join form by default
-    return render(request, "people/person_join.html")
+            join_request.save()
+
+            return render(request, "people/person_join_received.html")
+
+        # Show join form by default
+        return render(request, "people/person_join.html")
+    else:
+        # Show login/register buttons by default
+        return render(request, "people/login_register.html")
 
 
 class JoinRequestUpdateView(View):
