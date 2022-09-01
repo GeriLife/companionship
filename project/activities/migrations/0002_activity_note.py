@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('activities', '0001_initial'),
+        ("activities", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='activity',
-            name='note',
-            field=models.CharField(blank=True, help_text='Optionally, add a brief note. For privacy, avoid adding sensitive information.', max_length=50, null=True),
+            model_name="activity",
+            name="note",
+            field=models.CharField(
+                blank=True,
+                help_text="Optionally, add a brief note. For privacy, avoid adding sensitive information.",
+                max_length=50,
+                null=True,
+            ),
         ),
     ]

@@ -18,23 +18,58 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Person',
+            name="Person",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=50)),
-                ('photo', easy_thumbnails.fields.ThumbnailerImageField(blank=True, upload_to='people_photos')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                (
+                    "photo",
+                    easy_thumbnails.fields.ThumbnailerImageField(
+                        blank=True, upload_to="people_photos"
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'people',
+                "verbose_name_plural": "people",
             },
         ),
         migrations.CreateModel(
-            name='Companion',
+            name="Companion",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_organizer', models.BooleanField(default=False)),
-                ('person', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='companions', to='people.person')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='companions', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("is_organizer", models.BooleanField(default=False)),
+                (
+                    "person",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="companions",
+                        to="people.person",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="companions",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]
