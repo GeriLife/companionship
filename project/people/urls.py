@@ -1,8 +1,14 @@
 from django.urls import path
 
-from .views import (CompanionDeleteView, JoinRequestUpdateView,
-                    PersonCreateView, PersonDetailView, PersonListView,
-                    PersonUpdateView, join_as_companion)
+from .views import (
+    CompanionDeleteView,
+    JoinRequestUpdateView,
+    PersonCreateView,
+    PersonDetailView,
+    PersonListView,
+    PersonUpdateView,
+    join_as_companion,
+)
 
 urlpatterns = [
     path("", PersonListView.as_view(), name="person-list"),
