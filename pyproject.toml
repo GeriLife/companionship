@@ -25,7 +25,7 @@ black = "^22.6.0"
 
 [tool.flake8]
 max-line-length = 88
-extend-ignore = E203
+extend-ignore = "E203"
 
 [tool.isort]
 profile = "black"
