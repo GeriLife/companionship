@@ -1,6 +1,3 @@
-[tool.isort]
-profile = "black"
-
 [tool.poetry]
 name = "django-bootstrap-quick-start"
 version = "0.1.0"
@@ -18,7 +15,6 @@ whitenoise = {extras = ["brotli"], version = "^6.2.0"}
 reportlab = "^3.6.5"
 svglib = "^1.1.0"
 easy-thumbnails = "^2.8.1"
-
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
