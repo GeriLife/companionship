@@ -19,8 +19,17 @@ easy-thumbnails = "^2.8.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^5.0.4"
+pyproject-flake8 = "^0.0.1a5"
 isort = "^5.10.1"
 black = "^22.6.0"
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203"
+exclude = ".venv"
+
+[tool.isort]
+profile = "black"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
