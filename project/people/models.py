@@ -3,7 +3,6 @@ from datetime import datetime
 
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.db.models.fields import CharField
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from easy_thumbnails.fields import ThumbnailerImageField
@@ -69,8 +68,11 @@ class Person(models.Model):
     @property
     def companionship_score(self):
         """
-        Companionship score is the number of times people have participated in care group activities.
-        E.g., if a care group has ten activities and each activity has had two participants, the companionship score will be 20.
+        Companionship score is the number of times people have
+        participated in care group activities.
+        E.g., if a care group has ten activities and each activity
+        has had two participants, the companionship score
+        will be 20.
 
         Thanks goes to Marcel from StackOverflow
         https://stackoverflow.com/a/70592240/1191545

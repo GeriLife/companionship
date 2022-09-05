@@ -58,7 +58,10 @@ class PersonDetailViewTest(TestCase):
         self.assertEqual(response.status_code, not_found_status_code)
 
     def test_authenticated_non_companion_access(self):
-        """Authenticated user should see erro when accessing to whom they aren't a companion"""
+        """
+        Authenticated user should see erro when accessing to
+        whom they aren't a companion
+        """
         not_authorized_status_code = 403
         self.client.force_login(self.user)
 
@@ -67,7 +70,8 @@ class PersonDetailViewTest(TestCase):
         self.assertEqual(response.status_code, not_authorized_status_code)
 
     def test_authenticated_companion_access(self):
-        """Authenticated user should be able to access person to whom they are a companion"""
+        """Authenticated user should be able to access
+        a person to whom they are a companion"""
         success_status_code = 200
         self.client.force_login(self.user)
 
@@ -129,7 +133,8 @@ class PersonListViewTest(TestCase):
         self.assertNotContains(response, self.person_without_companion_name)
 
     def test_authenticated_user_with_companion(self):
-        """Authenticated user should be able to see person to whom they are a companion"""
+        """Authenticated user should be able to see
+        a person to whom they are a companion"""
         success_status_code = 200
         self.client.force_login(self.user_with_companion)
 

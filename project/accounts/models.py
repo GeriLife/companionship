@@ -38,7 +38,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         _("display name"),
         max_length=15,
         help_text=_(
-            "Helps other team members recognise you, such as by your given name or nickname."
+            "Helps other team members recognise you, such as by your given name or nickname."  # noqa: E501
         ),
         default="Given name",
     )
