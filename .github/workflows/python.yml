@@ -31,4 +31,4 @@ jobs:
       - name: Lint with flake8
         run: poetry run pflake8 .
       - name: Run tests
-        run: poetry run python manage.py test
+        run: poetry run python project/manage.py test
