@@ -42,7 +42,7 @@ class Activity(models.Model):
     note = models.CharField(
         max_length=50,
         help_text=_(
-            "Optionally, add a brief note. For privacy, avoid adding sensitive information."
+            "Optionally, add a brief note. For privacy, avoid adding sensitive information."  # noqa: E501
         ),
         null=True,
         blank=True,
@@ -78,7 +78,7 @@ class Activity(models.Model):
 
     @property
     def remaining_eligible_companions(self):
-        """Return a QuerySet of the person's companions who are not already activity participants."""
+        """Return a QuerySet of the person's companions who are not already activity participants."""  # noqa: E501
         # Only care group members are eligible to participate
         companions = self.person.companions
 

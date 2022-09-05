@@ -1,5 +1,4 @@
 from activities.forms import ActivityModelForm
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponseRedirect
@@ -25,8 +24,10 @@ class CompanionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         """
         Only care organizer can remove companions for the related person
 
-        Also, make sure the Person ID in the URL path matches the Person ID from the Companion object.
-        This is to encourage that the requesting user knows the correct Person ID, since Companion PKs are sequential.
+        Also, make sure the Person ID in the URL path matches the
+        Person ID from the Companion object.This is to encourage
+        that the requesting user knows the correct Person ID,
+        since Companion PKs are sequential.
         """
         request_person_id = self.kwargs["person_id"]
 
@@ -37,7 +38,8 @@ class CompanionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         user = self.request.user
 
         # Tests
-        # TODO: determine if there is a more idiomatic way to validate the request person_id
+        # TODO: determine if there is a more idiomatic way
+        # to validate the request person_id
         user_can_remove_companion = user in person.organizers
         request_person_id_matches_person_id = request_person_id == str(person.id)
 
@@ -186,7 +188,7 @@ class JoinRequestUpdateView(View):
         person = Person.objects.get(id=person_id)
 
         # Only organizer can update join requests
-        if not request.user in person.organizers:
+        if request.user not in person.organizers:
             raise PermissionDenied()
         else:
             join_request = JoinRequest.objects.get(id=join_request_id, person=person)

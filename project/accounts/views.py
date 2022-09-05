@@ -1,7 +1,6 @@
 from django.contrib.auth import login
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.utils.translation import gettext as _
 from django.views.generic.edit import CreateView, UpdateView
 
 from .forms import CustomUserCreationForm, UpdateUserForm
