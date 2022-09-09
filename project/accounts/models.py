@@ -47,6 +47,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=False,
         help_text=_("Designates whether the user can log into this admin site."),
     )
+    
+    
+   
+
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
