@@ -13,4 +13,8 @@
     {{ form | crispy }}
     <button class="btn btn-primary" type="submit">{% translate "Log in" %}</button>
 </form>
+
+<a href="{% url 'password_reset' %}">
+    {% translate "Forgot password?" %}
+</a>
 {% endblock content %}
