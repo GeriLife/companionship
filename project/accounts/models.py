@@ -32,7 +32,7 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(PermissionsMixin, AbstractBaseUser):
     email = models.EmailField(_("email address"), unique=True)
     display_name = models.CharField(
         _("display name"),
@@ -47,6 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=False,
         help_text=_("Designates whether the user can log into this admin site."),
     )
+    is_active = models.BooleanField(default=True)
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
