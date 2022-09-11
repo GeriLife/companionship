@@ -123,8 +123,8 @@ In order for the app to be able to send emails, set the following environment va
 - EMAIL_HOST_PASSWORD - user password
 - EMAIL_USE_TLS - boolean for using TLS, defaults to true
 
-As a reminder, the command for setting environment variables follows.
+As a reminder, the command for setting environment variables follows. For convenience, set multiple values with a single command by separating the variables with a single space.
 
 ```sh
-dokku config:set companionship-care-app VARIABLE_NAME=value
+dokku config:set companionship-care-app VARIABLE_NAME=value VARIABLE_TWO=value
 ```
