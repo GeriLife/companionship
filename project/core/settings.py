@@ -37,7 +37,19 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[])
 
 CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS", default=[])
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# Email settings
+DJANGO_USE_SMTP_SERVER = env.bool("DJANGO_USE_SMTP_SERVER", False)
+
+if DJANGO_USE_SMTP_SERVER:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+    EMAIL_HOST = env.str("DJANGO_EMAIL_HOST")
+    EMAIL_PORT = env.int("DJANGO_EMAIL_PORT")
+    EMAIL_HOST_USER = env.str("DJANGO_EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
+    EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", True)
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 INSTALLED_APPS = [
     "django.contrib.admin",
