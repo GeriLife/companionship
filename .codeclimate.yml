@@ -7,3 +7,4 @@ plugins:
 
 exclude_patterns:
 - "project/**/migrations/"
+- "project/**/tests.py"
