@@ -1,0 +1,9 @@
+plugins:
+  sonar-python:
+    enabled: true
+    config:
+      tests_patterns:
+        - project/**/tests.py
+
+exclude_patterns:
+- "project/**/migrations/"
