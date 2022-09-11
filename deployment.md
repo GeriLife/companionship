@@ -111,3 +111,20 @@ After setting `client-max-body-size`, the nginx config needs to be rebuilt.
 ```sh
 dokku proxy:build-config companionship-care-app
 ```
+
+### SMTP configuration
+
+In order for the app to be able to send emails, set the following environment variables.
+
+- DJANGO_USE_SMTP_SERVER - tells Django to use SMTP instead of Console
+- EMAIL_HOST - hostname of SMTP service
+- EMAIL_PORT - port for SMTP service
+- EMAIL_HOST_USER - SMTP user
+- EMAIL_HOST_PASSWORD - user password
+- EMAIL_USE_TLS - boolean for using TLS, defaults to true
+
+As a reminder, the command for setting environment variables follows.
+
+```sh
+dokku config:set companionship-care-app VARIABLE_NAME=value
+```
