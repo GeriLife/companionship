@@ -31,15 +31,13 @@ SECRET_KEY = env(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DJANGO_DEBUG", True)
+DEBUG = env.bool("DJANGO_DEBUG", False)
 
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[])
 
 CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS", default=[])
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
