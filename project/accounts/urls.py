@@ -12,7 +12,9 @@ urlpatterns = [
     ),
     path(
         "login/",
-        auth_views.LoginView.as_view(template_name="accounts/login.html"),
+        auth_views.LoginView.as_view(
+            template_name="accounts/login.html", next_page="person-list"
+        ),
         name="login",
     ),
     path(
