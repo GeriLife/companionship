@@ -98,14 +98,30 @@
             </div>
 
             <div class="col-1 pr-0 d-flex flex-column align-items-end justify-content-between">
-                <button 
-                    type="button"
-                    title="{% translate 'Edit activity' %}"
-                    class="btn btn-sm btn-outline-primary rounded-circle"
-                    data-bs-toggle="modal"
-                    data-bs-target="#edit-activity-modal-{{ activity.id }}">
-                    <i class="bi bi-pencil"></i>
-                </button>
+                <div class="btn-group">
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary btn-sm rounded-circle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        title="{% translate 'Actions' %}"
+                    >
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <button 
+                                type="button"
+                                title="{% translate 'Edit activity' %}"
+                                class="dropdown-item"
+                                data-bs-toggle="modal"
+                                data-bs-target="#edit-activity-modal-{{ activity.id }}">
+                                <i class="bi bi-pencil"></i>
+                                {% translate 'Edit activity' %}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
 
                 {% if not activity.done %}
                 <a 
