@@ -35,6 +35,29 @@ class ActivityUpdateView(UpdateView):
         )
 
 
+class ActivityDeleteView(UserPassesTestMixin, View):
+    def test_func(self, *args, **kwargs):
+        """Only the Person's care organizers can delete activity"""
+        self.activity = Activity.objects.get(id=self.kwargs["activity_id"])
+
+        user_is_organizer = self.request.user in self.activity.person.organizers
+
+        user_can_delete_activity = user_is_organizer
+
+        return user_can_delete_activity
+
+    def post(self, request, *args, **kwargs):
+        person_id = self.activity.person.id
+        self.activity.delete()
+
+        return redirect(
+            reverse(
+                "person-detail",
+                kwargs={"pk": person_id},
+            )
+        )
+
+
 class ActivityAddParticipantView(View):
     def post(self, request, activity_id, *args, **kwargs):
         user_id = request.POST["user_id"]

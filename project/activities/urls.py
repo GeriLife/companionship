@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (
     ActivityAddParticipantView,
     ActivityCreateView,
+    ActivityDeleteView,
     ActivityRemoveParticipantView,
     ActivitySetDoneView,
     ActivityUpdateView,
@@ -13,6 +14,11 @@ urlpatterns = [
         "create",
         ActivityCreateView.as_view(),
         name="activity-create",
+    ),
+    path(
+        "delete/<slug:activity_id>/",
+        ActivityDeleteView.as_view(),
+        name="activity-delete",
     ),
     path(
         "update/<slug:pk>/",
