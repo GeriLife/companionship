@@ -14,16 +14,16 @@
             {{ person.companionship_score }}
         </span>
     </small>
-    {% else %}
     {% endif %}
     
-
+    {% if user in person.organizers %}
     <a 
         class="btn btn-outline-primary btn-sm rounded-circle"
         href="{% url 'person-update' person.id %}"
         title="{% translate 'Edit person' %}">
         <i class="bi bi-pencil"></i>
     </a>
+    {% endif %}
 </h1>
 
 <div class="row">
