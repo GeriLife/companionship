@@ -98,14 +98,41 @@
             </div>
 
             <div class="col-1 pr-0 d-flex flex-column align-items-end justify-content-between">
-                <button 
-                    type="button"
-                    title="{% translate 'Edit activity' %}"
-                    class="btn btn-sm btn-outline-primary rounded-circle"
-                    data-bs-toggle="modal"
-                    data-bs-target="#edit-activity-modal-{{ activity.id }}">
-                    <i class="bi bi-pencil"></i>
-                </button>
+                <div class="btn-group">
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary btn-sm rounded-circle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        title="{% translate 'Actions' %}"
+                    >
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <button 
+                                type="button"
+                                title="{% translate 'Edit activity' %}"
+                                class="dropdown-item"
+                                data-bs-toggle="modal"
+                                data-bs-target="#edit-activity-modal-{{ activity.id }}">
+                                <i class="bi bi-pencil"></i>
+                                {% translate 'Edit activity' %}
+                            </button>
+                            {% if user in person.organizers %}
+                            <button 
+                                type="button"
+                                title="{% translate 'Delete activity' %}"
+                                class="dropdown-item"
+                                data-bs-toggle="modal"
+                                data-bs-target="#delete-activity-confirmation-modal-{{ activity.id }}">
+                                <i class="bi bi-calendar-x"></i>
+                                {% translate 'Delete activity' %}
+                            </button>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
 
                 {% if not activity.done %}
                 <a 
@@ -207,6 +234,33 @@
 
                     <button type="submit" class="btn btn-success ml-auto">
                         {% translate "Save" %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete activity confirmation modal -->
+<div class="modal fade" id="delete-activity-confirmation-modal-{{ activity.id }}" tabindex="-1" aria-labelledby="delete-activity-participant-modal-label-{{ activity.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title h5" id="delete-activity-participant-modal-label-{{ activity.id }}">
+                    <i class="bi bi-calendar-x"></i>
+                    {% translate "Delete activity" %}
+                </p>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% translate "Are you sure you want to delete this activity?" %}
+                </p>
+
+                <form action="{% url 'activity-delete' activity.id %}" method="post">{% csrf_token %}
+                    <button type="submit" class="btn btn-danger ml-auto">
+                        {% translate "Delete" %}
                     </button>
                 </form>
             </div>
