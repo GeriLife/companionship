@@ -5,6 +5,10 @@
 
 Promoting companionship and wellness for elderly persons.
 
+## Contributing
+
+See our [Contributing guide](CONTRIBUTING.md) for details about how to contribute.
+
 ## Copyright
 
 This project is licensed under the [European Union Public License](LICENSE) (EUPL) version 1.2 or later.
