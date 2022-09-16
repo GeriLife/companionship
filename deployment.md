@@ -38,7 +38,7 @@ Enable HTTPS support with the following commands on the Dokku server.
 
 Now that the Dokku app and database are configured, push code from a local computer to the Dokku server.
 
-- add Git remote on local computer `git remote add dokku dokku@<dokku_server>:django-dokku-example`
+- add Git remote on local computer `git remote add dokku dokku@<dokku_server>:companionship-care-app`
 - push changes to `dokku` remote `git push dokku main:main`
 
 Follow the prompts to create the initial superuser.
