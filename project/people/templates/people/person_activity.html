@@ -256,13 +256,12 @@
                 <p>
                     {% translate "Are you sure you want to delete this activity?" %}
                 </p>
-                {% comment %} <form action="{% url 'activity-delete' activity.id %}" method="post">
-                    {% csrf_token %} {% endcomment %}
 
+                <form action="{% url 'activity-delete' activity.id %}" method="post">{% csrf_token %}
                     <button type="submit" class="btn btn-danger ml-auto">
                         {% translate "Delete" %}
                     </button>
-                {% comment %} </form> {% endcomment %}
+                </form>
             </div>
         </div>
     </div>
