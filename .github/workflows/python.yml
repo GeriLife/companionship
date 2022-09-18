@@ -32,7 +32,9 @@ jobs:
         run: poetry run pflake8 .
       - name: Run tests
         run: poetry run python project/manage.py test
-      - name: Generate code coverage
+      - name: Generate test coverage report
         run: poetry run coverage run project/manage.py test project && coverage xml
-      - name: Upload code coverage
+      - name: Prepare test coverage repoirt for upload
+        run: poetry run coverage xml
+      - name: Upload test coverage report
         uses: codecov/codecov-action@v3
