@@ -4,6 +4,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![codecov](https://codecov.io/gh/CompanionshipCare/companionship-care/branch/main/graph/badge.svg?token=S0HBQTUDMN)](https://codecov.io/gh/CompanionshipCare/companionship-care)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/CompanionshipCare/companionship-care)
 
 Promoting companionship and wellness for elderly persons.
 
