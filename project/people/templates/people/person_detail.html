@@ -51,10 +51,12 @@
 
     <div class="col-md-4 mt-2">
         <!-- Person photo -->
+        {% if person.photo %}
         <img
             src="{{ person.photo|thumbnail_url:'square_thumbnail_400' }}"
             class="img-fluid img-thumbnail mb-3"
             alt='{% translate "Care group photo" %}' />
+        {% endif %}
         
         <!-- Annotated companions list -->
         <h2>
