@@ -33,7 +33,7 @@ jobs:
       - name: Run tests
         run: poetry run python project/manage.py test
       - name: Generate code coverage
-        run: coverage run --source='.' project/manage.py test
+        run: poetry run coverage run --source='./project/' project/manage.py test
       - uses: codecov/codecov-action@v3
         with:
           # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
