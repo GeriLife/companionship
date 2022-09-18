@@ -3,6 +3,8 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+[![codecov](https://codecov.io/gh/CompanionshipCare/companionship-care/branch/main/graph/badge.svg?token=S0HBQTUDMN)](https://codecov.io/gh/CompanionshipCare/companionship-care)
+
 Promoting companionship and wellness for elderly persons.
 
 ## Contributing
