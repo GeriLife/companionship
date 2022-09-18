@@ -16,11 +16,13 @@
     {% for companion in user.companions_through.all %}
     <div class="col">
         <div class="card h-100">
+            {% if compaion.person.photo %}
             <img
                 src="{{ companion.person.photo|thumbnail_url:'square_thumbnail_200' }}"
                 class="img-fluid rounded-start"
                 alt='{% translate "person photo" %}'
             />
+            {% endif %}
             <div class="card-body">
                 <h2 class="card-title">{{ companion.person }}</h2>
                 <a href="{% url 'person-detail' companion.person.id %}" class="btn btn-primary stretched-link">
