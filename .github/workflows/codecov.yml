@@ -1,0 +1,27 @@
+name: Test coverage
+on: [push, pull_request]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      OS: ubuntu-latest
+      PYTHON: '3.10'
+    steps:
+    - uses: actions/checkout@master
+    - name: Setup Python
+      uses: actions/setup-python@master
+      with:
+        python-version: 3.10
+    - name: Install Poetry
+        run: python -m pip install --user poetry
+    - name: Install dependencies
+      run: poetry install --no-interaction --no-root
+    - name: Generate coverage report
+      run: coverage run --source='.' project/manage.py test
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        directory: ./project/
+        env_vars: OS,PYTHON
+        fail_ci_if_error: true
+        verbose: true

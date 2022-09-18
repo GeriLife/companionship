@@ -85,3 +85,19 @@ Once the previous steps are complete and the server is running, visit the follow
 ### Test things out and contribute
 
 Now that the project is running, you can try things out and consider how you would like to contribute! :-)
+
+## Testing
+
+### Generate test coverage
+
+Run the following command from within the `project/` directory to generate a test coverage report.
+
+```sh
+coverage run --source='.' manage.py test
+```
+
+View the coverage report with the following command.
+
+```sh
+coverage report
+```
