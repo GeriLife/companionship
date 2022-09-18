@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "django-bootstrap-quick-start"
+name = "companionship-care"
 version = "0.1.0"
-description = "A Django boilerplate to start your projects faster."
+description = "Promoting companionship and well-being for everyone."
 authors = ["Brylie Christopher Oxley <brylie@amble.fi>"]
 license = "MIT"
 
