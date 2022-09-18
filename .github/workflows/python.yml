@@ -36,5 +36,5 @@ jobs:
         run: poetry run coverage run project/manage.py test project
       - uses: codecov/codecov-action@v3
         with:
-          # files: .coverage
+          files: .coverage
           verbose: true # optional (default = false)
