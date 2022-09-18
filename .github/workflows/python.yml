@@ -33,7 +33,7 @@ jobs:
       - name: Run tests
         run: poetry run python project/manage.py test
       - name: Generate test coverage report
-        run: poetry run coverage run project/manage.py test project && coverage xml
+        run: poetry run coverage run project/manage.py test project
       - name: Prepare test coverage repoirt for upload
         run: poetry run coverage xml
       - name: Upload test coverage report
