@@ -33,7 +33,6 @@ jobs:
       - name: Run tests
         run: poetry run python project/manage.py test
       - name: Generate code coverage
-        run: poetry run coverage run project/manage.py test project
-      - uses: codecov/codecov-action@v3
-        with:
-          files: .coverage
+        run: poetry run coverage run project/manage.py test project && coverage xml
+      - name: Upload code coverage
+        uses: codecov/codecov-action@v3
