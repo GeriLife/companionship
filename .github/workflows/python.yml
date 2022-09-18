@@ -32,10 +32,12 @@ jobs:
         run: poetry run pflake8 .
       - name: Run tests
         run: poetry run python project/manage.py test
+      - name: Generate code coverage
+        run: coverage run --source='.' project/manage.py test
       - uses: codecov/codecov-action@v3
         with:
           # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          # files: ./coverage1.xml,./coverage2.xml # optional
+          files: ./project/.coverage
           # flags: unittests # optional
           # name: codecov-umbrella # optional
           # fail_ci_if_error: true # optional (default = false)
