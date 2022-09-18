@@ -32,20 +32,3 @@ jobs:
         run: poetry run pflake8 .
       - name: Run tests
         run: poetry run python project/manage.py test
-  coverage:
-    name: coverage
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.10'
-    - run: poetry install
-    - uses: paambaati/codeclimate-action@v2.2.4
-      env:
-        CC_TEST_REPORTER_ID: efc7e67018d17995cb8a6d7246ede7e061249fcfa5da1215fd9bb2aecfff250e
-      with:
-        workingDirectory: project
-        coverageLocations: |
-          .coverage:coverage.py
-        coverageCommand: coverage run --source='.' manage.py test
