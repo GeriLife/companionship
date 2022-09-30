@@ -5,14 +5,10 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ("accounts", "0005_alter_user_display_name_alter_user_email"),
-    ]
+    dependencies = [("accounts", "0005_alter_user_display_name_alter_user_email")]
 
     operations = [
         migrations.AddField(
-            model_name="user",
-            name="is_active",
-            field=models.BooleanField(default=True),
-        ),
+            model_name="user", name="is_active", field=models.BooleanField(default=True)
+        )
     ]

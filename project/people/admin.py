@@ -11,6 +11,4 @@ class CompanionInline(admin.StackedInline):
 
 @admin.register(Person)
 class PersonModelAdmin(admin.ModelAdmin):
-    inlines = [
-        CompanionInline,
-    ]
+    inlines = [CompanionInline]

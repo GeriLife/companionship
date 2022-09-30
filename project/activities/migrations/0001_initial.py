@@ -68,5 +68,5 @@ class Migration(migrations.Migration):
                 "verbose_name_plural": "activities",
                 "ordering": ["activity_date"],
             },
-        ),
+        )
     ]

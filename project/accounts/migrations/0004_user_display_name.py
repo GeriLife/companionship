@@ -5,9 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ("accounts", "0003_user_is_staff"),
-    ]
+    dependencies = [("accounts", "0003_user_is_staff")]
 
     operations = [
         migrations.AddField(
@@ -19,5 +17,5 @@ class Migration(migrations.Migration):
                 max_length=15,
                 verbose_name="display name",
             ),
-        ),
+        )
     ]

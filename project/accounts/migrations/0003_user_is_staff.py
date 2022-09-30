@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("accounts", "0002_alter_user_options_alter_user_managers_and_more"),
+        ("accounts", "0002_alter_user_options_alter_user_managers_and_more")
     ]
 
     operations = [
@@ -18,5 +18,5 @@ class Migration(migrations.Migration):
                 help_text="Designates whether the user can log into this admin site.",
                 verbose_name="staff status",
             ),
-        ),
+        )
     ]

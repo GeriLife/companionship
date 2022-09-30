@@ -35,8 +35,7 @@ class Person(models.Model):
     def organizers(self):
         """Return a list of users who are care organizers for this person."""
         organizers = User.objects.filter(
-            companions_through__person=self,
-            companions_through__is_organizer=True,
+            companions_through__person=self, companions_through__is_organizer=True
         )
 
         return organizers
@@ -103,10 +102,7 @@ class Companion(models.Model):
         return self.user.get_activity_count(person=self.person)
 
     class Meta:
-        unique_together = (
-            "person",
-            "user",
-        )
+        unique_together = ("person", "user")
 
 
 class JoinRequest(models.Model):

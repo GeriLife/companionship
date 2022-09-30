@@ -48,10 +48,7 @@ class CompanionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class PersonCreateView(LoginRequiredMixin, CreateView):
     model = Person
-    fields = [
-        "name",
-        "photo",
-    ]
+    fields = ["name", "photo"]
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -66,11 +63,7 @@ class PersonCreateView(LoginRequiredMixin, CreateView):
         person = form.save()
 
         # Add user who creates a person as organizer
-        companion = Companion(
-            person=person,
-            user=self.request.user,
-            is_organizer=True,
-        )
+        companion = Companion(person=person, user=self.request.user, is_organizer=True)
 
         companion.save()
 
@@ -119,10 +112,7 @@ class PersonListView(LoginRequiredMixin, TemplateView):
 # First, ensure user is logged in, then make sure they pass test (are an organizer)
 class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Person
-    fields = [
-        "name",
-        "photo",
-    ]
+    fields = ["name", "photo"]
 
     def test_func(self, *args, **kwargs):
         """Only organizers can update the person's details"""
@@ -152,25 +142,16 @@ def join_as_companion(request, person_id):
             raise Http404(message)
 
         # Redirect to person page if user is already a companion
-        if Companion.objects.filter(
-            person=person_id,
-            user=request.user,
-        ).exists():
+        if Companion.objects.filter(person=person_id, user=request.user).exists():
             return redirect(person)
 
         # Show "request received" if user has already submitted a join request
-        if JoinRequest.objects.filter(
-            person=person_id,
-            user=request.user,
-        ).exists():
+        if JoinRequest.objects.filter(person=person_id, user=request.user).exists():
             return render(request, "people/person_join_received.html")
 
         # Handle join request
         if request.method == "POST":
-            join_request = JoinRequest(
-                person=person,
-                user=request.user,
-            )
+            join_request = JoinRequest(person=person, user=request.user)
 
             join_request.save()
 
@@ -197,10 +178,7 @@ class JoinRequestUpdateView(View):
 
             # If approved, add join request user as companion to person
             if join_request_status == "APPROVED":
-                companion = Companion(
-                    person=person,
-                    user=join_request.user,
-                )
+                companion = Companion(person=person, user=join_request.user)
                 companion.save()
 
             # Always delete the join request once it has been handled by the organizer

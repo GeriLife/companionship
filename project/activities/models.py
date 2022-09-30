@@ -49,10 +49,7 @@ class Activity(models.Model):
     )
 
     person = models.ForeignKey(
-        to=Person,
-        related_name="activities",
-        on_delete=models.CASCADE,
-        null=True,
+        to=Person, related_name="activities", on_delete=models.CASCADE, null=True
     )
 
     participants = models.ManyToManyField(User, related_name="activities")
@@ -62,9 +59,7 @@ class Activity(models.Model):
     class Meta:
         verbose_name = _("activity")
         verbose_name_plural = _("activities")
-        ordering = [
-            "activity_date",
-        ]
+        ordering = ["activity_date"]
 
     def __str__(self):
         return self.get_activity_type_display()

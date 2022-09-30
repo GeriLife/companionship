@@ -8,12 +8,7 @@ from .models import Activity
 
 class ActivityCreateView(CreateView):
     model = Activity
-    fields = [
-        "person",
-        "activity_type",
-        "activity_date",
-        "note",
-    ]
+    fields = ["person", "activity_type", "activity_date", "note"]
 
     def get_success_url(self):
         return reverse("person-detail", kwargs={"pk": self.object.person.id})
@@ -21,18 +16,10 @@ class ActivityCreateView(CreateView):
 
 class ActivityUpdateView(UpdateView):
     model = Activity
-    fields = [
-        "person",
-        "activity_type",
-        "activity_date",
-        "note",
-    ]
+    fields = ["person", "activity_type", "activity_date", "note"]
 
     def get_success_url(self):
-        return reverse(
-            "person-detail",
-            kwargs={"pk": self.object.person.id},
-        )
+        return reverse("person-detail", kwargs={"pk": self.object.person.id})
 
 
 class ActivityDeleteView(UserPassesTestMixin, View):
@@ -50,12 +37,7 @@ class ActivityDeleteView(UserPassesTestMixin, View):
         person_id = self.activity.person.id
         self.activity.delete()
 
-        return redirect(
-            reverse(
-                "person-detail",
-                kwargs={"pk": person_id},
-            )
-        )
+        return redirect(reverse("person-detail", kwargs={"pk": person_id}))
 
 
 class ActivityAddParticipantView(View):
@@ -65,12 +47,7 @@ class ActivityAddParticipantView(View):
 
         activity.participants.add(user_id)
 
-        return redirect(
-            reverse(
-                "person-detail",
-                kwargs={"pk": activity.person.id},
-            )
-        )
+        return redirect(reverse("person-detail", kwargs={"pk": activity.person.id}))
 
 
 class ActivityRemoveParticipantView(View):
@@ -80,12 +57,7 @@ class ActivityRemoveParticipantView(View):
 
         activity.participants.remove(user_id)
 
-        return redirect(
-            reverse(
-                "person-detail",
-                kwargs={"pk": activity.person.id},
-            )
-        )
+        return redirect(reverse("person-detail", kwargs={"pk": activity.person.id}))
 
 
 class ActivitySetDoneView(UserPassesTestMixin, View):
@@ -108,8 +80,5 @@ class ActivitySetDoneView(UserPassesTestMixin, View):
         self.activity.save()
 
         return redirect(
-            reverse(
-                "person-detail",
-                kwargs={"pk": self.activity.person.id},
-            )
+            reverse("person-detail", kwargs={"pk": self.activity.person.id})
         )

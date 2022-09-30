@@ -10,21 +10,13 @@ from .views import (
 )
 
 urlpatterns = [
-    path(
-        "create",
-        ActivityCreateView.as_view(),
-        name="activity-create",
-    ),
+    path("create", ActivityCreateView.as_view(), name="activity-create"),
     path(
         "delete/<slug:activity_id>/",
         ActivityDeleteView.as_view(),
         name="activity-delete",
     ),
-    path(
-        "update/<slug:pk>/",
-        ActivityUpdateView.as_view(),
-        name="activity-update",
-    ),
+    path("update/<slug:pk>/", ActivityUpdateView.as_view(), name="activity-update"),
     path(
         "update/<slug:activity_id>/add_participant",
         ActivityAddParticipantView.as_view(),

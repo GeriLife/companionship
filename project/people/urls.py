@@ -12,11 +12,7 @@ from .views import (
 
 urlpatterns = [
     path("", PersonListView.as_view(), name="person-list"),
-    path(
-        "create",
-        PersonCreateView.as_view(),
-        name="person-create",
-    ),
+    path("create", PersonCreateView.as_view(), name="person-create"),
     path("<slug:pk>/update/", PersonUpdateView.as_view(), name="person-update"),
     path("<slug:person_id>/join/", join_as_companion, name="person-join"),
     path("<slug:pk>/", PersonDetailView.as_view(), name="person-detail"),

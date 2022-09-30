@@ -5,9 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ("accounts", "0004_user_display_name"),
-    ]
+    dependencies = [("accounts", "0004_user_display_name")]
 
     operations = [
         migrations.AlterField(
