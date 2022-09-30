@@ -25,6 +25,7 @@ black = "^22.6.0"
 [tool.poetry.group.dev.dependencies]
 coverage = "^6.4.4"
 ipython = "^8.5.0"
+django-linear-migrations = "^2.5.1"
 
 [tool.coverage]
 run.omit = ["project/manage.py", "project/core/*", "project/**/tests.py", "project/**/migrations/*",]
