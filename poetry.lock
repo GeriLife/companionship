@@ -101,14 +101,14 @@ toml = ["tomli"]
 
 [[package]]
 name = "crispy-bootstrap5"
-version = "0.6"
+version = "0.7"
 description = "Bootstrap5 template pack for django-crispy-forms"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
-django = ">=2.2"
+django = ">=3.2"
 django-crispy-forms = ">=1.13.0"
 
 [package.extras]
@@ -186,6 +186,17 @@ python-versions = ">=3.4,<4"
 develop = ["coverage[toml] (>=5.0a4)", "furo (>=2021.8.17b43,<2021.9.0)", "pytest (>=4.6.11)", "sphinx (>=3.5.0)", "sphinx-notfound-page"]
 docs = ["furo (>=2021.8.17b43,<2021.9.0)", "sphinx (>=3.5.0)", "sphinx-notfound-page"]
 testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)"]
+
+[[package]]
+name = "django-linear-migrations"
+version = "2.5.1"
+description = "Ensure your migrations are linear."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+Django = ">=3.2"
 
 [[package]]
 name = "easy-thumbnails"
@@ -614,7 +625,7 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "95deabbec69f2cc0e346c9fcf2d71a8bc0fb0a1ff151ec2b725e199c59fb31ba"
+content-hash = "2a7a3712aacda9a42b3b02dfa03daf9695c129dd5e6b3db8463817e24845f2e6"
 
 [metadata.files]
 appnope = [
@@ -783,8 +794,8 @@ coverage = [
     {file = "coverage-6.4.4.tar.gz", hash = "sha256:e16c45b726acb780e1e6f88b286d3c10b3914ab03438f32117c4aa52d7f30d58"},
 ]
 crispy-bootstrap5 = [
-    {file = "crispy-bootstrap5-0.6.tar.gz", hash = "sha256:e8c50daaf266d6127c7414f5669d5f2467b640d08b045ed9dd57e351d30609ae"},
-    {file = "crispy_bootstrap5-0.6-py3-none-any.whl", hash = "sha256:ca5d2afc2a5d1cf12b8d057886a81002cdf7793afcbe0ce006c2294069c1f387"},
+    {file = "crispy-bootstrap5-0.7.tar.gz", hash = "sha256:0745a67199619149b7feca87dab7a45664876ed50fb582b38fd2aeb3f8a8d869"},
+    {file = "crispy_bootstrap5-0.7-py3-none-any.whl", hash = "sha256:f3ff1ef5cb379fe80b1b02e245008f276444098a4bdb8d855bed84c623798a85"},
 ]
 cssselect2 = [
     {file = "cssselect2-0.7.0-py3-none-any.whl", hash = "sha256:fd23a65bfd444595913f02fc71f6b286c29261e354c41d722ca7a261a49b5969"},
@@ -809,6 +820,10 @@ django-crispy-forms = [
 django-environ = [
     {file = "django-environ-0.9.0.tar.gz", hash = "sha256:bff5381533056328c9ac02f71790bd5bf1cea81b1beeb648f28b81c9e83e0a21"},
     {file = "django_environ-0.9.0-py2.py3-none-any.whl", hash = "sha256:f21a5ef8cc603da1870bbf9a09b7e5577ab5f6da451b843dbcc721a7bca6b3d9"},
+]
+django-linear-migrations = [
+    {file = "django-linear-migrations-2.5.1.tar.gz", hash = "sha256:4dbba1a42ce10dc40df295f7fa2fd28d6f7b31035353f7f1a752d07c71391073"},
+    {file = "django_linear_migrations-2.5.1-py3-none-any.whl", hash = "sha256:9b6c4157c0ee21b78affc3c9a76e89d9df7ad9239a4378d48dc7247a914f6c72"},
 ]
 easy-thumbnails = [
     {file = "easy-thumbnails-2.8.3.tar.gz", hash = "sha256:8a3ec61bb8c72fac7f75e811a96e3cd7942ac89cab55ab16549d6d2ce9cdeaa5"},

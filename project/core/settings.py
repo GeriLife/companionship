@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "easy_thumbnails",
+    "django_linear_migrations",
     "accounts",
     "activities",
     "caregivers",
