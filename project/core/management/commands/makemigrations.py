@@ -6,7 +6,7 @@ class Command(BaseCommand):
     def handle(self, *app_labels, name, dry_run, merge, **options):
         if name is None and not dry_run and not merge:
             raise CommandError("-n/--name is required.")
-        
+
         super().handle(
             *app_labels,
             name=name,
