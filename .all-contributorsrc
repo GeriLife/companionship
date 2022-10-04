@@ -45,11 +45,20 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "earthcomfy",
+      "name": "Hana Belay",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66206865?v=4",
+      "profile": "https://hanabelay.netlify.app/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "companionship-care",
-  "projectOwner": "GeriLife",
+  "projectOwner": "CompanionshipCare",
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true,
