@@ -1,7 +1,5 @@
 from django.core.management.base import CommandError
-from django.core.management.commands.makemigrations import (
-    Command as BaseCommand,
-)
+from django.core.management.commands.makemigrations import Command as BaseCommand
 
 
 class Command(BaseCommand):
