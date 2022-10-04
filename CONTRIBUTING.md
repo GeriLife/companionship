@@ -86,8 +86,12 @@ Once the previous steps are complete and the server is running, visit the follow
 
 - http://127.0.0.1:8000
 
-### Test things out and contribute
+### See our .editorConfig file
 
+We use a .editorConfig to keep coding styles consistant between our different developers. See https://editorconfig.org/ for more information.
+
+### Test things out and contribute
+ 
 Now that the project is running, you can try things out and consider how you would like to contribute! :-)
 
 ## Testing
