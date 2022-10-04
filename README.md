@@ -1,6 +1,6 @@
 # Companionship Care
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![codecov](https://codecov.io/gh/CompanionshipCare/companionship-care/branch/main/graph/badge.svg?token=S0HBQTUDMN)](https://codecov.io/gh/CompanionshipCare/companionship-care)
@@ -38,12 +38,16 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://www.linkedin.com/in/anykate/"><img src="https://avatars.githubusercontent.com/u/1500690?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aniket Aryamane</b></sub></a><br /><a href="https://github.com/GeriLife/companionship-care/commits?author=anykate" title="Code">💻</a></td>
-      <td align="center"><a href="http://linkedin.com/in/brylie-christopher-oxley/"><img src="https://avatars.githubusercontent.com/u/17307?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Brylie Christopher Oxley</b></sub></a><br /><a href="#design-brylie" title="Design">🎨</a> <a href="https://github.com/GeriLife/companionship-care/commits?author=brylie" title="Documentation">📖</a> <a href="#ideas-brylie" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/GeriLife/companionship-care/commits?author=brylie" title="Code">💻</a> <a href="#projectManagement-brylie" title="Project Management">📆</a></td>
-      <td align="center"><a href="http://kelvinmunyao01@gmail.com"><img src="https://avatars.githubusercontent.com/u/95211922?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Munyao Kelvin</b></sub></a><br /><a href="https://github.com/GeriLife/companionship-care/commits?author=Marsh-sudo" title="Code">💻</a></td>
-      <td align="center"><a href="http://steamcommunity.com/id/lkx7_adhd"><img src="https://avatars.githubusercontent.com/u/29896527?v=4?s=100" width="100px;" alt=""/><br /><sub><b>TheMythologist</b></sub></a><br /><a href="#infra-TheMythologist" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/GeriLife/companionship-care/commits?author=TheMythologist" title="Tests">⚠️</a></td>
+      <td align="center"><a href="https://www.linkedin.com/in/anykate/"><img src="https://avatars.githubusercontent.com/u/1500690?v=4?s=100" width="100px;" alt="Aniket Aryamane"/><br /><sub><b>Aniket Aryamane</b></sub></a><br /><a href="https://github.com/CompanionshipCare/companionship-care/commits?author=anykate" title="Code">💻</a></td>
+      <td align="center"><a href="http://linkedin.com/in/brylie-christopher-oxley/"><img src="https://avatars.githubusercontent.com/u/17307?v=4?s=100" width="100px;" alt="Brylie Christopher Oxley"/><br /><sub><b>Brylie Christopher Oxley</b></sub></a><br /><a href="#design-brylie" title="Design">🎨</a> <a href="https://github.com/CompanionshipCare/companionship-care/commits?author=brylie" title="Documentation">📖</a> <a href="#ideas-brylie" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/CompanionshipCare/companionship-care/commits?author=brylie" title="Code">💻</a> <a href="#projectManagement-brylie" title="Project Management">📆</a></td>
+      <td align="center"><a href="https://hanabelay.netlify.app/"><img src="https://avatars.githubusercontent.com/u/66206865?v=4?s=100" width="100px;" alt="Hana Belay"/><br /><sub><b>Hana Belay</b></sub></a><br /><a href="https://github.com/CompanionshipCare/companionship-care/commits?author=earthcomfy" title="Code">💻</a></td>
+      <td align="center"><a href="http://kelvinmunyao01@gmail.com"><img src="https://avatars.githubusercontent.com/u/95211922?v=4?s=100" width="100px;" alt="Munyao Kelvin"/><br /><sub><b>Munyao Kelvin</b></sub></a><br /><a href="https://github.com/CompanionshipCare/companionship-care/commits?author=Marsh-sudo" title="Code">💻</a></td>
+      <td align="center"><a href="http://steamcommunity.com/id/lkx7_adhd"><img src="https://avatars.githubusercontent.com/u/29896527?v=4?s=100" width="100px;" alt="TheMythologist"/><br /><sub><b>TheMythologist</b></sub></a><br /><a href="#infra-TheMythologist" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/CompanionshipCare/companionship-care/commits?author=TheMythologist" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
+  <tfoot>
+    
+  </tfoot>
 </table>
 
 <!-- markdownlint-restore -->
