@@ -30,4 +30,5 @@ urlpatterns = [
     path("caregivers/", include("caregivers.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
     path("people/", include("people.urls")),
+    path("__reload__/", include("django_browser_reload.urls")),
 ] + media_urlpatterns
