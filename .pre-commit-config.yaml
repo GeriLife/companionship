@@ -1,0 +1,42 @@
+repos:
+-   repo: https://github.com/thibaudcolas/curlylint
+    rev: v0.13.1
+    hooks:
+    -   id: curlylint
+
+    # pyupgrade - upgrade syntax for newer versions.
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v2.7.3
+    hooks:
+    -   id: pyupgrade
+
+    # black - formatting
+-   repo: https://github.com/psf/black
+    rev: 19.3b0
+    hooks:
+    -   id: black
+
+    # isort - sorting imports
+-   repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+    -   id: isort
+
+    # flake8 - linting
+-   repo: https://github.com/pycqa/flake8
+    rev: 5.0.4
+    hooks:
+    -   id: flake8
+        args: [--max-line-length=170]
+
+    # django-upgrade - Automatically upgrade your Django projects.
+-   repo: https://github.com/adamchainz/django-upgrade
+    rev:    1.10.0
+    hooks:
+    -   id: django-upgrade
+
+    # djhtml
+-   repo: https://github.com/rtts/djhtml
+    rev: v1.5.2
+    hooks:
+    -   id: djhtml
