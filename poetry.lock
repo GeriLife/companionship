@@ -175,6 +175,18 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "django-debug-toolbar"
+version = "3.7.0"
+description = "A configurable set of panels that display various debug information about the current request/response."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+Django = ">=3.2.4"
+sqlparse = ">=0.2.0"
+
+[[package]]
 name = "django-environ"
 version = "0.9.0"
 description = "A package that allows you to utilize 12factor inspired environment variables to configure your Django application."
@@ -816,6 +828,10 @@ django-browser-reload = [
 django-crispy-forms = [
     {file = "django-crispy-forms-1.14.0.tar.gz", hash = "sha256:35887b8851a931374dd697207a8f56c57a9c5cb9dbf0b9fa54314da5666cea5b"},
     {file = "django_crispy_forms-1.14.0-py3-none-any.whl", hash = "sha256:bc4d2037f6de602d39c0bc452ac3029d1f5d65e88458872cc4dbc01c3a400604"},
+]
+django-debug-toolbar = [
+    {file = "django-debug-toolbar-3.7.0.tar.gz", hash = "sha256:1e3acad24e3d351ba45c6fa2072e4164820307332a776b16c9f06d1f89503465"},
+    {file = "django_debug_toolbar-3.7.0-py3-none-any.whl", hash = "sha256:80de23066b624d3970fd296cf02d61988e5d56c31aa0dc4a428970b46e2883a8"},
 ]
 django-environ = [
     {file = "django-environ-0.9.0.tar.gz", hash = "sha256:bff5381533056328c9ac02f71790bd5bf1cea81b1beeb648f28b81c9e83e0a21"},
