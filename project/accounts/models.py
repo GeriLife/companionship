@@ -49,6 +49,14 @@ class User(PermissionsMixin, AbstractBaseUser):
     )
     is_active = models.BooleanField(default=True)
 
+    @property
+    def is_care_circle_organizer(self):
+        user_is_care_circle_organizer = self.companions_through.filter(
+            is_organizer=True,
+        ).exists()
+
+        return user_is_care_circle_organizer
+
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
 
