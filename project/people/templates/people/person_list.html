@@ -6,10 +6,17 @@
 {% block content %}
 <h1>
     {% translate "People" %}
-    <a class="btn btn-primary btn-sm" href="{% url 'person-create' %}">
-        <i class="bi bi-plus-circle"></i>
-        {% translate "Add person" %}
-    </a>
+
+    {% comment %}
+    Only show 'add person' button when user has not added any person.
+    That way, users can only add one person max for now.
+    {% endcomment %}
+    {% if not user.is_care_circle_organizer %}
+        <a class="btn btn-primary btn-sm" href="{% url 'person-create' %}">
+            <i class="bi bi-plus-circle"></i>
+            {% translate "Add person" %}
+        </a>
+    {% endif %}
 </h1>
 
 <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2 g-4">

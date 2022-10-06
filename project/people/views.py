@@ -46,7 +46,7 @@ class CompanionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return user_can_remove_companion and request_person_id_matches_person_id
 
 
-class PersonCreateView(LoginRequiredMixin, CreateView):
+class PersonCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Person
     fields = [
         "name",
@@ -75,6 +75,19 @@ class PersonCreateView(LoginRequiredMixin, CreateView):
         companion.save()
 
         return HttpResponseRedirect(person.get_absolute_url())
+
+    def test_func(self) -> bool:
+        """
+        For now, users can only create at most one Person (a.k.a. care circle)
+
+        The limit is intended to reduce the liklihood of abuse while eventually
+        encouraging users to become supporters when that tier becomes available.
+
+        Here, we check whether a user is already a care circle organizer. If so,
+        they cannot add a new Person (care circle).
+        """
+
+        return not self.request.user.is_care_circle_organizer
 
 
 # First, ensure user is logged in, then make sure they pass test (are a companion)
