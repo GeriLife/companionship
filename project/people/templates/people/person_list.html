@@ -16,10 +16,10 @@
     {% for companion in user.companions_through.all %}
     <div class="col">
         <div class="card h-100">
-            {% if compaion.person.photo %}
+            {% if companion.person.photo %}
             <img
                 src="{{ companion.person.photo|thumbnail_url:'square_thumbnail_200' }}"
-                class="img-fluid rounded-start"
+                class="img-fluid rounded-top"
                 alt='{% translate "person photo" %}'
             />
             {% endif %}
