@@ -109,3 +109,55 @@ View the coverage report with the following command.
 ```sh
 coverage report
 ```
+
+## Troubleshooting
+
+### Resolving conflicts in `poetry.lock`
+
+Whenever there are simultaneous changes to our project dependencies, there is a high likelihood of conflicts in poetry.lock. This issue is not unique to our project and likely happens in every Poetry project with multiple developers.
+
+First sync your fork of the repository to keep it up-to-date with upstream.
+
+1. Checkout to the main branch
+
+```sh
+git checkout main
+```
+
+2. Update main
+
+```sh
+git pull
+```
+
+3. Checkout to your working branch
+
+```sh
+git checkout your-branch
+```
+
+4. Merge main branch into your working branch
+
+```sh
+git merge main
+```
+
+At this point, you may get a conflict in `poetry.lock`. Here are some of the methods you can use to resolve the conflict:
+
+#### Method-1
+
+In order to get `poetry.lock` to look like it does in `main`, you can do the following:
+
+```sh
+git checkout --theirs poetry.lock
+poetry lock --no-update
+```
+
+#### Method-2
+
+1. Delete the `poetry.lock` file
+2. Re-generate the `poetry.lock` file by running:
+
+```sh
+poetry lock
+```
