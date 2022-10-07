@@ -22,6 +22,7 @@ from django.views.generic.base import TemplateView
 media_urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = [
+    path("__debug__/", include("debug_toolbar.urls")),
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
@@ -29,4 +30,5 @@ urlpatterns = [
     path("caregivers/", include("caregivers.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
     path("people/", include("people.urls")),
+    path("__reload__/", include("django_browser_reload.urls")),
 ] + media_urlpatterns
