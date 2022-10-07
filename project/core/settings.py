@@ -212,3 +212,18 @@ DEBUG_TOOLBAR_PANELS = [
     "debug_toolbar.panels.redirects.RedirectsPanel",
     "debug_toolbar.panels.profiling.ProfilingPanel",
 ]
+
+# Rich terminal output configuration
+LOGGING = {
+    "formatters": {
+        "rich": {"datefmt": "[%X]"},
+    },
+    "console": {
+        "class": "rich.logging.RichHandler",
+        "filters": ["require_debug_true"],
+        "formatter": "rich",
+        "level": "DEBUG",
+        "rich_tracebacks": True,
+        "tracebacks_show_locals": True,
+    },
+}
