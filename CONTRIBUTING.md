@@ -22,6 +22,12 @@ Make sure you have installed the [Poetry](https://python-poetry.org/) package ma
 
 Please [sign our Contributor License Agreement](https://cla-assistant.io/CompanionshipCare/companionship-care) prior to submitting any code.
 
+### Choose an issue
+
+⚠️ Generally, we will not review pull requests unless they are associated with an issue that has been claimed by the author of the pull request.
+
+Before writing any code, please choose or open an issue. If an issue exists, add a comment to claim that issue. If no related issue exists, create one and claim it.
+
 ### Clone the code
 
 You can download or [clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) directly from GitHub, using a command line or [GitHub Desktop](https://desktop.github.com/).
