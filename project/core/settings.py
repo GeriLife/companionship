@@ -215,6 +215,7 @@ DEBUG_TOOLBAR_PANELS = [
 
 # Rich terminal output configuration
 LOGGING = {
+    "version": 1,
     "formatters": {
         "rich": {"datefmt": "[%X]"},
     },
