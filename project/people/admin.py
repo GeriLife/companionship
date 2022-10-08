@@ -15,6 +15,7 @@ class PersonModelAdmin(admin.ModelAdmin):
         CompanionInline,
     ]
 
+
 @admin.register(JoinRequest)
 class JoinRequestAdmin(admin.ModelAdmin):
     pass
