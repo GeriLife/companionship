@@ -14,3 +14,8 @@ class PersonModelAdmin(admin.ModelAdmin):
     inlines = [
         CompanionInline,
     ]
+
+
+@admin.register(JoinRequest)
+class JoinRequestAdmin(admin.ModelAdmin):
+    pass
