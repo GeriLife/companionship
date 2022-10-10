@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Companion, Person
+from .models import Companion, JoinRequest, Person
 
 
 class CompanionInline(admin.StackedInline):
