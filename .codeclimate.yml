@@ -1,4 +1,12 @@
+version: "2"
 plugins:
+  pep8:
+    enabled: true
+  radon:
+    enabled: true
+    channel: beta
+  markdownlint:
+    enabled: true
   sonar-python:
     enabled: true
     config:
@@ -6,5 +14,5 @@ plugins:
         - project/**/tests.py
 
 exclude_patterns:
-- "project/**/migrations/"
-- "project/**/tests.py"
+  - "project/**/migrations/"
+  - "project/**/tests.py"
