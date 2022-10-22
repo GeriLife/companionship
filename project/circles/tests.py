@@ -1,7 +1,8 @@
 from accounts.models import User
 from django.test import TestCase
 from django.urls import reverse
-from .models import Companion, Circle
+
+from .models import Circle, Companion
 
 
 class CircleCreateViewTest(TestCase):

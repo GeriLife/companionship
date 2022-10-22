@@ -1,11 +1,11 @@
 import datetime
 from enum import Enum
 
+from circles.models import Circle
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from circles.models import Circle
 
 User = get_user_model()
 

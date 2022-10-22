@@ -10,7 +10,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .models import Companion, JoinRequest, Circle
+from .models import Circle, Companion, JoinRequest
 
 
 class CompanionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

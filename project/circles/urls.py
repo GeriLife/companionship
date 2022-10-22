@@ -1,12 +1,12 @@
 from django.urls import path
 
 from .views import (
-    CompanionDeleteView,
-    JoinRequestUpdateView,
     CircleCreateView,
     CircleDetailView,
     CircleListView,
     CircleUpdateView,
+    CompanionDeleteView,
+    JoinRequestUpdateView,
     join_as_companion,
 )
 
