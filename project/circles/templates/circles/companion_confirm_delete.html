@@ -3,16 +3,16 @@
 {% load i18n %}
 
 {% block content %}
-<form method="post" class="form mt-2">{% csrf_token %}
-    <p>
-    {% blocktrans trimmed with companion=companion circle=companion.circle %}
-    Are you sure you want to remove the companion {{ companion }} from {{ circle }}?
-    {% endblocktrans %}
-    </p>
-    
-    {{ form }}
-    
-    <input class="btn btn-danger" type="submit" value='{% translate "Confirm" %}'>
-    <a href="{{ companion.circle.get_absolute_url }}" class="btn btn-success">{% translate "Cancel" %}</a>
-</form>
+    <form method="post" class="form mt-2">{% csrf_token %}
+        <p>
+            {% blocktrans trimmed with companion=companion circle=companion.circle %}
+                Are you sure you want to remove the companion {{ companion }} from {{ circle }}?
+            {% endblocktrans %}
+        </p>
+
+        {{ form }}
+
+        <input class="btn btn-danger" type="submit" value='{% translate "Confirm" %}'>
+        <a href="{{ companion.circle.get_absolute_url }}" class="btn btn-success">{% translate "Cancel" %}</a>
+    </form>
 {% endblock content %}

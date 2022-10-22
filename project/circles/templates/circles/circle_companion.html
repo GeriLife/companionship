@@ -19,11 +19,11 @@
     {% if user in circle.organizers %}
         <!-- circle (organizer) should not be able to remove self -->
         {% if user != companion.user %}
-            <a 
+            <a
                 href="{% url 'delete-companion' circle.id companion.id %}"
-                class="btn btn-sm btn-outline-danger rounded-circle" 
+                class="btn btn-sm btn-outline-danger rounded-circle"
                 title='{% translate "Remove companion" %}'>
-                
+
                 <i class="bi bi-dash"></i>
             </a>
         {% endif %}

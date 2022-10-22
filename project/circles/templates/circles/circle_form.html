@@ -9,19 +9,19 @@
     {% else %}
         <h1>{% translate "Add circle" %}</h1>
     {% endif %}
-    
+
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form | crispy }}
 
         {% if object %}
-        <button type="submit" class="btn btn-success">
-            {% translate "Update" %}
-        </button>
+            <button type="submit" class="btn btn-success">
+                {% translate "Update" %}
+            </button>
         {% else %}
-        <button type="submit" class="btn btn-success">
-            {% translate "Add" %}
-        </button>
+            <button type="submit" class="btn btn-success">
+                {% translate "Add" %}
+            </button>
         {% endif %}
     </form>
 {% endblock content %}
