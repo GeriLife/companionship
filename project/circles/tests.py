@@ -120,7 +120,9 @@ class CircleListViewTest(TestCase):
         self.assertRedirects(response, redirect_url)
 
     def test_authenticated_user_without_companion(self):
-        """Authenticated user without any companion should not see circles in the list"""
+        """
+        Authenticated user without any companion should not see circles in the list
+        """
         success_status_code = 200
         self.client.force_login(self.user_without_companion)
 
