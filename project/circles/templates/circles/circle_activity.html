@@ -17,7 +17,7 @@
                 {% endif %}
                 
                 <!-- organizer can add other eligible companions -->
-                {% if user in person.organizers %}
+                {% if user in circle.organizers %}
                     {% if activity.remaining_eligible_companions %}
                     <button
                         type="button"
@@ -53,7 +53,7 @@
 
                 {% if activity.participants.count %}
                     {% for participant in activity.participants.all %}
-                        {% if user in person.organizers %}
+                        {% if user in circle.organizers %}
                         <!-- group organizers can remove other participants -->
                         <form action="{% url 'activity-remove-participant' activity.id %}" method="post" style="display: inline;">
                             {% csrf_token %}
@@ -119,7 +119,7 @@
                                 <i class="bi bi-pencil"></i>
                                 {% translate 'Edit activity' %}
                             </button>
-                            {% if user in person.organizers %}
+                            {% if user in circle.organizers %}
                             <button 
                                 type="button"
                                 title="{% translate 'Delete activity' %}"
@@ -164,7 +164,7 @@
             <div class="modal-body">
                 <form action="{% url 'activity-update' activity.id %}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="person" value="{{ person.id }}">
+                    <input type="hidden" name="circle" value="{{ circle.id }}">
 
 
                     {{ add_activity_form.activity_type.label_tag }}

@@ -6,21 +6,21 @@
 {% block content %}
 
 <h1>
-    {{ person }}
+    {{ circle }}
 
-    {% if person.companionship_score %}
+    {% if circle.companionship_score %}
     <small>
         <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="{% translate 'Companionship score' %}">
-            {{ person.companionship_score }}
+            {{ circle.companionship_score }}
         </span>
     </small>
     {% endif %}
     
-    {% if user in person.organizers %}
+    {% if user in circle.organizers %}
     <a 
         class="btn btn-outline-primary btn-sm rounded-circle"
-        href="{% url 'person-update' person.id %}"
-        title="{% translate 'Edit person' %}">
+        href="{% url 'circle-update' circle.id %}"
+        title="{% translate 'Edit circle' %}">
         <i class="bi bi-pencil"></i>
     </a>
     {% endif %}
@@ -40,9 +40,9 @@
                 <i class="bi bi-plus-lg"></i>
             </button>
         </h2>
-        {% if person.upcoming_activities.count %}
-            {% for activity in person.upcoming_activities %}
-                {% include "people/person_activity.html" with activity=activity form=add_activity_form %}
+        {% if circle.upcoming_activities.count %}
+            {% for activity in circle.upcoming_activities %}
+                {% include "circles/circle_activity.html" with activity=activity form=add_activity_form %}
             {% endfor %}
         {% else %}
         <p>{% translate "No activities found." %}</p>
@@ -51,9 +51,9 @@
 
     <div class="col-md-5 mt-2">
         <!-- Person photo -->
-        {% if person.photo %}
+        {% if circle.photo %}
         <img
-            src="{{ person.photo|thumbnail_url:'square_thumbnail_400' }}"
+            src="{{ circle.photo|thumbnail_url:'square_thumbnail_400' }}"
             class="img-fluid img-thumbnail mb-3"
             alt='{% translate "Care group photo" %}' />
         {% endif %}
@@ -62,7 +62,7 @@
         <h2>
             <i class="bi bi-people"></i>
             {% translate "Companions" %}
-            {% if request.user in person.organizers.all %}
+            {% if request.user in circle.organizers.all %}
                 <button 
                     type="button"
                     class="btn btn-sm btn-outline-primary rounded-circle"
@@ -75,22 +75,22 @@
         </h2>
 
         <ul class="list-group mb-3">
-            {% for companion in person.annotated_companions %}
-                {% include "people/person_companion.html" %}
+            {% for companion in circle.annotated_companions %}
+                {% include "circles/circle_companion.html" %}
             {% endfor %}
         </ul>
 
         <!-- Applicants list -->
-        {% if user in person.organizers %}
-            {% if person.pending_join_requests.all %}
+        {% if user in circle.organizers %}
+            {% if circle.pending_join_requests.all %}
                 <h2>
                     <i class="bi bi-people"></i>
                     {% translate "Applicants" %}
                 </h2>
 
                 <ul class="list-group">
-                    {% for applicant in person.pending_join_requests.all %}
-                        {% include "people/person_applicant.html" %}
+                    {% for applicant in circle.pending_join_requests.all %}
+                        {% include "circles/circle_applicant.html" %}
                     {% endfor %}
                 </ul>
             {% endif %}
@@ -99,9 +99,9 @@
 </div>
 
 
-{% include "people/person_add_activity_modal.html" %}
+{% include "circles/circle_add_activity_modal.html" %}
 
-{% include "people/person_invite_companion_modal.html" %}
+{% include "circles/circle_invite_companion_modal.html" %}
 
 {% endblock content %}
 

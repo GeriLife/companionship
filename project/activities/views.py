@@ -9,20 +9,20 @@ from .models import Activity
 class ActivityCreateView(CreateView):
     model = Activity
     fields = [
-        "person",
+        "circle",
         "activity_type",
         "activity_date",
         "note",
     ]
 
     def get_success_url(self):
-        return reverse("person-detail", kwargs={"pk": self.object.person.id})
+        return reverse("circle-detail", kwargs={"pk": self.object.circle.id})
 
 
 class ActivityUpdateView(UpdateView):
     model = Activity
     fields = [
-        "person",
+        "circle",
         "activity_type",
         "activity_date",
         "note",
@@ -30,30 +30,30 @@ class ActivityUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse(
-            "person-detail",
-            kwargs={"pk": self.object.person.id},
+            "circle-detail",
+            kwargs={"pk": self.object.circle.id},
         )
 
 
 class ActivityDeleteView(UserPassesTestMixin, View):
     def test_func(self, *args, **kwargs):
-        """Only the Person's care organizers can delete activity"""
+        """Only the circle's care organizers can delete activity"""
         self.activity = Activity.objects.get(id=self.kwargs["activity_id"])
 
-        user_is_organizer = self.request.user in self.activity.person.organizers
+        user_is_organizer = self.request.user in self.activity.circle.organizers
 
         user_can_delete_activity = user_is_organizer
 
         return user_can_delete_activity
 
     def post(self, request, *args, **kwargs):
-        person_id = self.activity.person.id
+        circle_id = self.activity.circle.id
         self.activity.delete()
 
         return redirect(
             reverse(
-                "person-detail",
-                kwargs={"pk": person_id},
+                "circle-detail",
+                kwargs={"pk": circle_id},
             )
         )
 
@@ -67,8 +67,8 @@ class ActivityAddParticipantView(View):
 
         return redirect(
             reverse(
-                "person-detail",
-                kwargs={"pk": activity.person.id},
+                "circle-detail",
+                kwargs={"pk": activity.circle.id},
             )
         )
 
@@ -82,19 +82,19 @@ class ActivityRemoveParticipantView(View):
 
         return redirect(
             reverse(
-                "person-detail",
-                kwargs={"pk": activity.person.id},
+                "circle-detail",
+                kwargs={"pk": activity.circle.id},
             )
         )
 
 
 class ActivitySetDoneView(UserPassesTestMixin, View):
     def test_func(self, *args, **kwargs):
-        """Only activity participants or Person's care organizers can update activity"""
+        """Only activity participants or circle's care organizers can update activity"""
         self.activity = Activity.objects.get(id=self.kwargs["activity_id"])
 
         user_is_participant = self.request.user in self.activity.participants.all()
-        user_is_organizer = self.request.user in self.activity.person.organizers
+        user_is_organizer = self.request.user in self.activity.circle.organizers
 
         user_can_update_activity = user_is_participant or user_is_organizer
 
@@ -109,7 +109,7 @@ class ActivitySetDoneView(UserPassesTestMixin, View):
 
         return redirect(
             reverse(
-                "person-detail",
-                kwargs={"pk": self.activity.person.id},
+                "circle-detail",
+                kwargs={"pk": self.activity.circle.id},
             )
         )

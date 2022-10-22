@@ -53,8 +53,8 @@ msgid "User profile"
 msgstr ""
 
 #: accounts/templates/accounts/profile.html:15
-#: people/templates/people/person_activity.html:178
-#: people/templates/people/person_activity.html:210
+#: circles/templates/circles/circle_activity.html:178
+#: circles/templates/circles/circle_activity.html:210
 msgid "Save"
 msgstr ""
 
@@ -140,226 +140,226 @@ msgstr ""
 msgid "Finnish"
 msgstr ""
 
-#: people/models.py:21
-msgid "people"
+#: circles/models.py:21
+msgid "circles"
 msgstr ""
 
-#: people/models.py:115
+#: circles/models.py:115
 msgid "Pending"
 msgstr ""
 
-#: people/models.py:116
+#: circles/models.py:116
 msgid "Approved"
 msgstr ""
 
-#: people/models.py:117
+#: circles/models.py:117
 msgid "Rejected"
 msgstr ""
 
-#: people/templates/people/companion_confirm_delete.html:8
+#: circles/templates/circles/companion_confirm_delete.html:8
 #, python-format
 msgid ""
-"Are you sure you want to remove the companion %(companion)s from %(person)s?"
+"Are you sure you want to remove the companion %(companion)s from %(circle)s?"
 msgstr ""
 
-#: people/templates/people/companion_confirm_delete.html:15
+#: circles/templates/circles/companion_confirm_delete.html:15
 msgid "Confirm"
 msgstr ""
 
-#: people/templates/people/companion_confirm_delete.html:16
-#: people/templates/people/person_join.html:16
+#: circles/templates/circles/companion_confirm_delete.html:16
+#: circles/templates/circles/circle_join.html:16
 msgid "Cancel"
 msgstr ""
 
-#: people/templates/people/person_activity.html:24
-#: people/templates/people/person_activity.html:31
-#: people/templates/people/person_form.html:23
+#: circles/templates/circles/circle_activity.html:24
+#: circles/templates/circles/circle_activity.html:31
+#: circles/templates/circles/circle_form.html:23
 msgid "Add"
 msgstr ""
 
-#: people/templates/people/person_activity.html:43
+#: circles/templates/circles/circle_activity.html:43
 msgid "Participate"
 msgstr ""
 
-#: people/templates/people/person_activity.html:48
+#: circles/templates/circles/circle_activity.html:48
 msgid "Join"
 msgstr ""
 
-#: people/templates/people/person_activity.html:63
-#: people/templates/people/person_activity.html:78
+#: circles/templates/circles/circle_activity.html:63
+#: circles/templates/circles/circle_activity.html:78
 msgid "Remove participant"
 msgstr ""
 
-#: people/templates/people/person_activity.html:96
+#: circles/templates/circles/circle_activity.html:96
 msgid "No participants"
 msgstr ""
 
-#: people/templates/people/person_activity.html:103
-#: people/templates/people/person_activity.html:132
+#: circles/templates/circles/circle_activity.html:103
+#: circles/templates/circles/circle_activity.html:132
 msgid "Edit activity"
 msgstr ""
 
-#: people/templates/people/person_activity.html:114
+#: circles/templates/circles/circle_activity.html:114
 msgid "Mark activity as complete"
 msgstr ""
 
-#: people/templates/people/person_activity.html:119
+#: circles/templates/circles/circle_activity.html:119
 msgid "Done"
 msgstr ""
 
-#: people/templates/people/person_activity.html:135
-#: people/templates/people/person_activity.html:196
-#: people/templates/people/person_add_activity_modal.html:12
-#: people/templates/people/person_invite_companion_modal.html:11
+#: circles/templates/circles/circle_activity.html:135
+#: circles/templates/circles/circle_activity.html:196
+#: circles/templates/circles/circle_add_activity_modal.html:12
+#: circles/templates/circles/circle_invite_companion_modal.html:11
 msgid "Close"
 msgstr ""
 
-#: people/templates/people/person_activity.html:144
+#: circles/templates/circles/circle_activity.html:144
 msgid "Activity type select"
 msgstr ""
 
-#: people/templates/people/person_activity.html:193
+#: circles/templates/circles/circle_activity.html:193
 msgid "Add participant"
 msgstr ""
 
-#: people/templates/people/person_activity.html:201
+#: circles/templates/circles/circle_activity.html:201
 msgid "Participant select"
 msgstr ""
 
-#: people/templates/people/person_add_activity_modal.html:10
-#: people/templates/people/person_detail.html:39
+#: circles/templates/circles/circle_add_activity_modal.html:10
+#: circles/templates/circles/circle_detail.html:39
 msgid "Add activity"
 msgstr ""
 
-#: people/templates/people/person_add_activity_modal.html:21
+#: circles/templates/circles/circle_add_activity_modal.html:21
 msgid "Submit"
 msgstr ""
 
-#: people/templates/people/person_applicant.html:10
+#: circles/templates/circles/circle_applicant.html:10
 #, python-format
 msgid "Last seen %(last_login_timesince)s ago"
 msgstr ""
 
-#: people/templates/people/person_applicant.html:14
+#: circles/templates/circles/circle_applicant.html:14
 msgid "Not yet seen"
 msgstr ""
 
-#: people/templates/people/person_companion.html:5
-#: people/templates/people/person_detail.html:13
+#: circles/templates/circles/circle_companion.html:5
+#: circles/templates/circles/circle_detail.html:13
 msgid "Companionship score"
 msgstr ""
 
-#: people/templates/people/person_companion.html:14
+#: circles/templates/circles/circle_companion.html:14
 msgid "Group coordinator"
 msgstr ""
 
-#: people/templates/people/person_companion.html:25
+#: circles/templates/circles/circle_companion.html:25
 msgid "Remove companion"
 msgstr ""
 
-#: people/templates/people/person_detail.html:24
-#: people/templates/people/person_form.html:8
-msgid "Edit person"
+#: circles/templates/circles/circle_detail.html:24
+#: circles/templates/circles/circle_form.html:8
+msgid "Edit circle"
 msgstr ""
 
-#: people/templates/people/person_detail.html:33
+#: circles/templates/circles/circle_detail.html:33
 msgid "Upcoming activities"
 msgstr ""
 
-#: people/templates/people/person_detail.html:48
+#: circles/templates/circles/circle_detail.html:48
 msgid "No activities found."
 msgstr ""
 
-#: people/templates/people/person_detail.html:57
+#: circles/templates/circles/circle_detail.html:57
 msgid "Care group photo"
 msgstr ""
 
-#: people/templates/people/person_detail.html:62
+#: circles/templates/circles/circle_detail.html:62
 msgid "Companions"
 msgstr ""
 
-#: people/templates/people/person_detail.html:69
+#: circles/templates/circles/circle_detail.html:69
 msgid "Add Companion"
 msgstr ""
 
-#: people/templates/people/person_detail.html:86
+#: circles/templates/circles/circle_detail.html:86
 msgid "Applicants"
 msgstr ""
 
-#: people/templates/people/person_form.html:10
-#: people/templates/people/person_list.html:11
-msgid "Add person"
+#: circles/templates/circles/circle_form.html:10
+#: circles/templates/circles/circle_list.html:11
+msgid "Add circle"
 msgstr ""
 
-#: people/templates/people/person_form.html:19
+#: circles/templates/circles/circle_form.html:19
 msgid "Update"
 msgstr ""
 
-#: people/templates/people/person_invite_companion_modal.html:9
+#: circles/templates/circles/circle_invite_companion_modal.html:9
 msgid "Add companion"
 msgstr ""
 
-#: people/templates/people/person_invite_companion_modal.html:15
+#: circles/templates/circles/circle_invite_companion_modal.html:15
 msgid "Invite a new companion by following the steps below."
 msgstr ""
 
-#: people/templates/people/person_invite_companion_modal.html:19
+#: circles/templates/circles/circle_invite_companion_modal.html:19
 msgid "Copy the invitation link below."
 msgstr ""
 
-#: people/templates/people/person_invite_companion_modal.html:22
+#: circles/templates/circles/circle_invite_companion_modal.html:22
 msgid "Send the invitation link to the desired companion."
 msgstr ""
 
-#: people/templates/people/person_invite_companion_modal.html:25
+#: circles/templates/circles/circle_invite_companion_modal.html:25
 msgid "Approve their companionship request once they follow the link."
 msgstr ""
 
-#: people/templates/people/person_invite_companion_modal.html:30
+#: circles/templates/circles/circle_invite_companion_modal.html:30
 msgid "Invitation link"
 msgstr ""
 
-#: people/templates/people/person_invite_companion_modal.html:32
+#: circles/templates/circles/circle_invite_companion_modal.html:32
 msgid "Copy"
 msgstr ""
 
-#: people/templates/people/person_join.html:7
+#: circles/templates/circles/circle_join.html:7
 msgid "Join as companion"
 msgstr ""
 
-#: people/templates/people/person_join.html:13
+#: circles/templates/circles/circle_join.html:13
 msgid "Request to join as companion"
 msgstr ""
 
-#: people/templates/people/person_join_received.html:7
+#: circles/templates/circles/circle_join_received.html:7
 msgid "Join request received"
 msgstr ""
 
-#: people/templates/people/person_join_received.html:10
+#: circles/templates/circles/circle_join_received.html:10
 msgid ""
 "To protect privacy, the care coordinator will review your request as soon as "
 "possible."
 msgstr ""
 
-#: people/templates/people/person_join_received.html:13
+#: circles/templates/circles/circle_join_received.html:13
 msgid ""
 "Please contact the care coordinator directly, if you have any questions."
 msgstr ""
 
-#: people/templates/people/person_list.html:8 templates/navigation.html:16
-msgid "People"
+#: circles/templates/circles/circle_list.html:8 templates/navigation.html:16
+msgid "Circles"
 msgstr ""
 
-#: people/templates/people/person_list.html:22
-msgid "person photo"
+#: circles/templates/circles/circle_list.html:22
+msgid "circle photo"
 msgstr ""
 
-#: people/templates/people/person_list.html:27
+#: circles/templates/circles/circle_list.html:27
 msgid "View"
 msgstr ""
 
-#: people/views.py:149
-msgid "Could not find person at the requested URL"
+#: circles/views.py:149
+msgid "Could not find circle at the requested URL"
 msgstr ""
 
 #: templates/home.html:3

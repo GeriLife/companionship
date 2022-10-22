@@ -10,7 +10,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .models import Companion, JoinRequest, Person
+from .models import Companion, JoinRequest, Circle
 
 
 class CompanionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -18,36 +18,36 @@ class CompanionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     context_object_name = "companion"
 
     def get_success_url(self):
-        return reverse("person-detail", kwargs={"pk": self.object.person.id})
+        return reverse("circle-detail", kwargs={"pk": self.object.circle.id})
 
     def test_func(self):
         """
-        Only care organizer can remove companions for the related person
+        Only care organizer can remove companions for the related circle
 
-        Also, make sure the Person ID in the URL path matches the
-        Person ID from the Companion object.This is to encourage
-        that the requesting user knows the correct Person ID,
+        Also, make sure the Circle ID in the URL path matches the
+        Circle ID from the Companion object.This is to encourage
+        that the requesting user knows the correct Circle ID,
         since Companion PKs are sequential.
         """
-        request_person_id = self.kwargs["person_id"]
+        request_circle_id = self.kwargs["circle_id"]
 
         companion = self.get_object()
 
-        person = companion.person
+        circle = companion.circle
 
         user = self.request.user
 
         # Tests
         # TODO: determine if there is a more idiomatic way
-        # to validate the request person_id
-        user_can_remove_companion = user in person.organizers
-        request_person_id_matches_person_id = request_person_id == str(person.id)
+        # to validate the request circle_id
+        user_can_remove_companion = user in circle.organizers
+        request_circle_id_matches_circle_id = request_circle_id == str(circle.id)
 
-        return user_can_remove_companion and request_person_id_matches_person_id
+        return user_can_remove_companion and request_circle_id_matches_circle_id
 
 
-class PersonCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
-    model = Person
+class CircleCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Circle
     fields = [
         "name",
         "photo",
@@ -61,61 +61,61 @@ class PersonCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return form
 
     def form_valid(self, form):
-        # Save person
+        # Save circle
         # so we can add request user as coordinator
-        person = form.save()
+        circle = form.save()
 
-        # Add user who creates a person as organizer
+        # Add user who creates a circle as organizer
         companion = Companion(
-            person=person,
+            circle=circle,
             user=self.request.user,
             is_organizer=True,
         )
 
         companion.save()
 
-        return HttpResponseRedirect(person.get_absolute_url())
+        return HttpResponseRedirect(circle.get_absolute_url())
 
     def test_func(self) -> bool:
         """
-        For now, users can only create at most one Person (a.k.a. care circle)
+        For now, users can only create at most one Circle (a.k.a. care circle)
 
         The limit is intended to reduce the liklihood of abuse while eventually
         encouraging users to become supporters when that tier becomes available.
 
         Here, we check whether a user is already a care circle organizer. If so,
-        they cannot add a new Person (care circle).
+        they cannot add a new Circle (care circle).
         """
 
         return not self.request.user.is_care_circle_organizer
 
 
 # First, ensure user is logged in, then make sure they pass test (are a companion)
-class PersonDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
-    model = Person
-    context_object_name = "person"
-    template_name = "people/person_detail.html"
+class CircleDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Circle
+    context_object_name = "circle"
+    template_name = "circles/circle_detail.html"
 
     def test_func(self, *args, **kwargs):
-        """Only companions (and organizers) can access the person detail view"""
-        person = Person.objects.get(id=self.kwargs["pk"])
+        """Only companions (and organizers) can access the circle detail view"""
+        circle = Circle.objects.get(id=self.kwargs["pk"])
         user = self.request.user
 
-        # Check whether user is person's companion
-        user_can_access_person = user in person.companions
+        # Check whether user is circle's companion
+        user_can_access_circle = user in circle.companions
 
-        return user_can_access_person
+        return user_can_access_circle
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         """
-        {{ request.get_host }}{% url 'person-join' person.id %}
+        {{ request.get_host }}{% url 'circle-join' circle.id %}
         """
 
         # Create companion invitation URL
-        person_id = context["person"].id
-        invitation_path = reverse("person-join", kwargs={"person_id": person_id})
+        circle_id = context["circle"].id
+        invitation_path = reverse("circle-join", kwargs={"circle_id": circle_id})
         invitation_url = self.request.build_absolute_uri(invitation_path)
 
         context["invitation_url"] = invitation_url
@@ -125,27 +125,27 @@ class PersonDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         return context
 
 
-class PersonListView(LoginRequiredMixin, TemplateView):
-    template_name = "people/person_list.html"
+class CircleListView(LoginRequiredMixin, TemplateView):
+    template_name = "circles/circle_list.html"
 
 
 # First, ensure user is logged in, then make sure they pass test (are an organizer)
-class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Person
+class CircleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Circle
     fields = [
         "name",
         "photo",
     ]
 
     def test_func(self, *args, **kwargs):
-        """Only organizers can update the person's details"""
-        person = Person.objects.get(id=self.kwargs["pk"])
+        """Only organizers can update the circle's details"""
+        circle = Circle.objects.get(id=self.kwargs["pk"])
         user = self.request.user
 
-        # Check whether user is person's care organizer
-        user_can_update_person = user in person.organizers
+        # Check whether user is circle's care organizer
+        user_can_update_circle = user in circle.organizers
 
-        return user_can_update_person
+        return user_can_update_circle
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -155,63 +155,63 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return form
 
 
-def join_as_companion(request, person_id):
+def join_as_companion(request, circle_id):
     if request.user.is_authenticated:
-        # Ensure person exists
+        # Ensure circle exists
         try:
-            person = Person.objects.get(pk=person_id)
-        except Person.DoesNotExist:
-            message = _("Could not find person at the requested URL")
+            circle = Circle.objects.get(pk=circle_id)
+        except Circle.DoesNotExist:
+            message = _("Could not find circle at the requested URL")
             raise Http404(message)
 
-        # Redirect to person page if user is already a companion
+        # Redirect to circle page if user is already a companion
         if Companion.objects.filter(
-            person=person_id,
+            circle=circle_id,
             user=request.user,
         ).exists():
-            return redirect(person)
+            return redirect(circle)
 
         # Show "request received" if user has already submitted a join request
         if JoinRequest.objects.filter(
-            person=person_id,
+            circle=circle_id,
             user=request.user,
         ).exists():
-            return render(request, "people/person_join_received.html")
+            return render(request, "circles/circle_join_received.html")
 
         # Handle join request
         if request.method == "POST":
             join_request = JoinRequest(
-                person=person,
+                circle=circle,
                 user=request.user,
             )
 
             join_request.save()
 
-            return render(request, "people/person_join_received.html")
+            return render(request, "circles/circle_join_received.html")
 
         # Show join form by default
-        return render(request, "people/person_join.html")
+        return render(request, "circles/circle_join.html")
     else:
         # Show login/register buttons by default
-        return render(request, "people/login_register.html")
+        return render(request, "circles/login_register.html")
 
 
 class JoinRequestUpdateView(View):
-    def get(self, request, person_id, join_request_id, *args, **kwargs):
-        person = Person.objects.get(id=person_id)
+    def get(self, request, circle_id, join_request_id, *args, **kwargs):
+        circle = Circle.objects.get(id=circle_id)
 
         # Only organizer can update join requests
-        if request.user not in person.organizers:
+        if request.user not in circle.organizers:
             raise PermissionDenied()
         else:
-            join_request = JoinRequest.objects.get(id=join_request_id, person=person)
+            join_request = JoinRequest.objects.get(id=join_request_id, circle=circle)
 
             join_request_status = request.GET["status"]
 
-            # If approved, add join request user as companion to person
+            # If approved, add join request user as companion to circle
             if join_request_status == "APPROVED":
                 companion = Companion(
-                    person=person,
+                    circle=circle,
                     user=join_request.user,
                 )
                 companion.save()
@@ -219,4 +219,4 @@ class JoinRequestUpdateView(View):
             # Always delete the join request once it has been handled by the organizer
             join_request.delete()
 
-            return redirect(person)
+            return redirect(circle)

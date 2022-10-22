@@ -5,16 +5,16 @@
 
 {% block content %}
 <h1>
-    {% translate "People" %}
+    {% translate "Circles" %}
 
     {% comment %}
-    Only show 'add person' button when user has not added any person.
-    That way, users can only add one person max for now.
+    Only show 'add circle' button when user has not added any circle.
+    That way, users can only add one circle max for now.
     {% endcomment %}
     {% if not user.is_care_circle_organizer %}
-        <a class="btn btn-primary btn-sm" href="{% url 'person-create' %}">
+        <a class="btn btn-primary btn-sm" href="{% url 'circle-create' %}">
             <i class="bi bi-plus-circle"></i>
-            {% translate "Add person" %}
+            {% translate "Add circle" %}
         </a>
     {% endif %}
 </h1>
@@ -23,16 +23,16 @@
     {% for companion in user.companions_through.all %}
     <div class="col">
         <div class="card h-100">
-            {% if companion.person.photo %}
+            {% if companion.circle.photo %}
             <img
-                src="{{ companion.person.photo|thumbnail_url:'square_thumbnail_200' }}"
+                src="{{ companion.circle.photo|thumbnail_url:'square_thumbnail_200' }}"
                 class="img-fluid rounded-top"
-                alt='{% translate "person photo" %}'
+                alt='{% translate "circle photo" %}'
             />
             {% endif %}
             <div class="card-body">
-                <h2 class="card-title">{{ companion.person }}</h2>
-                <a href="{% url 'person-detail' companion.person.id %}" class="btn btn-primary stretched-link">
+                <h2 class="card-title">{{ companion.circle }}</h2>
+                <a href="{% url 'circle-detail' companion.circle.id %}" class="btn btn-primary stretched-link">
                     {% translate "View" %}
                 </a>
             </div>

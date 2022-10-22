@@ -14,7 +14,7 @@
             <div class="modal-body">
                 <form action="{% url 'activity-create' %}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="person" value="{{ person.id }}">
+                    <input type="hidden" name="circle" value="{{ circle.id }}">
                     {{ add_activity_form.activity_type|as_crispy_field }}
                     {{ add_activity_form.activity_date|as_crispy_field }}
                     {{ add_activity_form.note|as_crispy_field }}

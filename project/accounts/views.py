@@ -8,7 +8,7 @@ from .forms import CustomUserCreationForm, UpdateUserForm
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy("person-list")
+    success_url = reverse_lazy("circle-list")
     template_name = "registration/signup.html"
 
     def get_context_data(self, **kwargs):

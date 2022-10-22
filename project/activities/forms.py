@@ -7,7 +7,7 @@ class ActivityModelForm(forms.ModelForm):
     class Meta:
         model = Activity
         fields = [
-            "person",
+            "circle",
             "activity_type",
             "activity_date",
             "note",
