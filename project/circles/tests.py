@@ -66,7 +66,7 @@ class CircleDetailViewTest(TestCase):
 
         response = self.client.get(self.circle_without_companion_detail_url)
 
-        self.assertEqual(response.status_code, HTTPStatus.UNAUTHORIZED)
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
 
     def test_authenticated_companion_access(self):
         """Authenticated user should be able to access

@@ -30,7 +30,7 @@ class ActivityCreateViewTest(TestCase):
         """GET request should not be allowed"""
         response = self.client.get(reverse("activity-create"))
 
-        self.assertEquals(response.status_code, HTTPStatus.FORBIDDEN)
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
 
     def test_anonymous_access(self):
         """Anonymous user should not be authorized"""
@@ -39,4 +39,4 @@ class ActivityCreateViewTest(TestCase):
             follow=True,
         )
 
-        self.assertEquals(response.status_code, HTTPStatus.FORBIDDEN)
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
