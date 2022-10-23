@@ -1,8 +1,7 @@
-from django.test import TestCase
-from django.contrib.auth import get_user_model
-from django.urls import reverse
-
 from circles.models import Circle, Companion
+from django.contrib.auth import get_user_model
+from django.test import TestCase
+from django.urls import reverse
 
 
 class ActivityCreateViewTest(TestCase):
@@ -27,8 +26,6 @@ class ActivityCreateViewTest(TestCase):
 
     def test_get_http_method_should_fail(self):
         """GET request should not be allowed"""
-        redirect_url = "/accounts/login/?next=/circles/create"
-
         response = self.client.get(reverse("activity-create"))
 
         # Should get HTTP 405 Method Not Allowed

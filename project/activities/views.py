@@ -1,10 +1,9 @@
+from circles.models import Circle
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import View
-
-from circles.models import Circle
 
 from .forms import ActivityModelForm
 from .models import Activity
