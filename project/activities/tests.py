@@ -355,6 +355,115 @@ class ActivityAddParticipantViewTest(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
 
 
+class ActivityRemoveParticipantViewTest(TestCase):
+    def setUp(self):
+        self.organizer = User.objects.create_user("test_one@user.com", "test12345")
+        self.companion = User.objects.create_user("test_two@user.com", "test12345")
+        self.user_three = User.objects.create_user("test_three@user.com", "test12345")
+
+        self.circle = Circle.objects.create(name="Test circle")
+
+        Companion.objects.create(
+            circle=self.circle,
+            user=self.organizer,
+            is_organizer=True,
+        )
+        Companion.objects.create(
+            circle=self.circle,
+            user=self.companion,
+        )
+
+        self.activity = Activity.objects.create(
+            activity_type=Activity.ActivityTypeChoices.APPOINTMENT,
+            activity_date="2022-10-23",
+            circle=self.circle,
+        )
+
+    def test_get_http_method_should_fail(self):
+        """GET request should not be allowed"""
+
+        response = self.client.get(
+            reverse(
+                "activity-remove-participant",
+                kwargs={
+                    "activity_id": self.activity.id,
+                },
+            ),
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+    def test_anonymous_access(self):
+        """Anonymous user should not be authorized"""
+        response = self.client.post(
+            reverse(
+                "activity-remove-participant",
+                kwargs={
+                    "activity_id": self.activity.id,
+                },
+            ),
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+    def test_authenticated_non_companion_activity_remove_self(self):
+        """Authenticated user who is not companion should not be able to remove self"""
+        self.client.force_login(self.user_three)
+
+        response = self.client.post(
+            reverse(
+                "activity-remove-participant",
+                kwargs={
+                    "activity_id": self.activity.id,
+                },
+            ),
+            {
+                "user_id": self.user_three.id,
+            },
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+    def test_companion_activity_remove_self(self):
+        """
+        Authenticated user who is companion to the related circle
+        should be able to remove self
+        """
+        self.client.force_login(self.companion)
+
+        response = self.client.post(
+            reverse(
+                "activity-remove-participant",
+                kwargs={
+                    "activity_id": self.activity.id,
+                },
+            ),
+            {
+                "user_id": self.companion.id,
+            },
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+    def test_authenticated_organizer_activity_remove_other(self):
+        """Authenticated user who is organizer should be able to remove other user"""
+        self.client.force_login(self.organizer)
+
+        response = self.client.post(
+            reverse(
+                "activity-remove-participant",
+                kwargs={
+                    "activity_id": self.activity.id,
+                },
+            ),
+            {
+                "user_id": self.organizer.id,
+            },
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+
 class ActivityModelTest(TestCase):
     def setUp(self):
 
