@@ -21,7 +21,6 @@ django-browser-reload = "^1.6.0"
 flake8 = "^4.0.1"
 pyproject-flake8 = "^4.0.1"
 isort = "^5.10.1"
-black = "^22.10.0"
 
 [tool.poetry.group.dev.dependencies]
 coverage = "^6.4.4"
@@ -29,6 +28,7 @@ ipython = "^8.5.0"
 django-debug-toolbar = "^3.7.0"
 django-linear-migrations = "^2.5.1"
 rich = "^12.6.0"
+black = "^22.10.0"
 
 [tool.coverage]
 run.omit = ["project/manage.py", "project/core/*", "project/**/tests.py", "project/**/migrations/*",]
