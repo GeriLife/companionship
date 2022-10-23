@@ -128,7 +128,7 @@ class ActivityAddParticipantView(UserPassesTestMixin, LoginRequiredMixin, View):
             user_is_companion = self.request.user in activity.circle.companions
 
             user_id = self.request.POST.get("user_id", None)
-            user_is_adding_self = int(user_id) == self.request.user.id
+            user_is_adding_self = user_id == str(self.request.user.id)
 
             user_can_add_participant = user_is_organizer or (
                 user_is_companion and user_is_adding_self
@@ -166,7 +166,7 @@ class ActivityRemoveParticipantView(UserPassesTestMixin, LoginRequiredMixin, Vie
             user_is_organizer = self.request.user in activity.circle.organizers
 
             user_id = self.request.POST.get("user_id", None)
-            user_is_removing_self = int(user_id) == self.request.user.id
+            user_is_removing_self = user_id == str(self.request.user.id)
 
             user_can_remove_participant = user_is_organizer or user_is_removing_self
 
