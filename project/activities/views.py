@@ -119,6 +119,7 @@ class ActivityAddParticipantView(UserPassesTestMixin, LoginRequiredMixin, View):
         Only the circle's care organizers can add other companions to activity.
         Only the circle's companions can add themselves to an activity.
         """
+
         activity_id = self.kwargs.get("activity_id", None)
 
         if activity_id:
@@ -157,11 +158,18 @@ class ActivityRemoveParticipantView(UserPassesTestMixin, LoginRequiredMixin, Vie
         """
         Only the circle's care organizers can remove other companions from activity.
         Only the circle's companions can remove themselves from an activity.
+        Non-companions or anonymous users should not be able to remove themselves,
+        although they wouldn't be added in the first place.
         """
         activity_id = self.kwargs.get("activity_id", None)
 
         if activity_id:
             activity = Activity.objects.get(id=activity_id)
+
+            user_is_not_companion = self.request.user not in activity.circle.companions
+
+            if user_is_not_companion:
+                return False
 
             user_is_organizer = self.request.user in activity.circle.organizers
 
