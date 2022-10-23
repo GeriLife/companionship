@@ -12,7 +12,14 @@ User = get_user_model()
 
 class ActivityCreateViewTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user("test@user.com", "test12345")
+        self.user = User.objects.create_user(
+            "test@user.com",
+            "test12345",
+        )
+        self.user_without_circle = User.objects.create_user(
+            "test_two@user.com",
+            "test12345",
+        )
         self.circle_without_companion = Circle.objects.create(
             name="Non-companion circle"
         )
@@ -44,6 +51,38 @@ class ActivityCreateViewTest(TestCase):
         )
 
         self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+    def test_authenticated_non_companion_activity_create(self):
+        """Authenticated user who is not companion should not be authorized"""
+        self.client.force_login(self.user_without_circle)
+
+        response = self.client.post(
+            reverse("activity-create"),
+            {
+                "activity_type": Activity.ActivityTypeChoices.APPOINTMENT,
+                "activity_date": "2022-10-23",
+                "circle": self.circle_with_companion.id,
+            },
+            follow=True,
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+    def test_authenticated_companion_activity_create(self):
+        """Authenticated user who is not companion should not be authorized"""
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            reverse("activity-create"),
+            {
+                "activity_type": Activity.ActivityTypeChoices.APPOINTMENT,
+                "activity_date": "2022-10-23",
+                "circle": self.circle_with_companion.id,
+            },
+            follow=True,
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
 
 class ActivityModelTest(TestCase):
