@@ -24,10 +24,6 @@ class ActivityCreateViewTest(TestCase):
             name="Non-companion circle"
         )
 
-        self.circle_without_companion_detail_url = reverse(
-            "circle-detail", kwargs={"pk": self.circle_without_companion.id}
-        )
-
         # This circle will have the user as a companion
         self.circle_with_companion = Circle.objects.create(name="Companion circle")
         self.companionship_through = Companion.objects.create(
@@ -94,9 +90,6 @@ class ActivityUpdateViewTest(TestCase):
         self.user_without_circle = User.objects.create_user(
             "test_two@user.com",
             "test12345",
-        )
-        self.circle_without_companion = Circle.objects.create(
-            name="Non-companion circle"
         )
 
         # This circle will have the user as a companion
@@ -188,9 +181,6 @@ class ActivityDeleteViewTest(TestCase):
         self.user_without_circle = User.objects.create_user(
             "test_two@user.com",
             "test12345",
-        )
-        self.circle_without_companion = Circle.objects.create(
-            name="Non-companion circle"
         )
 
         # This circle will have the user as a companion
