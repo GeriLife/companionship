@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class PeopleConfig(AppConfig):
+class CirclesConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "people"
+    name = "circles"

@@ -1,11 +1,11 @@
 import datetime
 from enum import Enum
 
+from circles.models import Circle
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from people.models import Person
 
 User = get_user_model()
 
@@ -48,8 +48,8 @@ class Activity(models.Model):
         blank=True,
     )
 
-    person = models.ForeignKey(
-        to=Person,
+    circle = models.ForeignKey(
+        to=Circle,
         related_name="activities",
         on_delete=models.CASCADE,
         null=True,
@@ -78,9 +78,9 @@ class Activity(models.Model):
 
     @property
     def remaining_eligible_companions(self):
-        """Return a QuerySet of the person's companions who are not already activity participants."""  # noqa: E501
+        """Return a QuerySet of the circle's companions who are not already activity participants."""  # noqa: E501
         # Only care group members are eligible to participate
-        companions = self.person.companions
+        companions = self.circle.companions
 
         # Get current activity participants
         current_participants = self.participants.all()

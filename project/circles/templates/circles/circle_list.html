@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load thumbnail %}
+
+{% block content %}
+    <h1>
+        {% translate "Circles" %}
+
+        {% comment %}
+    Only show 'add circle' button when user has not added any circle.
+    That way, users can only add one circle max for now.
+    {% endcomment %}
+        {% if not user.is_care_circle_organizer %}
+            <a class="btn btn-primary btn-sm" href="{% url 'circle-create' %}">
+                <i class="bi bi-plus-circle"></i>
+                {% translate "Add circle" %}
+            </a>
+        {% endif %}
+    </h1>
+
+    <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2 g-4">
+        {% for companion in user.companions_through.all %}
+            <div class="col">
+                <div class="card h-100">
+                    {% if companion.circle.photo %}
+                        <img
+                            src="{{ companion.circle.photo|thumbnail_url:'square_thumbnail_200' }}"
+                            class="img-fluid rounded-top"
+                            alt='{% translate "circle photo" %}'
+                        />
+                    {% endif %}
+                    <div class="card-body">
+                        <h2 class="card-title">{{ companion.circle }}</h2>
+                        <a href="{% url 'circle-detail' companion.circle.id %}" class="btn btn-primary stretched-link">
+                            {% translate "View" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock content %}

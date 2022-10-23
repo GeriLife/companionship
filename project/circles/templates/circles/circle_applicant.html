@@ -17,10 +17,10 @@
     </div>
     <div class="d-flex flex-column align-self-center">
         <div>
-            <a href="{% url 'update-join-request' person.id applicant.id %}?status=APPROVED" class="btn btn-outline-primary">
+            <a href="{% url 'update-join-request' circle.id applicant.id %}?status=APPROVED" class="btn btn-outline-primary">
                 <i class="bi bi-check"></i>
             </a>
-            <a href="{% url 'update-join-request' person.id applicant.id %}?status=DENIED" class="btn btn-outline-danger">
+            <a href="{% url 'update-join-request' circle.id applicant.id %}?status=DENIED" class="btn btn-outline-danger">
                 <i class="bi bi-x"></i>
             </a>
         </div>

@@ -10,32 +10,32 @@ from easy_thumbnails.fields import ThumbnailerImageField
 User = get_user_model()
 
 
-class Person(models.Model):
+class Circle(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
-    photo = ThumbnailerImageField(upload_to="people_photos", blank=True)
+    photo = ThumbnailerImageField(upload_to="circle_photos", blank=True)
 
     class Meta:
-        verbose_name_plural = _("people")
+        verbose_name_plural = _("circles")
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("person-detail", kwargs={"pk": self.pk})
+        return reverse("circle-detail", kwargs={"pk": self.pk})
 
     @property
     def companions(self):
-        """Return a list of users who are companions for this person."""
-        companions = User.objects.filter(companions_through__person=self)
+        """Return a list of users who are companions for this circle."""
+        companions = User.objects.filter(companions_through__circle=self)
 
         return companions
 
     @property
     def organizers(self):
-        """Return a list of users who are care organizers for this person."""
+        """Return a list of users who are care organizers for this circle."""
         organizers = User.objects.filter(
-            companions_through__person=self,
+            companions_through__circle=self,
             companions_through__is_organizer=True,
         )
 
@@ -59,7 +59,7 @@ class Person(models.Model):
         annotated_companions = []
 
         for member in self.companions_through.all():
-            member.activity_count = member.get_activity_count(person=self)
+            member.activity_count = member.get_activity_count(circle=self)
 
             annotated_companions.append(member)
 
@@ -68,7 +68,7 @@ class Person(models.Model):
     @property
     def companionship_score(self):
         """
-        Companionship score is the number of times people have
+        Companionship score is the number of times companions have
         participated in care group activities.
         E.g., if a care group has ten activities and each activity
         has had two participants, the companionship score
@@ -78,7 +78,7 @@ class Person(models.Model):
         https://stackoverflow.com/a/70592240/1191545
         """
 
-        return User.objects.filter(activities__person=self).count()
+        return User.objects.filter(activities__circle=self).count()
 
     @property
     def pending_join_requests(self):
@@ -87,8 +87,8 @@ class Person(models.Model):
 
 
 class Companion(models.Model):
-    person = models.ForeignKey(
-        to=Person, related_name="companions_through", on_delete=models.CASCADE
+    circle = models.ForeignKey(
+        to=Circle, related_name="companions_through", on_delete=models.CASCADE
     )
     user = models.ForeignKey(
         to=User, related_name="companions_through", on_delete=models.CASCADE
@@ -98,27 +98,27 @@ class Companion(models.Model):
     def __str__(self):
         return self.user.display_name
 
-    def get_activity_count(self, person=None):
-        """Return a count of activities between the related user and person."""
-        return self.user.get_activity_count(person=self.person)
+    def get_activity_count(self, circle=None):
+        """Return a count of activities between the related user and circle."""
+        return self.user.get_activity_count(circle=self.circle)
 
     class Meta:
         unique_together = (
-            "person",
+            "circle",
             "user",
         )
 
 
 class JoinRequest(models.Model):
-    """Request to join as a personal companion."""
+    """Request to join circle as a companion."""
 
     class JoinRequestStatusChoices(models.TextChoices):
         PENDING = "PENDING", _("Pending")
         APPROVED = "APPROVED", _("Approved")
         REJECTED = "REJECTED", _("Rejected")
 
-    person = models.ForeignKey(
-        to=Person, related_name="join_requests", on_delete=models.CASCADE
+    circle = models.ForeignKey(
+        to=Circle, related_name="join_requests", on_delete=models.CASCADE
     )
     user = models.ForeignKey(
         to=User, related_name="join_requests", on_delete=models.CASCADE

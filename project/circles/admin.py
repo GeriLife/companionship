@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Companion, JoinRequest, Person
+from .models import Circle, Companion, JoinRequest
 
 
 class CompanionInline(admin.StackedInline):
@@ -9,8 +9,8 @@ class CompanionInline(admin.StackedInline):
     extra = 0
 
 
-@admin.register(Person)
-class PersonModelAdmin(admin.ModelAdmin):
+@admin.register(Circle)
+class CircleModelAdmin(admin.ModelAdmin):
     inlines = [
         CompanionInline,
     ]

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <h1>{% translate "Login or register" %}</h1>
+
+    <p>{% translate "Please log in or sign up in order to accept this invitation." %}</p>
+
+    <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary">{% translate "Login" %}</a>
+
+    <a href="{% url 'signup' %}?next={{ request.path }}" class="btn btn-primary">{% translate "Sign up" %}</a>
+{% endblock content %}

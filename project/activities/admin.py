@@ -8,5 +8,5 @@ class ActivityModelAdmin(admin.ModelAdmin):
     fields = [
         "activity_type",
         "activity_date",
-        "person",
+        "circle",
     ]

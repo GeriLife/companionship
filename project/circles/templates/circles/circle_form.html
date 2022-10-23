@@ -5,23 +5,23 @@
 
 {% block content %}
     {% if object %}
-        <h1>{% translate "Edit person" %}</h1>
+        <h1>{% translate "Edit circle" %}</h1>
     {% else %}
-        <h1>{% translate "Add person" %}</h1>
+        <h1>{% translate "Add circle" %}</h1>
     {% endif %}
-    
+
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form | crispy }}
 
         {% if object %}
-        <button type="submit" class="btn btn-success">
-            {% translate "Update" %}
-        </button>
+            <button type="submit" class="btn btn-success">
+                {% translate "Update" %}
+            </button>
         {% else %}
-        <button type="submit" class="btn btn-success">
-            {% translate "Add" %}
-        </button>
+            <button type="submit" class="btn btn-success">
+                {% translate "Add" %}
+            </button>
         {% endif %}
     </form>
 {% endblock content %}

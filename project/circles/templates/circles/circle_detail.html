@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load thumbnail %}
+
+{% block content %}
+
+    <h1>
+        {{ circle }}
+
+        {% if circle.companionship_score %}
+            <small>
+                <span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="left" title="{% translate 'Companionship score' %}">
+                    {{ circle.companionship_score }}
+                </span>
+            </small>
+        {% endif %}
+
+        {% if user in circle.organizers %}
+            <a
+                class="btn btn-outline-primary btn-sm rounded-circle"
+                href="{% url 'circle-update' circle.id %}"
+                title="{% translate 'Edit circle' %}">
+                <i class="bi bi-pencil"></i>
+            </a>
+        {% endif %}
+    </h1>
+
+    <div class="row">
+        <div class="col col-md-7">
+            <h2>
+                <i class="bi bi-calendar3"></i>
+                {% translate "Upcoming activities" %}
+                <button
+                    type="button"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
+                    data-bs-toggle="modal"
+                    data-bs-target="#add-activity-modal"
+                    title="{% translate 'Add activity' %}">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+            </h2>
+            {% if circle.upcoming_activities.count %}
+                {% for activity in circle.upcoming_activities %}
+                    {% include "circles/circle_activity.html" with activity=activity form=add_activity_form %}
+                {% endfor %}
+            {% else %}
+                <p>{% translate "No activities found." %}</p>
+            {% endif %}
+        </div>
+
+        <div class="col-md-5 mt-2">
+            <!-- Person photo -->
+            {% if circle.photo %}
+                <img
+                    src="{{ circle.photo|thumbnail_url:'square_thumbnail_400' }}"
+                    class="img-fluid img-thumbnail mb-3"
+                    alt='{% translate "Care group photo" %}' />
+            {% endif %}
+
+            <!-- Annotated companions list -->
+            <h2>
+                <i class="bi bi-people"></i>
+                {% translate "Companions" %}
+                {% if request.user in circle.organizers.all %}
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-outline-primary rounded-circle"
+                        data-bs-toggle="modal"
+                        data-bs-target="#add-companion-modal"
+                        title="{% translate 'Add Companion' %}">
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+                {% endif %}
+            </h2>
+
+            <ul class="list-group mb-3">
+                {% for companion in circle.annotated_companions %}
+                    {% include "circles/circle_companion.html" %}
+                {% endfor %}
+            </ul>
+
+            <!-- Applicants list -->
+            {% if user in circle.organizers %}
+                {% if circle.pending_join_requests.all %}
+                    <h2>
+                        <i class="bi bi-people"></i>
+                        {% translate "Applicants" %}
+                    </h2>
+
+                    <ul class="list-group">
+                        {% for applicant in circle.pending_join_requests.all %}
+                            {% include "circles/circle_applicant.html" %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+
+    {% include "circles/circle_add_activity_modal.html" %}
+
+    {% include "circles/circle_invite_companion_modal.html" %}
+
+{% endblock content %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock extra_css %}
+
+{% block extra_js %}
+    <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script type="text/javascript">
+        var clipboard = new ClipboardJS('#copy-invitation-button');
+
+        // TODO: indicate to user that the invitation code was copied,
+        // E.g., via a tooltip or toast
+
+        flatpickr('#id_activity_date');
+    </script>
+{% endblock extra_js %}

@@ -29,6 +29,6 @@ urlpatterns = [
     path("activities/", include("activities.urls")),
     path("caregivers/", include("caregivers.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
-    path("people/", include("people.urls")),
+    path("circles/", include("circles.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
 ] + media_urlpatterns

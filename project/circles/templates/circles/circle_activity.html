@@ -15,82 +15,82 @@
                         {{ activity.note }}
                     </p>
                 {% endif %}
-                
+
                 <!-- organizer can add other eligible companions -->
-                {% if user in person.organizers %}
+                {% if user in circle.organizers %}
                     {% if activity.remaining_eligible_companions %}
-                    <button
-                        type="button"
-                        title="{% translate 'Add' %}"
-                        style="border: none;"
-                        class="badge rounded-pill bg-default text-dark"
-                        data-bs-toggle="modal"
-                        data-bs-target="#add-activity-participant-modal-{{ activity.id }}"
-                    >
-                        <i class="bi bi-person"></i>
-                        {% translate 'Add' %}
-                        <i class="bi bi-plus-lg"></i>
-                    </button>
+                        <button
+                            type="button"
+                            title="{% translate 'Add' %}"
+                            style="border: none;"
+                            class="badge rounded-pill bg-default text-dark"
+                            data-bs-toggle="modal"
+                            data-bs-target="#add-activity-participant-modal-{{ activity.id }}"
+                        >
+                            <i class="bi bi-person"></i>
+                            {% translate 'Add' %}
+                            <i class="bi bi-plus-lg"></i>
+                        </button>
                     {% endif %}
                 {% endif %}
-                
+
                 {% if user not in activity.participants.all %}
-                <form action="{% url 'activity-add-participant' activity.id %}" method="post" style="display: inline;">
-                    {% csrf_token %}
-                    <input type="hidden" name="user_id" value="{{ user.id }}">
-                    <button
-                        type="submit"
-                        title="{% translate 'Participate' %}"
-                        style="border: none;"
-                        class="badge rounded-pill bg-success"
-                    >
-                        <i class="bi bi-person"></i>
-                        {% translate 'Join' %}
-                        <i class="bi bi-plus-lg"></i>
-                    </button>
-                </form>
+                    <form action="{% url 'activity-add-participant' activity.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                        <button
+                            type="submit"
+                            title="{% translate 'Participate' %}"
+                            style="border: none;"
+                            class="badge rounded-pill bg-success"
+                        >
+                            <i class="bi bi-person"></i>
+                            {% translate 'Join' %}
+                            <i class="bi bi-plus-lg"></i>
+                        </button>
+                    </form>
                 {% endif %}
 
                 {% if activity.participants.count %}
                     {% for participant in activity.participants.all %}
-                        {% if user in person.organizers %}
-                        <!-- group organizers can remove other participants -->
-                        <form action="{% url 'activity-remove-participant' activity.id %}" method="post" style="display: inline;">
-                            {% csrf_token %}
-                            <input type="hidden" name="user_id" value="{{ participant.id }}">
-                            <button 
-                                type="submit"
-                                title="{% translate 'Remove participant' %}"
-                                style="border: none;"
-                                class="badge rounded-pill bg-primary">
+                        {% if user in circle.organizers %}
+                            <!-- group organizers can remove other participants -->
+                            <form action="{% url 'activity-remove-participant' activity.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="user_id" value="{{ participant.id }}">
+                                <button
+                                    type="submit"
+                                    title="{% translate 'Remove participant' %}"
+                                    style="border: none;"
+                                    class="badge rounded-pill bg-primary">
                                     <i class="bi bi-person"></i>
                                     {{ participant.display_name }}
                                     <i class="bi bi-x-lg"></i>
-                            </button>
-                        </form>
+                                </button>
+                            </form>
                         {% elif participant.id == user.id %}
-                        <!-- participant can remove self -->
-                        <form action="{% url 'activity-remove-participant' activity.id %}" method="post" style="display: inline;">
-                            {% csrf_token %}
-                            <input type="hidden" name="user_id" value="{{ user.id }}">
-                            <button 
-                                type="submit"
-                                title="{% translate 'Remove participant' %}"
-                                style="border: none;"
-                                class="badge rounded-pill bg-primary">
+                            <!-- participant can remove self -->
+                            <form action="{% url 'activity-remove-participant' activity.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                <button
+                                    type="submit"
+                                    title="{% translate 'Remove participant' %}"
+                                    style="border: none;"
+                                    class="badge rounded-pill bg-primary">
                                     <i class="bi bi-person"></i>
                                     {{ participant.display_name }}
                                     <i class="bi bi-x-lg"></i>
-                            </button>
-                        </form>
+                                </button>
+                            </form>
                         {% else %}
-                        <!-- display participant without remove button by default -->
-                        <span class="badge rounded-pill bg-primary">
-                            <i class="bi bi-person"></i>
-                            {{ participant.display_name }}
-                        </span>
+                            <!-- display participant without remove button by default -->
+                            <span class="badge rounded-pill bg-primary">
+                                <i class="bi bi-person"></i>
+                                {{ participant.display_name }}
+                            </span>
                         {% endif %}
-                        
+
                     {% endfor %}
                 {% else %}
                     <span class="badge rounded-pill bg-warning text-dark">{% translate "No participants" %}</span>
@@ -110,7 +110,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <button 
+                            <button
                                 type="button"
                                 title="{% translate 'Edit activity' %}"
                                 class="dropdown-item"
@@ -119,29 +119,29 @@
                                 <i class="bi bi-pencil"></i>
                                 {% translate 'Edit activity' %}
                             </button>
-                            {% if user in person.organizers %}
-                            <button 
-                                type="button"
-                                title="{% translate 'Delete activity' %}"
-                                class="dropdown-item"
-                                data-bs-toggle="modal"
-                                data-bs-target="#delete-activity-confirmation-modal-{{ activity.id }}">
-                                <i class="bi bi-calendar-x"></i>
-                                {% translate 'Delete activity' %}
-                            </button>
+                            {% if user in circle.organizers %}
+                                <button
+                                    type="button"
+                                    title="{% translate 'Delete activity' %}"
+                                    class="dropdown-item"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#delete-activity-confirmation-modal-{{ activity.id }}">
+                                    <i class="bi bi-calendar-x"></i>
+                                    {% translate 'Delete activity' %}
+                                </button>
                             {% endif %}
                         </li>
                     </ul>
                 </div>
 
                 {% if not activity.done %}
-                <a 
-                    type="button"
-                    href="{% url 'activity-set-done' activity.id %}"
-                    title="{% translate 'Mark activity as complete' %}"
-                    class="btn btn-sm btn-success rounded-circle">
-                    <i class="bi bi-check-lg"></i>
-                </a>
+                    <a
+                        type="button"
+                        href="{% url 'activity-set-done' activity.id %}"
+                        title="{% translate 'Mark activity as complete' %}"
+                        class="btn btn-sm btn-success rounded-circle">
+                        <i class="bi bi-check-lg"></i>
+                    </a>
                 {% else %}
                     {% translate "Done" %}
                 {% endif %}
@@ -164,7 +164,7 @@
             <div class="modal-body">
                 <form action="{% url 'activity-update' activity.id %}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="person" value="{{ person.id }}">
+                    <input type="hidden" name="circle" value="{{ circle.id }}">
 
 
                     {{ add_activity_form.activity_type.label_tag }}
@@ -176,30 +176,30 @@
                             </option>
                         {% endfor %}
                     </select>
-                    
+
                     {{ add_activity_form.activity_date.label_tag }}
-                    <input 
-                        type="text" 
-                        name="activity_date" 
+                    <input
+                        type="text"
+                        name="activity_date"
                         value="{{ activity.activity_date | date:'c' }}"
-                        class="dateinput form-control mb-2" 
-                        required="" 
+                        class="dateinput form-control mb-2"
+                        required=""
                         id="id_activity_date">
-                    
+
                     {{ add_activity_form.note.label_tag }}
                     <input
-                        type="text" 
+                        type="text"
                         name="note"
                         {% if activity.note %}
-                        {% comment %}Prevent empty activity note from displaying as None{% endcomment %}
-                        value="{{ activity.note }}"
+                            {% comment %}Prevent empty activity note from displaying as None{% endcomment %}
+                            value="{{ activity.note }}"
                         {% endif %}
-                        class="form-control mb-2" 
+                        class="form-control mb-2"
                         id="id_note">
                     <p id="hint_id_note" class="form-text text-muted mx-2">
                         {{ add_activity_form.note.help_text | safe }}
                     </p>
-                    
+
                     <button type="submit" class="btn btn-success ml-auto">
                         {% translate "Save" %}
                     </button>

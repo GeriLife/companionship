@@ -65,9 +65,9 @@ class User(PermissionsMixin, AbstractBaseUser):
     def __str__(self):
         return self.email
 
-    def get_activity_count(self, person=None):
-        if person:
-            activity_count = self.activities.filter(person=person).count
+    def get_activity_count(self, circle=None):
+        if circle:
+            activity_count = self.activities.filter(circle=circle).count
         else:
             activity_count = self.activities.count
 
