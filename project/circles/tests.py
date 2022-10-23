@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from accounts.models import User
 from django.test import TestCase
 from django.urls import reverse
@@ -19,12 +21,11 @@ class CircleCreateViewTest(TestCase):
 
     def test_authenticated_access(self):
         """Authenticated user should be able to access view"""
-        success_status_code = 200
         self.client.force_login(self.user)
 
         response = self.client.get(reverse("circle-create"))
 
-        self.assertEqual(response.status_code, success_status_code)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def tearDown(self):
         self.user.delete()
@@ -52,33 +53,29 @@ class CircleDetailViewTest(TestCase):
 
     def test_anonymous_access(self):
         """Anonymous user should see not found error"""
-        not_found_status_code = 404
-
         response = self.client.get(self.circle_without_companion)
 
-        self.assertEqual(response.status_code, not_found_status_code)
+        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_authenticated_non_companion_access(self):
         """
         Authenticated user should see erro when accessing to
         whom they aren't a companion
         """
-        not_authorized_status_code = 403
         self.client.force_login(self.user)
 
         response = self.client.get(self.circle_without_companion_detail_url)
 
-        self.assertEqual(response.status_code, not_authorized_status_code)
+        self.assertEqual(response.status_code, HTTPStatus.UNAUTHORIZED)
 
     def test_authenticated_companion_access(self):
         """Authenticated user should be able to access
         a circle to whom they are a companion"""
-        success_status_code = 200
         self.client.force_login(self.user)
 
         response = self.client.get(self.circle_with_companion_detail_url)
 
-        self.assertEqual(response.status_code, success_status_code)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def tearDown(self):
         self.companionship_through.delete()
@@ -123,13 +120,12 @@ class CircleListViewTest(TestCase):
         """
         Authenticated user without any companion should not see circles in the list
         """
-        success_status_code = 200
         self.client.force_login(self.user_without_companion)
 
         response = self.client.get(self.circle_list_url)
 
         # User should be able to access the circles list
-        self.assertEqual(response.status_code, success_status_code)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
         # Circles list should not contain any existing circles
         self.assertNotContains(response, self.circle_with_companion_name)
@@ -138,13 +134,12 @@ class CircleListViewTest(TestCase):
     def test_authenticated_user_with_companion(self):
         """Authenticated user should be able to see
         a circle to whom they are a companion"""
-        success_status_code = 200
         self.client.force_login(self.user_with_companion)
 
         response = self.client.get(self.circle_list_url)
 
         # User should be able to access the circles list
-        self.assertEqual(response.status_code, success_status_code)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
         # Circles list should not contain any existing circles
         self.assertContains(response, self.circle_with_companion_name)
