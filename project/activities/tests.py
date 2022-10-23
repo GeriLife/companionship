@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from circles.models import Circle, Companion
 from django.contrib.auth import get_user_model
 from django.test import TestCase
@@ -28,8 +30,7 @@ class ActivityCreateViewTest(TestCase):
         """GET request should not be allowed"""
         response = self.client.get(reverse("activity-create"))
 
-        # Should get HTTP 405 Method Not Allowed
-        self.assertEquals(response.status_code, 405)
+        self.assertEquals(response.status_code, HTTPStatus.FORBIDDEN)
 
     def test_anonymous_access(self):
         """Anonymous user should not be authorized"""
@@ -38,5 +39,4 @@ class ActivityCreateViewTest(TestCase):
             follow=True,
         )
 
-        # Should get HTTP 403 Not Authorized
-        self.assertEquals(response.status_code, 403)
+        self.assertEquals(response.status_code, HTTPStatus.FORBIDDEN)
