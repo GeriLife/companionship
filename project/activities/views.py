@@ -119,14 +119,22 @@ class ActivityAddParticipantView(UserPassesTestMixin, LoginRequiredMixin, View):
         Only the circle's care organizers can add other companions to activity.
         Only the circle's companions can add themselves to an activity.
         """
-        activity = Activity.objects.get(id=self.kwargs["activity_id"])
+        activity_id = self.kwargs.get("activity_id", None)
 
-        user_is_organizer = self.request.user in activity.circle.organizers
-        user_is_adding_self = self.request.POST["user_id"] == self.request.user.id
+        if activity_id:
+            activity = Activity.objects.get(id=activity_id)
 
-        user_can_add_participant = user_is_organizer or user_is_adding_self
+            user_is_organizer = self.request.user in activity.circle.organizers
+            user_is_companion = self.request.user in activity.circle.companions
 
-        return user_can_add_participant
+            user_id = self.request.POST.get("user_id", None)
+            user_is_adding_self = int(user_id) == self.request.user.id
+
+            user_can_add_participant = user_is_organizer or (
+                user_is_companion and user_is_adding_self
+            )
+
+            return user_can_add_participant
 
     def post(self, request, activity_id, *args, **kwargs):
         user_id = request.POST["user_id"]
@@ -150,14 +158,19 @@ class ActivityRemoveParticipantView(UserPassesTestMixin, LoginRequiredMixin, Vie
         Only the circle's care organizers can remove other companions from activity.
         Only the circle's companions can remove themselves from an activity.
         """
-        activity = Activity.objects.get(id=self.kwargs["activity_id"])
+        activity_id = self.kwargs.get("activity_id", None)
 
-        user_is_organizer = self.request.user in activity.circle.organizers
-        user_is_removing_self = self.request.POST["user_id"] == self.request.user.id
+        if activity_id:
+            activity = Activity.objects.get(id=activity_id)
 
-        user_can_remove_participant = user_is_organizer or user_is_removing_self
+            user_is_organizer = self.request.user in activity.circle.organizers
 
-        return user_can_remove_participant
+            user_id = self.request.POST.get("user_id", None)
+            user_is_removing_self = int(user_id) == self.request.user.id
+
+            user_can_remove_participant = user_is_organizer or user_is_removing_self
+
+            return user_can_remove_participant
 
     def post(self, request, activity_id, *args, **kwargs):
         user_id = request.POST["user_id"]
