@@ -1,5 +1,5 @@
 from circles.models import Circle
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -9,7 +9,7 @@ from .forms import ActivityModelForm
 from .models import Activity
 
 
-class ActivityCreateView(UserPassesTestMixin, View):
+class ActivityCreateView(UserPassesTestMixin, LoginRequiredMixin, View):
     raise_exception = True
 
     def test_func(self, *args, **kwargs):
@@ -46,7 +46,7 @@ class ActivityCreateView(UserPassesTestMixin, View):
             return HttpResponseRedirect(redirect_to)
 
 
-class ActivityUpdateView(UserPassesTestMixin, View):
+class ActivityUpdateView(UserPassesTestMixin, LoginRequiredMixin, View):
     raise_exception = True
 
     def test_func(self, *args, **kwargs):
@@ -86,7 +86,7 @@ class ActivityUpdateView(UserPassesTestMixin, View):
             return HttpResponseRedirect(redirect_to)
 
 
-class ActivityDeleteView(UserPassesTestMixin, View):
+class ActivityDeleteView(UserPassesTestMixin, LoginRequiredMixin, View):
     raise_exception = True
 
     def test_func(self, *args, **kwargs):
@@ -111,7 +111,7 @@ class ActivityDeleteView(UserPassesTestMixin, View):
         )
 
 
-class ActivityAddParticipantView(UserPassesTestMixin, View):
+class ActivityAddParticipantView(UserPassesTestMixin, LoginRequiredMixin, View):
     raise_exception = True
 
     def test_func(self, *args, **kwargs):
@@ -142,7 +142,7 @@ class ActivityAddParticipantView(UserPassesTestMixin, View):
         )
 
 
-class ActivityRemoveParticipantView(UserPassesTestMixin, View):
+class ActivityRemoveParticipantView(UserPassesTestMixin, LoginRequiredMixin, View):
     raise_exception = True
 
     def test_func(self, *args, **kwargs):
@@ -173,7 +173,7 @@ class ActivityRemoveParticipantView(UserPassesTestMixin, View):
         )
 
 
-class ActivitySetDoneView(UserPassesTestMixin, View):
+class ActivitySetDoneView(UserPassesTestMixin, LoginRequiredMixin, View):
     raise_exception = True
 
     def test_func(self, *args, **kwargs):
