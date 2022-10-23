@@ -179,6 +179,90 @@ class ActivityUpdateViewTest(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
 
+class ActivityDeleteViewTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            "test@user.com",
+            "test12345",
+        )
+        self.user_without_circle = User.objects.create_user(
+            "test_two@user.com",
+            "test12345",
+        )
+        self.circle_without_companion = Circle.objects.create(
+            name="Non-companion circle"
+        )
+
+        # This circle will have the user as a companion
+        self.circle_with_companion = Circle.objects.create(name="Companion circle")
+        self.companionship_through = Companion.objects.create(
+            circle=self.circle_with_companion,
+            user=self.user,
+            is_organizer=True,
+        )
+        self.activity_for_circle_with_companion = Activity.objects.create(
+            activity_type=Activity.ActivityTypeChoices.APPOINTMENT,
+            activity_date="2022-10-23",
+            circle=self.circle_with_companion,
+        )
+
+    def test_get_http_method_should_fail(self):
+        """GET request should not be allowed"""
+        response = self.client.get(
+            reverse(
+                "activity-delete",
+                kwargs={
+                    "activity_id": self.activity_for_circle_with_companion.id,
+                },
+            ),
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+    def test_anonymous_access(self):
+        """Anonymous user should not be authorized"""
+        response = self.client.post(
+            reverse(
+                "activity-delete",
+                kwargs={
+                    "activity_id": self.activity_for_circle_with_companion.id,
+                },
+            ),
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+    def test_authenticated_non_companion_activity_delete(self):
+        """Authenticated user who is not companion should not be authorized"""
+        self.client.force_login(self.user_without_circle)
+
+        response = self.client.post(
+            reverse(
+                "activity-delete",
+                kwargs={
+                    "activity_id": self.activity_for_circle_with_companion.id,
+                },
+            ),
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+    def test_authenticated_companion_activity_delete(self):
+        """Authenticated user who is not companion should not be authorized"""
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            reverse(
+                "activity-delete",
+                kwargs={
+                    "activity_id": self.activity_for_circle_with_companion.id,
+                },
+            ),
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+
 class ActivityModelTest(TestCase):
     def setUp(self):
 
