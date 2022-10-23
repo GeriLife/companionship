@@ -47,13 +47,19 @@ class ActivityCreateView(UserPassesTestMixin, View):
 class ActivityUpdateView(UserPassesTestMixin, View):
     def test_func(self, *args, **kwargs):
         """Only circle's care organizers and companions can update activity"""
-        circle = Circle.objects.get(id=self.request.POST["circle"])
-        user_is_organizer = self.request.user in circle.organizers
-        user_is_companion = self.request.user in circle.companions
 
-        user_can_update_activity = user_is_organizer or user_is_companion
+        circle_id = self.request.POST.get("circle", None)
 
-        return user_can_update_activity
+        if circle_id:
+            circle = Circle.objects.get(id=circle_id)
+            user_is_organizer = self.request.user in circle.organizers
+            user_is_companion = self.request.user in circle.companions
+
+            user_can_update_activity = user_is_organizer or user_is_companion
+
+            return user_can_update_activity
+        else:
+            False
 
     def post(self, *args, **kwargs):
         activity = Activity.objects.get(pk=kwargs["pk"])
