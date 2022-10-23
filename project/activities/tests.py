@@ -5,10 +5,14 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
+from .models import Activity
+
+User = get_user_model()
+
 
 class ActivityCreateViewTest(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_user("test@user.com", "test12345")
+        self.user = User.objects.create_user("test@user.com", "test12345")
         self.circle_without_companion = Circle.objects.create(
             name="Non-companion circle"
         )
@@ -40,3 +44,42 @@ class ActivityCreateViewTest(TestCase):
         )
 
         self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+
+class ActivityModelTest(TestCase):
+    def setUp(self):
+
+        self.companion_one = User.objects.create_user("test_one@user.com", "test12345")
+        self.companion_two = User.objects.create_user("test_two@user.com", "test12345")
+        self.user_three = User.objects.create_user("test_three@user.com", "test12345")
+
+        self.circle = Circle.objects.create(name="Test circle")
+
+        Companion.objects.create(
+            circle=self.circle,
+            user=self.companion_one,
+        )
+        Companion.objects.create(
+            circle=self.circle,
+            user=self.companion_two,
+        )
+
+        self.activity = Activity.objects.create(
+            activity_type=Activity.ActivityTypeChoices.APPOINTMENT,
+            activity_date="2022-10-23",
+            circle=self.circle,
+        )
+
+    def test_remaining_eligible_companions(self):
+        self.activity.participants.add(self.companion_one)
+
+        remaining_eligible_companions = self.activity.remaining_eligible_companions
+
+        # User already in participants list should not be eligible
+        assert self.companion_one not in remaining_eligible_companions
+
+        assert self.companion_two in remaining_eligible_companions
+        assert list(remaining_eligible_companions) == [self.companion_two]
+
+        # Non-companion should not be in eligible companions list
+        assert self.user_three not in remaining_eligible_companions
