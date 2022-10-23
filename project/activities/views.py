@@ -1,38 +1,78 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import CreateView, UpdateView, View
+from django.views.generic import View
 
+from circles.models import Circle
+
+from .forms import ActivityModelForm
 from .models import Activity
 
 
-class ActivityCreateView(CreateView):
-    model = Activity
-    fields = [
-        "circle",
-        "activity_type",
-        "activity_date",
-        "note",
-    ]
+class ActivityCreateView(UserPassesTestMixin, View):
+    def test_func(self, *args, **kwargs):
+        """
+        Only circle's care organizers and companions can add a care group activity.
+        """
+        circle_id = self.request.POST.get("circle", None)
 
-    def get_success_url(self):
-        return reverse("circle-detail", kwargs={"pk": self.object.circle.id})
+        if circle_id:
+            circle = Circle.objects.get(id=circle_id)
+            user_is_organizer = self.request.user in circle.organizers
+            user_is_companion = self.request.user in circle.companions
+
+            user_can_update_activity = user_is_organizer or user_is_companion
+
+            return user_can_update_activity
+        else:
+            return False
+
+    def post(self, *args, **kwargs):
+        form = ActivityModelForm(self.request.POST)
+
+        if form.is_valid():
+            activity = form.save()
+
+            redirect_to = reverse(
+                "circle-detail",
+                kwargs={
+                    "pk": activity.circle.id,
+                },
+            )
+
+            return HttpResponseRedirect(redirect_to)
 
 
-class ActivityUpdateView(UpdateView):
-    model = Activity
-    fields = [
-        "circle",
-        "activity_type",
-        "activity_date",
-        "note",
-    ]
+class ActivityUpdateView(UserPassesTestMixin, View):
+    def test_func(self, *args, **kwargs):
+        """Only circle's care organizers and companions can update activity"""
+        circle = Circle.objects.get(id=self.request.POST["circle"])
+        user_is_organizer = self.request.user in circle.organizers
+        user_is_companion = self.request.user in circle.companions
 
-    def get_success_url(self):
-        return reverse(
-            "circle-detail",
-            kwargs={"pk": self.object.circle.id},
+        user_can_update_activity = user_is_organizer or user_is_companion
+
+        return user_can_update_activity
+
+    def post(self, *args, **kwargs):
+        activity = Activity.objects.get(pk=kwargs["pk"])
+        form = ActivityModelForm(
+            self.request.POST,
+            instance=activity,
         )
+
+        if form.is_valid():
+            activity = form.save()
+
+            redirect_to = reverse(
+                "circle-detail",
+                kwargs={
+                    "pk": activity.circle.id,
+                },
+            )
+
+            return HttpResponseRedirect(redirect_to)
 
 
 class ActivityDeleteView(UserPassesTestMixin, View):
