@@ -11,6 +11,8 @@ from .models import Activity
 
 
 class ActivityCreateView(UserPassesTestMixin, View):
+    raise_exception = True
+
     def test_func(self, *args, **kwargs):
         """
         Only circle's care organizers and companions can add a care group activity.
@@ -46,6 +48,8 @@ class ActivityCreateView(UserPassesTestMixin, View):
 
 
 class ActivityUpdateView(UserPassesTestMixin, View):
+    raise_exception = True
+
     def test_func(self, *args, **kwargs):
         """Only circle's care organizers and companions can update activity"""
 
@@ -84,6 +88,8 @@ class ActivityUpdateView(UserPassesTestMixin, View):
 
 
 class ActivityDeleteView(UserPassesTestMixin, View):
+    raise_exception = True
+
     def test_func(self, *args, **kwargs):
         """Only the circle's care organizers can delete activity"""
         self.activity = Activity.objects.get(id=self.kwargs["activity_id"])
@@ -107,6 +113,8 @@ class ActivityDeleteView(UserPassesTestMixin, View):
 
 
 class ActivityAddParticipantView(UserPassesTestMixin, View):
+    raise_exception = True
+
     def test_func(self, *args, **kwargs):
         """
         Only the circle's care organizers can add other companions to activity.
@@ -136,6 +144,8 @@ class ActivityAddParticipantView(UserPassesTestMixin, View):
 
 
 class ActivityRemoveParticipantView(UserPassesTestMixin, View):
+    raise_exception = True
+
     def test_func(self, *args, **kwargs):
         """
         Only the circle's care organizers can remove other companions from activity.
@@ -165,6 +175,8 @@ class ActivityRemoveParticipantView(UserPassesTestMixin, View):
 
 
 class ActivitySetDoneView(UserPassesTestMixin, View):
+    raise_exception = True
+
     def test_func(self, *args, **kwargs):
         """Only activity participants or circle's care organizers can update activity"""
         self.activity = Activity.objects.get(id=self.kwargs["activity_id"])
