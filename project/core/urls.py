@@ -33,6 +33,7 @@ urlpatterns = [
     path("__reload__/", include("django_browser_reload.urls")),
 ] + media_urlpatterns
 
+# For handling page and server errors
 handler404 = "error_handler.views.handler404"
 handler500 = "error_handler.views.handler500"
 handler403 = "error_handler.views.handler403"
