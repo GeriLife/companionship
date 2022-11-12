@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% translate "Page Not Found" %}{% endblock title %}
+
+{% block content %} <br>
+    <h3>{% translate "Something Went Wrong" %}</h3>
+    <p>{% translate "We apologize for the inconvenience, our team is currently working on fixing the issue" %}</p>
+    <a href="/" class="btn btn-secondary" role="button">HomePage</a>
+{% endblock content %}

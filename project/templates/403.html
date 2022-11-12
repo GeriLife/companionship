@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% translate "ACCESS DENIED"%}{% endblock title %}
+
+{% block content %}<br>
+    <h3>{% translate "You don't have permission to access this page"%}</h3>
+    <p>{% translate "Click below and return to the main page" %}</p>
+    <a href="/" class="btn btn-secondary" role="button">HomePage</a>
+{% endblock content %}

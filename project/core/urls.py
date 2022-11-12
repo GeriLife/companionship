@@ -32,3 +32,8 @@ urlpatterns = [
     path("circles/", include("circles.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
 ] + media_urlpatterns
+
+handler404 = "error_handling.views.handler404"
+handler500 = "error_handling.views.handler500"
+handler403 = "error_handling.views.handler403"
+handler400 = "error_handling.views.handler400"
