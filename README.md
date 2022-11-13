@@ -1,6 +1,6 @@
 # Companionship Care
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/bcb7e4c6f43b13ab8941/maintainability)](https://codeclimate.com/github/GeriLife/companionship-care/maintainability)
@@ -48,6 +48,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center"><a href="https://github.com/ritik33"><img src="https://avatars.githubusercontent.com/u/54118809?v=4?s=100" width="100px;" alt="Ritik Pandey"/><br /><sub><b>Ritik Pandey</b></sub></a><br /><a href="https://github.com/CompanionshipCare/companionship-care/commits?author=ritik33" title="Code">💻</a></td>
     </tr>
     <tr>
+      <td align="center"><a href="https://github.com/Shaikha1212"><img src="https://avatars.githubusercontent.com/u/118076634?v=4?s=100" width="100px;" alt="Shaikha1212"/><br /><sub><b>Shaikha1212</b></sub></a><br /><a href="https://github.com/CompanionshipCare/companionship-care/commits?author=Shaikha1212" title="Code">💻</a></td>
       <td align="center"><a href="http://steamcommunity.com/id/lkx7_adhd"><img src="https://avatars.githubusercontent.com/u/29896527?v=4?s=100" width="100px;" alt="TheMythologist"/><br /><sub><b>TheMythologist</b></sub></a><br /><a href="#infra-TheMythologist" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/CompanionshipCare/companionship-care/commits?author=TheMythologist" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
