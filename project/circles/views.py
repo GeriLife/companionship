@@ -1,6 +1,7 @@
 from activities.forms import ActivityModelForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -108,6 +109,9 @@ class CircleDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        queryset = self.object.activities.all()
+        paginator = Paginator(queryset, 4)
+        page = self.request.GET.get('page')
 
         """
         {{ request.get_host }}{% url 'circle-join' circle.id %}
@@ -121,6 +125,18 @@ class CircleDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         context["invitation_url"] = invitation_url
 
         context["add_activity_form"] = ActivityModelForm
+
+        try:
+            activities_page = paginator.page(page)
+            print("got page")
+            print(activities_page)
+        except PageNotAnInteger:
+            activities_page = paginator.page(1)
+        except EmptyPage:
+            activities_page = paginator.page(paginator.num_pages)
+        
+        context["activity_page"] = activities_page
+        
 
         return context
 
