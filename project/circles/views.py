@@ -128,8 +128,6 @@ class CircleDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
         try:
             activities_page = paginator.page(page)
-            print("got page")
-            print(activities_page)
         except PageNotAnInteger:
             activities_page = paginator.page(1)
         except EmptyPage:
