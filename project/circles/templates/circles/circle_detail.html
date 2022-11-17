@@ -41,7 +41,7 @@
                 </button>
             </h2>
             {% if circle.upcoming_activities.count %}
-                {% for activity in circle.upcoming_activities %}
+                {% for activity in activity_page.object_list %}
                     {% include "circles/circle_activity.html" with activity=activity form=add_activity_form %}
                 {% endfor %}
             {% else %}
@@ -102,6 +102,42 @@
     {% include "circles/circle_add_activity_modal.html" %}
 
     {% include "circles/circle_invite_companion_modal.html" %}
+
+    <!--Pagination-->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          {% if activity_page.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ activity_page.previous_page_number }}">{% translate "Previous" %}</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="True">{% translate "Previous" %}</a>
+            </li>
+          {% endif %}
+          {% for i in activity_page.paginator.page_range%}
+            {% if activity_page.number == i %}
+              <li class="page-item active" aria-current="page">
+                <span class="page-link">
+                  {{ i }}
+                </span>
+              </li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if activity_page.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ activity_page.next_page_number }}">{% translate "Next" %}</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="True">{% translate "Next" %}</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    <!--end of Pagination-->
 
 {% endblock content %}
 
