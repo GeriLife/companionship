@@ -95,6 +95,25 @@
                 {% else %}
                     <span class="badge rounded-pill bg-warning text-dark">{% translate "No participants" %}</span>
                 {% endif %}
+                <span class="badge rounded-pill" style="background-color: blue;"> 
+                    <form action="{% url 'activity-add-comment' activity.id %}" method="post" style="display: inline;">
+                        <button 
+                            type="submit" 
+                            style="border: none; background-color: blue;" 
+                            class="badge rounded-pill">
+                            {% translate "Add Comments" %}
+                        </button>
+                        {% csrf_token %}
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                        <input type="text" name="user_comment" required/>
+                    </form>
+                </span>
+                <span>
+                    <form action="{% url 'activity-view-comments' activity.id %}" method="get" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="border: none; background-color: orange;" class="badge rounded-pill">{% translate "View Comments" %}</button>
+                    </form>
+                </span>
             </div>
 
             <div class="col-1 pr-0 d-flex flex-column align-items-end justify-content-between">

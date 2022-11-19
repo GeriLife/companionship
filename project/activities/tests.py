@@ -501,3 +501,199 @@ class ActivityModelTest(TestCase):
 
         # Non-companion should not be in eligible companions list
         assert self.user_three not in remaining_eligible_companions
+
+
+
+
+class ActivityAddCommentViewTest(TestCase):
+    def setUp(self):
+        self.companion_one = User.objects.create_user("test_one@user.com", "test12345")
+        self.companion_two = User.objects.create_user("test_two@user.com", "test12345")
+
+        self.circle = Circle.objects.create(name="Test circle")
+
+        Companion.objects.create(
+            circle=self.circle,
+            user=self.companion_one,
+        )
+        Companion.objects.create(
+            circle=self.circle,
+            user=self.companion_two,
+        )
+        self.user_without_circle = User.objects.create_user(
+            "test_three@user.com",
+            "test12345",
+        )
+
+        self.circle_with_companion = Circle.objects.create(name="Companion circle")
+        self.companionship_through = Companion.objects.create(
+            circle=self.circle_with_companion,
+            user=self.companion_one,
+            is_organizer=True,
+        )
+        self.activity_for_circle_with_companion = Activity.objects.create(
+            activity_type=Activity.ActivityTypeChoices.APPOINTMENT,
+            activity_date="2022-10-23",
+            circle=self.circle_with_companion,
+        )
+    
+    def test_anonymous_add_comment(self):
+        """Anonymous user should not be authorized to add comment"""
+        response = self.client.post(
+            reverse("activity-add-comment", 
+                    kwargs={
+                        "activity_id": self.activity_for_circle_with_companion.id,
+                }),
+            {
+                "activity_id": self.activity_for_circle_with_companion.id,
+            },
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+    def test_authenticated_non_companion_add_comment(self):
+        """Authenticated user who is not companion should not be authorized to add comment"""
+        self.client.force_login(self.user_without_circle)
+
+        response = self.client.post(
+            reverse("activity-add-comment",
+                    kwargs={
+                        "activity_id": self.activity_for_circle_with_companion.id,
+                    }),
+            {
+                "activity_id": self.activity_for_circle_with_companion.id,
+                "user_comment": "HELLO",
+                "user_id": self.companion_one.id,
+            },
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+        
+
+    def test_authenticated_organizer_add_comment(self):
+        """Organizer of activity should be able to add comemnt"""
+        self.client.force_login(self.companion_one)
+
+        response = self.client.post(
+            reverse(
+                "activity-add-comment",
+                kwargs={
+                    "activity_id": self.activity_for_circle_with_companion.id,
+                },
+            ),
+            {
+                "activity_id": self.activity_for_circle_with_companion.id,
+                "user_comment": "HELLO",
+                "user_id": self.companion_one.id,
+            },
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+    def test_participant_add_comment(self):
+        """Participant of activity should be able to add comemnt"""
+        self.client.force_login(self.companion_one)
+        self.client.post(
+            reverse(
+                "activity-add-participant",
+                kwargs={
+                    "activity_id": self.activity_for_circle_with_companion.id,
+                },
+            ),
+            {
+                "user_id": self.companion_two.id,
+            },
+        )
+        
+        response = self.client.post(
+            reverse(
+                "activity-add-comment",
+                kwargs={
+                        "activity_id": self.activity_for_circle_with_companion.id,
+                },
+            ),
+            {
+                "activity_id": self.activity_for_circle_with_companion.id,
+                "user_comment": "HELLO",
+                "user_id": self.companion_two.id,
+            },
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+
+        
+
+
+class ActivityCommentViewTest(TestCase):
+    def setUp(self):
+        self.companion_one = User.objects.create_user("test_one@user.com", "test12345")
+        self.companion_two = User.objects.create_user("test_two@user.com", "test12345")
+
+        self.circle = Circle.objects.create(name="Test circle")
+
+        Companion.objects.create(
+            circle=self.circle,
+            user=self.companion_one,
+            is_organizer=True,
+        )
+        Companion.objects.create(
+            circle=self.circle,
+            user=self.companion_two,
+        )
+
+        self.activity_for_circle_with_companion = Activity.objects.create(
+            activity_type=Activity.ActivityTypeChoices.APPOINTMENT,
+            activity_date="2022-11-23",
+            circle=self.circle,
+        )
+
+
+
+    def test_anonymous_access(self):
+        """Anonymous user should not be authorized to view the comment page"""
+        response = self.client.get(
+            reverse("activity-view-comments",
+                kwargs={
+                        "activity_id": self.activity_for_circle_with_companion.id,
+                }),
+            {
+                "activity_id": self.activity_for_circle_with_companion.id,
+            },
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+    def test_authenticated_access(self):
+        """Authorized user should be authorized to view the comment page"""
+        self.client.force_login(self.companion_one)
+        comment= "wow, this activity looks cool!"
+
+        response = self.client.post(
+            reverse(
+                "activity-add-comment",
+                kwargs={
+                        "activity_id": self.activity_for_circle_with_companion.id,
+                },
+            ),
+            {
+                "activity_id": self.activity_for_circle_with_companion.id,
+                "user_comment": comment,
+                "user_id": self.companion_one.id,
+            },
+        )
+        response = self.client.get(
+            reverse(
+                "activity-view-comments",
+                kwargs={
+                        "activity_id": self.activity_for_circle_with_companion.id,
+                },
+            ),
+            {
+                "activity_id": self.activity_for_circle_with_companion.id,
+            },
+        )
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, self.companion_two.display_name)
+        self.assertContains(response, comment)
