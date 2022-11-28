@@ -29,6 +29,7 @@ django-debug-toolbar = "^3.7.0"
 django-linear-migrations = "^2.5.1"
 rich = "^12.6.0"
 black = "^22.10.0"
+factory-boy = "^3.2.1"
 
 [tool.coverage]
 run.omit = ["project/manage.py", "project/core/*", "project/**/tests.py", "project/**/migrations/*",]
