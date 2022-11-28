@@ -1,8 +1,9 @@
 import random
 
 from factory.django import DjangoModelFactory
-from .models import User
 from faker import Faker
+
+from .models import User
 
 fake = Faker()
 

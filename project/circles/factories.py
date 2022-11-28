@@ -1,9 +1,11 @@
-import factory
 import random
-from factory.django import DjangoModelFactory
-from .models import Circle, Companion
+
+import factory
 from accounts.factories import UserFactory
+from factory.django import DjangoModelFactory
 from faker import Faker
+
+from .models import Circle, Companion
 
 fake = Faker()
 

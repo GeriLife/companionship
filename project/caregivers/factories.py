@@ -1,6 +1,7 @@
-from factory.django import DjangoModelFactory
 from factory import fuzzy
+from factory.django import DjangoModelFactory
 from faker import Faker
+
 from .models import Caregiver
 
 fake = Faker()
