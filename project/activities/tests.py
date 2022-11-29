@@ -22,7 +22,8 @@ class ActivityCreateViewTest(TestCase):
         )
 
         # This circle will have the user as a companion
-        self.circle_with_companion = Circle.objects.create(name="Companion circle")
+        self.circle_with_companion = Circle.objects.create(
+            name="Companion circle")
         self.companionship_through = Companion.objects.create(
             circle=self.circle_with_companion, user=self.user
         )
@@ -177,7 +178,8 @@ class ActivityDeleteViewTest(TestCase):
         )
 
         # This circle will have the user as a companion
-        self.circle_with_companion = Circle.objects.create(name="Companion circle")
+        self.circle_with_companion = Circle.objects.create(
+            name="Companion circle")
         self.companionship_through = Companion.objects.create(
             circle=self.circle_with_companion,
             user=self.user,
@@ -248,9 +250,12 @@ class ActivityDeleteViewTest(TestCase):
 
 class ActivityAddParticipantViewTest(TestCase):
     def setUp(self):
-        self.organizer = User.objects.create_user("test_one@user.com", "test12345")
-        self.companion = User.objects.create_user("test_two@user.com", "test12345")
-        self.user_three = User.objects.create_user("test_three@user.com", "test12345")
+        self.organizer = User.objects.create_user(
+            "test_one@user.com", "test12345")
+        self.companion = User.objects.create_user(
+            "test_two@user.com", "test12345")
+        self.user_three = User.objects.create_user(
+            "test_three@user.com", "test12345")
 
         self.circle = Circle.objects.create(name="Test circle")
 
@@ -357,9 +362,12 @@ class ActivityAddParticipantViewTest(TestCase):
 
 class ActivityRemoveParticipantViewTest(TestCase):
     def setUp(self):
-        self.organizer = User.objects.create_user("test_one@user.com", "test12345")
-        self.companion = User.objects.create_user("test_two@user.com", "test12345")
-        self.user_three = User.objects.create_user("test_three@user.com", "test12345")
+        self.organizer = User.objects.create_user(
+            "test_one@user.com", "test12345")
+        self.companion = User.objects.create_user(
+            "test_two@user.com", "test12345")
+        self.user_three = User.objects.create_user(
+            "test_three@user.com", "test12345")
 
         self.circle = Circle.objects.create(name="Test circle")
 
@@ -467,9 +475,12 @@ class ActivityRemoveParticipantViewTest(TestCase):
 class ActivityModelTest(TestCase):
     def setUp(self):
 
-        self.companion_one = User.objects.create_user("test_one@user.com", "test12345")
-        self.companion_two = User.objects.create_user("test_two@user.com", "test12345")
-        self.user_three = User.objects.create_user("test_three@user.com", "test12345")
+        self.companion_one = User.objects.create_user(
+            "test_one@user.com", "test12345")
+        self.companion_two = User.objects.create_user(
+            "test_two@user.com", "test12345")
+        self.user_three = User.objects.create_user(
+            "test_three@user.com", "test12345")
 
         self.circle = Circle.objects.create(name="Test circle")
 
