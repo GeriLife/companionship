@@ -45,7 +45,8 @@ class User(PermissionsMixin, AbstractBaseUser):
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,
-        help_text=_("Designates whether the user can log into this admin site."),
+        help_text=_(
+            "Designates whether the user can log into this admin site."),
     )
     is_active = models.BooleanField(default=True)
 
