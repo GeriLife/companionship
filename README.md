@@ -6,6 +6,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/bcb7e4c6f43b13ab8941/maintainability)](https://codeclimate.com/github/GeriLife/companionship-care/maintainability)
 [![Test coverage](https://codecov.io/gh/CompanionshipCare/companionship-care/branch/main/graph/badge.svg?token=S0HBQTUDMN)](https://codecov.io/gh/CompanionshipCare/companionship-care)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/CompanionshipCare/companionship-care)
+[![DeepSource](https://deepsource.io/gh/CompanionshipCare/companionship-care.svg/?label=active+issues&show_trend=true&token=IeTnGHYCMRLdUsIKC5NrgDTs)](https://deepsource.io/gh/CompanionshipCare/companionship-care/)
 
 Promoting companionship and wellness for elderly persons.
 
