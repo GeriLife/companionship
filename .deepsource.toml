@@ -1,5 +1,12 @@
 version = 1
 
+test_patterns = ["project/**/tests.py"]
+
+exclude_patterns = [
+  "diagrams/",
+  "project/**/migrations/"
+]
+
 [[analyzers]]
 name = "python"
 enabled = true
@@ -8,11 +15,7 @@ enabled = true
   runtime_version = "3.x.x"
 
 [[transformers]]
-name = "black"
-enabled = true
-
-[[transformers]]
-name = "isort"
+name = "yapf"
 enabled = true
 
 [[transformers]]
@@ -20,5 +23,9 @@ name = "autopep8"
 enabled = true
 
 [[transformers]]
-name = "yapf"
+name = "black"
+enabled = true
+
+[[transformers]]
+name = "isort"
 enabled = true
