@@ -86,6 +86,7 @@ class Activity(models.Model):
         current_participants = self.participants.all()
 
         # Exclude existing companions from care group members
-        remaining_eligible_companions = companions.difference(current_participants)
+        remaining_eligible_companions = companions.difference(
+            current_participants)
 
         return remaining_eligible_companions
