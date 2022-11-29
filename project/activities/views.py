@@ -64,7 +64,7 @@ class ActivityUpdateView(UserPassesTestMixin, LoginRequiredMixin, View):
 
             return user_can_update_activity
         else:
-            False
+            pass
 
     def post(self, *args, **kwargs):
         activity = Activity.objects.get(pk=kwargs["pk"])
