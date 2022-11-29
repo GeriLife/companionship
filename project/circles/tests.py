@@ -43,7 +43,8 @@ class CircleDetailViewTest(TestCase):
         )
 
         # This circle will have the user as a companion
-        self.circle_with_companion = Circle.objects.create(name="Companion circle")
+        self.circle_with_companion = Circle.objects.create(
+            name="Companion circle")
         self.companionship_through = Companion.objects.create(
             circle=self.circle_with_companion, user=self.user
         )
