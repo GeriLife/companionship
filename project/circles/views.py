@@ -170,40 +170,44 @@ class CircleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 def join_as_companion(request, circle_id):
     if request.user.is_authenticated:
-        # Ensure circle exists
-        try:
-            circle = Circle.objects.get(pk=circle_id)
-        except Circle.DoesNotExist:
-            message = _("Could not find circle at the requested URL")
-            raise Http404(message)
+        # Ensure user is not already a companion of any circle
+        if Companion.objects.filter(user=request.user).exists():
+            return render(request, "404.html")
+        else:
+            # Ensure circle exists
+            try:
+                circle = Circle.objects.get(pk=circle_id)
+            except Circle.DoesNotExist:
+                message = _("Could not find circle at the requested URL")
+                raise Http404(message)
 
-        # Redirect to circle page if user is already a companion
-        if Companion.objects.filter(
-            circle=circle_id,
-            user=request.user,
-        ).exists():
-            return redirect(circle)
-
-        # Show "request received" if user has already submitted a join request
-        if JoinRequest.objects.filter(
-            circle=circle_id,
-            user=request.user,
-        ).exists():
-            return render(request, "circles/circle_join_received.html")
-
-        # Handle join request
-        if request.method == "POST":
-            join_request = JoinRequest(
-                circle=circle,
+            # Redirect to circle page if user is already a companion
+            if Companion.objects.filter(
+                circle=circle_id,
                 user=request.user,
-            )
+            ).exists():
+                return redirect(circle)
 
-            join_request.save()
+            # Show "request received" if user has already submitted a join request
+            if JoinRequest.objects.filter(
+                circle=circle_id,
+                user=request.user,
+            ).exists():
+                return render(request, "circles/circle_join_received.html")
 
-            return render(request, "circles/circle_join_received.html")
+            # Handle join request
+            if request.method == "POST":
+                join_request = JoinRequest(
+                    circle=circle,
+                    user=request.user,
+                )
 
-        # Show join form by default
-        return render(request, "circles/circle_join.html")
+                join_request.save()
+
+                return render(request, "circles/circle_join_received.html")
+
+            # Show join form by default
+            return render(request, "circles/circle_join.html")
     else:
         # Show login/register buttons by default
         return render(request, "circles/login_register.html")
