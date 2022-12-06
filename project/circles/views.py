@@ -167,7 +167,7 @@ class CircleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
         return form
 
-    def form_valid(self,form):
+    def form_valid(self, form):
         """Used to delete old photos and thumbnails"""
         circle = Circle.objects.get(id=self.kwargs["pk"])
         circle.photo.delete()
