@@ -167,6 +167,15 @@ class CircleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
         return form
 
+    def form_valid(self,form):
+        """Used to delete old photos and thumbnails"""
+        circle = Circle.objects.get(id=self.kwargs["pk"])
+        circle.photo.delete()
+
+        circle = form.save()
+
+        return HttpResponseRedirect(circle.get_absolute_url())
+
 
 def join_as_companion(request, circle_id):
     if request.user.is_authenticated:
