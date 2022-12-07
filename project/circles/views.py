@@ -42,7 +42,8 @@ class CompanionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         # TODO: determine if there is a more idiomatic way
         # to validate the request circle_id
         user_can_remove_companion = user in circle.organizers
-        request_circle_id_matches_circle_id = request_circle_id == str(circle.id)
+        request_circle_id_matches_circle_id = request_circle_id == str(
+            circle.id)
 
         return user_can_remove_companion and request_circle_id_matches_circle_id
 
@@ -119,7 +120,8 @@ class CircleDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
         # Create companion invitation URL
         circle_id = context["circle"].id
-        invitation_path = reverse("circle-join", kwargs={"circle_id": circle_id})
+        invitation_path = reverse(
+            "circle-join", kwargs={"circle_id": circle_id})
         invitation_url = self.request.build_absolute_uri(invitation_path)
 
         context["invitation_url"] = invitation_url
@@ -226,7 +228,8 @@ class JoinRequestUpdateView(View):
         if request.user not in circle.organizers:
             raise PermissionDenied()
         else:
-            join_request = JoinRequest.objects.get(id=join_request_id, circle=circle)
+            join_request = JoinRequest.objects.get(
+                id=join_request_id, circle=circle)
 
             join_request_status = request.GET["status"]
 
