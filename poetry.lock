@@ -223,7 +223,7 @@ Django = ">=3.2"
 
 [[package]]
 name = "easy-thumbnails"
-version = "2.8.3"
+version = "2.8.4"
 description = "Easy thumbnails for Django"
 category = "main"
 optional = false
@@ -702,7 +702,7 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "b093f2e3b5607e6ea37ee7438af2a7a3f52126de49e169efb9a25eaa6d1613c4"
+content-hash = "a1662066d5b5a642174958a5fd2afb3c5bfa69ce7f872597b547a8c4ff81c901"
 
 [metadata.files]
 appnope = [
@@ -929,8 +929,8 @@ django-linear-migrations = [
     {file = "django_linear_migrations-2.5.1-py3-none-any.whl", hash = "sha256:9b6c4157c0ee21b78affc3c9a76e89d9df7ad9239a4378d48dc7247a914f6c72"},
 ]
 easy-thumbnails = [
-    {file = "easy-thumbnails-2.8.3.tar.gz", hash = "sha256:8a3ec61bb8c72fac7f75e811a96e3cd7942ac89cab55ab16549d6d2ce9cdeaa5"},
-    {file = "easy_thumbnails-2.8.3-py3-none-any.whl", hash = "sha256:fc697845103b65279df6c5c0834b0c165bdef07edd6220a06a7a05ca934d582c"},
+    {file = "easy-thumbnails-2.8.4.tar.gz", hash = "sha256:6aa477ce0f73beda293b34c6314a3f2b78c1b45ccae9ad9faa49e39dc7f34369"},
+    {file = "easy_thumbnails-2.8.4-py3-none-any.whl", hash = "sha256:6ba566bec318ee6834700899661cc14c81acfc53556537bca18660b29b866e57"},
 ]
 executing = [
     {file = "executing-1.1.1-py2.py3-none-any.whl", hash = "sha256:236ea5f059a38781714a8bfba46a70fad3479c2f552abee3bbafadc57ed111b8"},
