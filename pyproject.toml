@@ -20,7 +20,7 @@ django-browser-reload = "^1.6.0"
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
 pyproject-flake8 = "^4.0.1"
-isort = "^5.10.1"
+isort = "^5.11.4"
 
 [tool.poetry.group.dev.dependencies]
 coverage = "^6.4.4"
