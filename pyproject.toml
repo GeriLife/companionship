@@ -14,7 +14,7 @@ psycopg2-binary = "^2.9.5"
 whitenoise = {extras = ["brotli"], version = "^6.2.0"}
 reportlab = "^3.6.12"
 svglib = "^1.5.1"
-easy-thumbnails = "^2.8.1"
+easy-thumbnails = "^2.8.5"
 django-browser-reload = "^1.6.0"
 
 [tool.poetry.dev-dependencies]
