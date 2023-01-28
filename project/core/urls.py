@@ -21,7 +21,19 @@ from django.views.generic.base import TemplateView
 
 media_urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+api_urlpatterns = [
+    path(
+        "accounts/registration/",
+        include("dj_rest_auth.registration.urls"),
+    ),
+    path(
+        "accounts/",
+        include("dj_rest_auth.urls"),
+    ),
+]
+
 urlpatterns = [
+    path("api/v1/", include(api_urlpatterns)),
     path("__debug__/", include("debug_toolbar.urls")),
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("admin/", admin.site.urls),
