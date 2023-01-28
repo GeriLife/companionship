@@ -27,8 +27,7 @@ class ActivityCreateView(UserPassesTestMixin, LoginRequiredMixin, View):
             user_can_update_activity = user_is_organizer or user_is_companion
 
             return user_can_update_activity
-        else:
-            return False
+        return False
 
     def post(self, *args, **kwargs):
         form = ActivityModelForm(self.request.POST)
@@ -63,8 +62,7 @@ class ActivityUpdateView(UserPassesTestMixin, LoginRequiredMixin, View):
             user_can_update_activity = user_is_organizer or user_is_companion
 
             return user_can_update_activity
-        else:
-            return False
+        return False
 
     def post(self, *args, **kwargs):
         activity = Activity.objects.get(pk=kwargs["pk"])
