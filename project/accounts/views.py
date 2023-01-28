@@ -3,6 +3,8 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 
+from dj_rest_auth.registration.views import VerifyEmailView
+
 from .forms import CustomUserCreationForm, UpdateUserForm
 
 
@@ -43,3 +45,7 @@ class UserProfileUpdateView(UpdateView):
 
     def get_object(self):
         return self.request.user
+
+
+class ApiVerifyEmailView(VerifyEmailView):
+    template_name = "accounts/email_verified.html"
