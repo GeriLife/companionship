@@ -38,12 +38,23 @@ default_allowed_hosts = [
     "testserver",
     "localhost",
 ]
-
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=default_allowed_hosts)
 
-CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS", default=[])
+default_csrf_trusted_origins = [
+    "http://localhost",
+]
+CSRF_TRUSTED_ORIGINS = env.list(
+    "DJANGO_CSRF_TRUSTED_ORIGINS",
+    default=default_csrf_trusted_origins,
+)
 
-INTERNAL_IPS = env.list("INTERNAL_IPS", default=[])
+default_internal_ips = [
+    "127.0.0.1",
+]
+INTERNAL_IPS = env.list(
+    "INTERNAL_IPS",
+    default=default_internal_ips,
+)
 
 # Email settings
 DJANGO_USE_SMTP_SERVER = env.bool("DJANGO_USE_SMTP_SERVER", False)
@@ -68,6 +79,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth.registration",
     "django_browser_reload",
     "crispy_forms",
     "crispy_bootstrap5",
@@ -138,8 +154,28 @@ else:
     }
 
 
-# Custom user model
+# Authentication
 AUTH_USER_MODEL = "accounts.User"
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
+REST_SESSION_LOGIN = True
+
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+# REST framework
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+        # 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    ),
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -237,3 +273,5 @@ LOGGING = {
         "tracebacks_show_locals": True,
     },
 }
+
+SITE_ID = 1
