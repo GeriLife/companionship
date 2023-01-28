@@ -33,8 +33,7 @@ class SignUpView(CreateView):
         # Allow specifying the next URL when signing up
         if next is not None:
             return redirect(next)
-        else:
-            return redirect(self.success_url)
+        return redirect(self.success_url)
 
 
 class UserProfileUpdateView(UpdateView):

@@ -213,9 +213,8 @@ def join_as_companion(request, circle_id):
 
         # Show join form by default
         return render(request, "circles/circle_join.html")
-    else:
-        # Show login/register buttons by default
-        return render(request, "circles/login_register.html")
+    # Show login/register buttons by default
+    return render(request, "circles/login_register.html")
 
 
 class JoinRequestUpdateView(View):
