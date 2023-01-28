@@ -16,6 +16,7 @@ reportlab = "^3.6.12"
 svglib = "^1.5.1"
 easy-thumbnails = "^2.8.5"
 django-browser-reload = "^1.6.0"
+dj-rest-auth = "^2.2.7"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
