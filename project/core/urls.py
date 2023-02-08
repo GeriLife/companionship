@@ -23,11 +23,6 @@ media_urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 
 api_urlpatterns = [
     path(
-        "accounts/registration/account-confirm-email/",
-        ApiVerifyEmailView.as_view(),
-        name="account_email_verification_sent",
-    ),
-    path(
         "accounts/registration/",
         include("dj_rest_auth.registration.urls"),
     ),
