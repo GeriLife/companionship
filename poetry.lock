@@ -713,14 +713,14 @@ testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)"]
 
 [[package]]
 name = "django-linear-migrations"
-version = "2.5.1"
+version = "2.6.0"
 description = "Ensure your migrations are linear."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "django-linear-migrations-2.5.1.tar.gz", hash = "sha256:4dbba1a42ce10dc40df295f7fa2fd28d6f7b31035353f7f1a752d07c71391073"},
-    {file = "django_linear_migrations-2.5.1-py3-none-any.whl", hash = "sha256:9b6c4157c0ee21b78affc3c9a76e89d9df7ad9239a4378d48dc7247a914f6c72"},
+    {file = "django-linear-migrations-2.6.0.tar.gz", hash = "sha256:0a26b5f49ce716d8d4f0c2b9061b6aeeb9df692ef6153e7736881ca46daea57b"},
+    {file = "django_linear_migrations-2.6.0-py3-none-any.whl", hash = "sha256:20a5c619847db79af6cbc7d66a9d242802ae1f3853e12842c268ff91f0d9e557"},
 ]
 
 [package.dependencies]
@@ -1773,4 +1773,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "784f2aef5c876ee0cc6445a9a9322cfb03b3d0fe6f7a560f43ec86f198e7ed48"
+content-hash = "03fd96b51541e0050448d00fa1d74e5680a0cf5ca4275e338dfed21117c30683"
