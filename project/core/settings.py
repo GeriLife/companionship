@@ -163,6 +163,7 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
 REST_SESSION_LOGIN = True
 # TODO: enable email verification
 # for both authentication backends
+# https://github.com/CompanionshipCare/companionship-care/issues/192
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
 
