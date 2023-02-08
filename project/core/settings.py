@@ -25,25 +25,39 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+default_secret_key = (
+    "django-insecure-+24wlkd-xp!1)z)9#2=3gk+fhv-r9mo4*(kcfc=drz2=68m^-r"
+)
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
-    default="django-insecure-+24wlkd-xp!1)z)9#2=3gk+fhv-r9mo4*(kcfc=drz2=68m^-r",
+    default=default_secret_key,
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DJANGO_DEBUG", False)
+DEBUG = env.bool("DJANGO_DEBUG", True)
 
 default_allowed_hosts = [
     "127.0.0.1",
     "testserver",
     "localhost",
 ]
-
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=default_allowed_hosts)
 
-CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS", default=[])
+default_csrf_trusted_origins = [
+    "http://localhost",
+]
+CSRF_TRUSTED_ORIGINS = env.list(
+    "DJANGO_CSRF_TRUSTED_ORIGINS",
+    default=default_csrf_trusted_origins,
+)
 
-INTERNAL_IPS = env.list("INTERNAL_IPS", default=[])
+default_internal_ips = [
+    "127.0.0.1",
+]
+INTERNAL_IPS = env.list(
+    "INTERNAL_IPS",
+    default=default_internal_ips,
+)
 
 # Email settings
 DJANGO_USE_SMTP_SERVER = env.bool("DJANGO_USE_SMTP_SERVER", False)
@@ -68,9 +82,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth.registration",
     "django_browser_reload",
     "crispy_forms",
     "crispy_bootstrap5",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "dj_rest_auth",
     "easy_thumbnails",
     "debug_toolbar",
     "django_linear_migrations",
@@ -135,8 +157,32 @@ else:
     }
 
 
-# Custom user model
+# Authentication
 AUTH_USER_MODEL = "accounts.User"
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
+REST_SESSION_LOGIN = True
+# TODO: enable email verification
+# for both authentication backends
+# https://github.com/CompanionshipCare/companionship-care/issues/192
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+# REST framework
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+        # 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    ),
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -234,3 +280,5 @@ LOGGING = {
         "tracebacks_show_locals": True,
     },
 }
+
+SITE_ID = 1

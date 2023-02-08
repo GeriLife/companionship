@@ -26,7 +26,11 @@ class SignUpView(CreateView):
         user = form.save()
 
         # Ensure the user is logged in
-        login(self.request, user)
+        login(
+            self.request,
+            user,
+            backend="django.contrib.auth.backends.ModelBackend",
+        )
 
         next = self.request.POST.get("next")
 
