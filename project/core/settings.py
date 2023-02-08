@@ -161,6 +161,9 @@ else:
 AUTH_USER_MODEL = "accounts.User"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
 REST_SESSION_LOGIN = True
+# TODO: enable email verification
+# for both authentication backends
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 
 AUTHENTICATION_BACKENDS = [
