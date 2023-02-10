@@ -10,7 +10,7 @@ Read through them, get to know them and consider what would add value to their e
 
 ---
 
-##Astrid Anderson
+## Astrid Anderson
 
 <img src="https://images.pexels.com/photos/3167405/pexels-photo-3167405.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" width="200"/>
 
