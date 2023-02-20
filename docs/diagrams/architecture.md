@@ -38,25 +38,25 @@ classDef lightBlue fill:##438DD5, color:#fff, stroke:##438DD5, stroke-width:2px
 classDef grey fill:#999999, color:#fff, stroke:#999999, stroke-width:2px
 
 subgraph emailService[ ]
-    A0[[<< External System >><br/>Email Service]]
+    A0[[<<External System>><br/>Email Service]]
     B0[Backend Services]
 end
 class emailService grey
 
 subgraph softwareSystem[ ]
-    A1[[<< System >><br/>Companionship Care]]
+    A1[[<<System>><br/>Companionship Care]]
     B1[Django/Python]
 end
 class softwareSystem blue
 
 subgraph mobileApp[ ]
-    A2[[<< System >><br/>Mobile App]]
+    A2[[<<System>><br/>Mobile App]]
     B2[Flutter]
 end
 class mobileApp blue
 
 subgraph authorizedUser[ ]
-    A3[[<< Person >><br/>Authorized User]]
+    A3[[<<Person>><br/>Authorized User]]
     B4[frontend services]
 end
 class authorizedUser darkBlue
@@ -85,34 +85,34 @@ classDef blueBorder stroke:#08427B, stroke-width:2px
 
 
 subgraph emailService[ ]
-    A0[[<< External System >><br/>Email Service]]
+    A0[[<<External System>><br/>Email Service]]
     B0[Backend Services]
 end
 class emailService grey
 
 subgraph softwareSystem[ ]
-    A1[[<< System >><br/>Companionship Care]]
+    A1[[<<System>><br/>Companionship Care]]
 
     subgraph webApp[ ]
-        A11[[<< Container >><br/>Web Application]]
+        A11[[<<container>><br/>Web Application]]
         B11[Django/Python]
     end
     class webApp lightBlue
 
     subgraph db[ ]
-        A12[[<< Container >><br/>Database]]
+        A12[[<<container>><br/>Database]]
         B12[PostgreSQL]
     end
     class db lightBlue
 
     subgraph admin[ ]
-        A13[[<< Container >><br/>Admin]]
+        A13[[<<container>><br/>Admin]]
         B13[Django Admin]
     end
     class admin lightBlue
 
     subgraph restApi[ ]
-        A14[<< Container >><br/>REST API]
+        A14[<<container>><br/>REST API]
         B14[Django REST Framework]
     end
     class restApi lightBlue
@@ -121,13 +121,13 @@ class softwareSystem blueBorder
 
 
 subgraph mobileApp[ ]
-    A2[[<< System >><br/>Mobile App]]
+    A2[[<<System>><br/>Mobile App]]
     B2[Flutter]
 end
 class mobileApp blue
 
 subgraph authorizedUser[ ]
-    A3[[<< Person >><br/>Authorized User]]
+    A3[[<<Person>><br/>Authorized User]]
     B3[frontend services]
 end
 class authorizedUser darkBlue
@@ -161,34 +161,34 @@ classDef LightBlueBorder stroke:#438DD5, stroke-width:2px
 classDef blueBorder stroke:#1168BD, stroke-width:2px
 
 subgraph emailService[ ]
-    A0[[<< External System >><br/>Email Service]]
+    A0[[<<External System>><br/>Email Service]]
     B0[Backend Services]
 end
 class emailService grey
 
 subgraph softwareSystem[ ]
-    A1[[<< System >><br/>Companionship Care]]
+    A1[[<<System>><br/>Companionship Care]]
 
     subgraph webApp[ ]
-        A11[[<< Container >><br/>Web Application]]
+        A11[[<<container>><br/>Web Application]]
 
         subgraph accounts[ ]
-            A21[[<< Component >><br/>Accounts]]
+            A21[[<<component>><br/>Accounts]]
         end
         class accounts brightBlue
 
         subgraph activities[ ]
-            A22[[<< Component >><br/>Activities]]
+            A22[[<<component>><br/>Activities]]
         end
         class activities brightBlue
 
         subgraph caregivers[ ]
-            A23[[<< Component >><br/>Caregivers]]
+            A23[[<<component>><br/>Caregivers]]
         end
         class caregivers brightBlue
 
         subgraph circles[ ]
-            A24[[<< Component >><br/>Circles]]
+            A24[[<<component>><br/>Circles]]
         end
         class circles brightBlue
 
@@ -196,19 +196,19 @@ subgraph softwareSystem[ ]
     class webApp LightBlueBorder
 
     subgraph db[ ]
-        A12[[<< Container >><br/>Database]]
+        A12[[<<container>><br/>Database]]
         B12[PostgreSQL]
     end
     class db lightBlue
 
     subgraph admin[ ]
-        A13[[<< Container >><br/>Admin]]
+        A13[[<<container>><br/>Admin]]
         B13[Django Admin]
     end
     class admin lightBlue
 
     subgraph restApi[ ]
-        A14[<< Container >><br/>REST API]
+        A14[<<container>><br/>REST API]
         B14[Django REST Framework]
     end
     class restApi lightBlue
@@ -217,13 +217,13 @@ class softwareSystem blueBorder
 
 
 subgraph mobileApp[ ]
-    A2[[<< System >><br/>Mobile App]]
+    A2[[<<System>><br/>Mobile App]]
     B2[Flutter]
 end
 class mobileApp blue
 
 subgraph authorizedUser[ ]
-    A3[[<< Person >><br/>Authorized User]]
+    A3[[<<Person>><br/>Authorized User]]
     B3[frontend services]
 end
 class authorizedUser darkBlue
@@ -265,41 +265,41 @@ classDef blueBorder stroke:#1168BD, stroke-width:2px
 
 
 subgraph mobileApp[ ]
-    A2[[<< System >><br/>Mobile App]]
+    A2[[<<System>><br/>Mobile App]]
     B2[Flutter]
 end
 class mobileApp blue
 
 subgraph softwareSystem[ ]
-    A1[[<< System >><br/>Companionship Care]]
+    A1[[<<System>><br/>Companionship Care]]
 
     subgraph webApp[ ]
-        A11[[<< Container >><br/>Web Application]]
+        A11[[<<container>><br/>Web Application]]
         B11[Django/Python]
     end
     class webApp lightBlue
 
     subgraph db[ ]
-        A12[[<< Container >><br/>Database]]
+        A12[[<<container>><br/>Database]]
         B12[PostgreSQL]
     end
     class db lightBlue
 
     subgraph restApi[ ]
-        A14[<< Container >><br/>REST API]
+        A14[<<container>><br/>REST API]
 
         subgraph authCntr[ ]
-            A21[[<< Component >><br/>Auth Endpoints]]
+            A21[[<<component>><br/>Auth Endpoints]]
         end
         class authCntr brightBlue
 
         subgraph circleCntr[ ]
-            A22[[<< Component >><br/>Circle Endpoints]]
+            A22[[<<component>><br/>Circle Endpoints]]
         end
         class circleCntr brightBlue
 
         subgraph activityCntr[ ]
-            A23[[<< Component >><br/>Activity Endpoints]]
+            A23[[<<component>><br/>Activity Endpoints]]
         end
         class activityCntr brightBlue
 
@@ -320,3 +320,4 @@ restApi -- requests data from --> webApp
 restApi -- responds with serialized data --> mobileApp
 
 ```
+
