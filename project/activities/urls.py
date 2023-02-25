@@ -9,7 +9,15 @@ from .views import (
     ActivityUpdateView,
 )
 
+
+from activities import views
+
 urlpatterns = [
+
+    path('', views.activity_list),
+    
+    path('<int:id>', views.activity_details),
+
     path(
         "create",
         ActivityCreateView.as_view(),
