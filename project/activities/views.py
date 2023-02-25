@@ -24,7 +24,7 @@ def activity_list(request):
     if request.method == 'POST':
         serializer = ActivitySerializer(data=request.data)
         if serializer.is_valid():
-            serialiser.save()
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -42,7 +42,7 @@ def activity_details(request, id):
     elif request.method == 'PUT':
         serializer = ActivitySerializer(activity, data=request.data)
         if serializer.is_valid():
-            serialiser.save()
+            serializer.save()
             return Response(serializer.data)        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -51,14 +51,6 @@ def activity_details(request, id):
         return Response(status=status.HTTP_204_NO_CONTENT)
         
         
-
-
-
-
-
-
-
-
 class ActivityCreateView(UserPassesTestMixin, LoginRequiredMixin, View):
     raise_exception = True
 
