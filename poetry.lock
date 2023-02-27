@@ -517,6 +517,8 @@ files = [
     {file = "cryptography-39.0.1-cp36-abi3-win32.whl", hash = "sha256:fe913f20024eb2cb2f323e42a64bdf2911bb9738a15dba7d3cce48151034e3a8"},
     {file = "cryptography-39.0.1-cp36-abi3-win_amd64.whl", hash = "sha256:ced4e447ae29ca194449a3f1ce132ded8fcab06971ef5f618605aacaa612beac"},
     {file = "cryptography-39.0.1-pp38-pypy38_pp73-macosx_10_12_x86_64.whl", hash = "sha256:807ce09d4434881ca3a7594733669bd834f5b2c6d5c7e36f8c00f691887042ad"},
+    {file = "cryptography-39.0.1-pp38-pypy38_pp73-manylinux_2_28_aarch64.whl", hash = "sha256:c5caeb8188c24888c90b5108a441c106f7faa4c4c075a2bcae438c6e8ca73cef"},
+    {file = "cryptography-39.0.1-pp38-pypy38_pp73-manylinux_2_28_x86_64.whl", hash = "sha256:4789d1e3e257965e960232345002262ede4d094d1a19f4d3b52e48d4d8f3b885"},
     {file = "cryptography-39.0.1-pp38-pypy38_pp73-win_amd64.whl", hash = "sha256:96f1157a7c08b5b189b16b47bc9db2332269d6680a196341bf30046330d15388"},
     {file = "cryptography-39.0.1-pp39-pypy39_pp73-macosx_10_12_x86_64.whl", hash = "sha256:e422abdec8b5fa8462aa016786680720d78bdce7a30c652b7fadf83a4ba35336"},
     {file = "cryptography-39.0.1-pp39-pypy39_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.manylinux_2_24_aarch64.whl", hash = "sha256:b0afd054cd42f3d213bf82c629efb1ee5f22eba35bf0eec88ea9ea7304f511a2"},
@@ -704,14 +706,14 @@ testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)"]
 
 [[package]]
 name = "django-linear-migrations"
-version = "2.6.0"
+version = "2.7.0"
 description = "Ensure your migrations are linear."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "django-linear-migrations-2.6.0.tar.gz", hash = "sha256:0a26b5f49ce716d8d4f0c2b9061b6aeeb9df692ef6153e7736881ca46daea57b"},
-    {file = "django_linear_migrations-2.6.0-py3-none-any.whl", hash = "sha256:20a5c619847db79af6cbc7d66a9d242802ae1f3853e12842c268ff91f0d9e557"},
+    {file = "django_linear_migrations-2.7.0-py3-none-any.whl", hash = "sha256:29b47e8e1b29830aecf4495496ca69689664e36e4bd13c92c1dd862d3b188034"},
+    {file = "django_linear_migrations-2.7.0.tar.gz", hash = "sha256:cbb5626c6f6003dbc6b2560bfcbb5206a7497e90e51e23bd7dc2ab20e2d6a5d1"},
 ]
 
 [package.dependencies]
@@ -1791,4 +1793,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "784f2aef5c876ee0cc6445a9a9322cfb03b3d0fe6f7a560f43ec86f198e7ed48"
+content-hash = "8a1a07b5275736bb9b59ddca11bc4566202292702f95f392021519bffbf30932"
