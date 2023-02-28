@@ -89,3 +89,15 @@ class Activity(models.Model):
         remaining_eligible_companions = companions.difference(current_participants)
 
         return remaining_eligible_companions
+
+
+class Comment(models.Model):
+    user_id = models.BigIntegerField()
+    text = models.CharField(max_length=250)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    activity = models.ForeignKey(
+        to=Activity,
+        related_name="comment",
+        on_delete=models.CASCADE,
+        null=True,
+    )

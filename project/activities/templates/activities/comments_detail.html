@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+
+{% block content %}
+<h1>{{ activity_name }}</h1>
+<h1>{{activity_date }}</h1>
+<div class="row row-cols-lg-5 row-cols-md-3 row-cols-2 g-4">
+
+    {% for comment in activity_comments_list %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2> {{ comment.text }} </h2>
+                <p> {{ comment.name }} </p>
+                <p> {{ comment.timestamp }} </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock content %}

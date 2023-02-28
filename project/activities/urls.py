@@ -7,6 +7,8 @@ from .views import (
     ActivityRemoveParticipantView,
     ActivitySetDoneView,
     ActivityUpdateView,
+    ActivityAddCommentView,
+    ActivityViewCommentView,
 )
 
 urlpatterns = [
@@ -39,5 +41,15 @@ urlpatterns = [
         "update/<slug:activity_id>/set_done",
         ActivitySetDoneView.as_view(),
         name="activity-set-done",
+    ),
+    path(
+        "update/<slug:activity_id>/add_comment",
+        ActivityAddCommentView.as_view(),
+        name="activity-add-comment",
+    ),
+    path(
+        "<slug:activity_id>/comments",
+        ActivityViewCommentView.as_view(),
+        name="activity-view-comments",
     ),
 ]

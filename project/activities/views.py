@@ -1,12 +1,12 @@
 from circles.models import Circle
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import View
 
 from .forms import ActivityModelForm
-from .models import Activity
+from .models import Activity, Comment, User
 
 
 class ActivityCreateView(UserPassesTestMixin, LoginRequiredMixin, View):
@@ -219,3 +219,61 @@ class ActivitySetDoneView(UserPassesTestMixin, LoginRequiredMixin, View):
                 kwargs={"pk": self.activity.circle.id},
             )
         )
+
+
+class ActivityAddCommentView(UserPassesTestMixin, LoginRequiredMixin, View):
+    raise_exception = True
+
+    def test_func(self, *args, **kwargs):
+        """Only activity participants or circle's care organizers can comment activity"""
+        self.activity = Activity.objects.get(id=self.kwargs["activity_id"])
+
+        user_is_participant = self.request.user in self.activity.participants.all()
+        user_is_organizer = self.request.user in self.activity.circle.organizers
+
+        user_can_update_activity = user_is_participant or user_is_organizer
+
+        return user_can_update_activity
+
+    def post(self, request, activity_id, *args, **kwargs):
+        """Adds user comments to the comment database."""
+        user_id = request.POST["user_id"]
+        text = request.POST["user_comment"]
+
+        activity = Activity.objects.get(id = activity_id)
+        new_comment = Comment(user_id=user_id, text=text, activity=activity)
+        new_comment.save()
+        return redirect(
+            reverse(
+                "circle-detail",
+                kwargs={"pk": activity.circle.id},
+            )
+        )
+
+
+class ActivityViewCommentView(UserPassesTestMixin, LoginRequiredMixin, View):
+    raise_exception = True
+
+    def test_func(self, *args, **kwargs):
+        """Allow everyone to view comments for activities"""
+
+        return True
+        
+    def get(self, request, activity_id, *args, **kwargs):
+        """Fetch all comments for activity with activity_id"""
+        activity = Activity.objects.get(id=activity_id)
+        activity_comments_list = Comment.objects.filter(activity = activity)
+        newList = [ 
+            {
+                "name": str(User.objects.get(id = t.user_id).display_name), 
+                "text" : str(t.text), 
+                "timestamp" : str(t.timestamp).split(".")[0]
+            } for t in activity_comments_list 
+        ]
+        context = {
+            "activity_name": str(activity),
+            "activity_date": activity.activity_date,
+            "activity_comments_list": newList,
+        }
+        template_name="activities/comments_detail.html"
+        return render(request, template_name, context)
