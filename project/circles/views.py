@@ -179,6 +179,9 @@ class CircleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 def join_as_companion(request, circle_id):
     if request.user.is_authenticated:
+        # Ensure user is not already a companion of any circle
+        if Companion.objects.filter(user=request.user).exists():
+            return render(request, "404.html")
         # Ensure circle exists
         try:
             circle = Circle.objects.get(pk=circle_id)
