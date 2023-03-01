@@ -17,20 +17,23 @@ from circles import views
 @api_view(['GET', 'POST'])
 def activity_list(request):
 
-    if request.method == 'GET':   
-        activities = Activity.objects.all()
-        serializer = ActivitySerializer(activities, many=True)
-        return Response(serializer.data)
+    circle_id = Activity.objects.values_list("circle_id", flat=True)[4]
+    circle = Circle.objects.get(id=circle_id)
 
-    if request.method == 'POST':
-        circle_id = Activity.objects.values_list("circle_id", flat=True)[4]
-        circle = Circle.objects.get(id=circle_id)
-        if request.user in circle.companions:
-            serializer = ActivitySerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_403_FORBIDDEN)
+    if request.user in circle.companions:
+
+        if request.method == 'GET':   
+            activities = Activity.objects.all()
+            serializer = ActivitySerializer(activities, many=True)
+            return Response(serializer.data)
+
+        elif request.method == 'POST':
+                serializer = ActivitySerializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(status=status.HTTP_403_FORBIDDEN)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def activity_details(request, id):
@@ -40,28 +43,29 @@ def activity_details(request, id):
     except Activity.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-        serializer = ActivitySerializer(activity)
-        return Response(serializer.data)
+    circle_id = Activity.objects.values_list("circle_id", flat=True).get(pk=id)
+    circle = Circle.objects.get(id=circle_id)
 
-    if request.method == 'PUT':
-        circle_id = Activity.objects.values_list("circle_id", flat=True).get(pk=id)
-        circle = Circle.objects.get(id=circle_id)
-        if request.user in circle.companions:
-            serializer = ActivitySerializer(activity, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)        
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response(status=status.HTTP_403_FORBIDDEN)
+    if request.user in circle.companions:
 
-    if request.method == 'DELETE':
-        circle_id = Activity.objects.values_list("circle_id", flat=True).get(pk=id)
-        circle = Circle.objects.get(id=circle_id)
-        if request.user in circle.organizers:
-            activity.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(status=status.HTTP_403_FORBIDDEN)
+        if request.method == 'GET':
+            serializer = ActivitySerializer(activity)
+            return Response(serializer.data)
+
+        elif request.method == 'PUT':
+                serializer = ActivitySerializer(activity, data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)        
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        elif request.method == 'DELETE':
+            if request.user in circle.organizers:
+                activity.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_403_FORBIDDEN)
+            
+    return Response(status=status.HTTP_403_FORBIDDEN)
         
 class ActivityCreateView(UserPassesTestMixin, LoginRequiredMixin, View):
     raise_exception = True
