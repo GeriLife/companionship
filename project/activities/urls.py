@@ -14,10 +14,16 @@ from activities import views
 
 urlpatterns = [
 
-    path("", views.activity_list, name="activity_list"),
-
-    path("<int:id>", views.activity_details, name="activity_details"),
-
+    path(
+        "api", 
+        views.activity_list, 
+        name="activity_list"
+    ),
+    path(
+        "api/<int:id>", 
+        views.activity_details, 
+        name="activity_details"
+    ),
     path(
         "create",
         ActivityCreateView.as_view(),

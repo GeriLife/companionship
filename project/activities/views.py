@@ -11,7 +11,8 @@ from .serializers import ActivitySerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-
+from circles.models import Circle
+from circles import views
 
 @api_view(['GET', 'POST'])
 def activity_list(request):
@@ -22,10 +23,14 @@ def activity_list(request):
         return Response(serializer.data)
 
     if request.method == 'POST':
-        serializer = ActivitySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        circle_id = Activity.objects.values_list("circle_id", flat=True)[4]
+        circle = Circle.objects.get(id=circle_id)
+        if request.user in circle.companions:
+            serializer = ActivitySerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_403_FORBIDDEN)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def activity_details(request, id):
@@ -39,17 +44,24 @@ def activity_details(request, id):
         serializer = ActivitySerializer(activity)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        serializer = ActivitySerializer(activity, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    if request.method == 'PUT':
+        circle_id = Activity.objects.values_list("circle_id", flat=True).get(pk=id)
+        circle = Circle.objects.get(id=circle_id)
+        if request.user in circle.companions:
+            serializer = ActivitySerializer(activity, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)        
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_403_FORBIDDEN)
 
-    elif request.method == 'DELETE':
-        activity.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-        
+    if request.method == 'DELETE':
+        circle_id = Activity.objects.values_list("circle_id", flat=True).get(pk=id)
+        circle = Circle.objects.get(id=circle_id)
+        if request.user in circle.organizers:
+            activity.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_403_FORBIDDEN)
         
 class ActivityCreateView(UserPassesTestMixin, LoginRequiredMixin, View):
     raise_exception = True
