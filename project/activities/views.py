@@ -17,7 +17,7 @@ from circles import views
 @api_view(['GET', 'POST'])
 def activity_list(request):
 
-    circle_id = Activity.objects.values_list("circle_id", flat=True)[4]
+    circle_id = Activity.objects.values_list("circle_id", flat=True).first()
     circle = Circle.objects.get(id=circle_id)
 
     if request.user in circle.companions:
