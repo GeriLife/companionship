@@ -10,8 +10,10 @@ from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from rest_framework import viewsets
 
 from .models import Circle, Companion, JoinRequest
+from .serializers import CircleSerializer
 
 
 class CompanionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -241,3 +243,8 @@ class JoinRequestUpdateView(View):
             join_request.delete()
 
             return redirect(circle)
+
+
+class CircleViewSet(viewsets.ModelViewSet):
+    queryset = Circle.objects.all()
+    serializer_class = CircleSerializer
