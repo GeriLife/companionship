@@ -8,35 +8,46 @@ from django.views.generic import View
 from .forms import ActivityModelForm
 from .models import Activity
 from .serializers import ActivitySerializer
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from circles.models import Circle
-from circles import views
+
 
 @api_view(['GET', 'POST'])
 def activity_list(request):
+    """
+    Circle member(s) can create a Circle Activity via a POST request
+    Circle members and coordinators can view all Circle Activities via a GET request    
+    """
 
     circle_id = Activity.objects.values_list("circle_id", flat=True).first()
     circle = Circle.objects.get(id=circle_id)
 
     if request.user in circle.companions:
 
-        if request.method == 'GET':   
+        if request.method == 'GET':
             activities = Activity.objects.all()
             serializer = ActivitySerializer(activities, many=True)
             return Response(serializer.data)
 
-        elif request.method == 'POST':
-                serializer = ActivitySerializer(data=request.data)
-                if serializer.is_valid():
-                    serializer.save()
-                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if request.method == 'POST':
+            serializer = ActivitySerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(status=status.HTTP_403_FORBIDDEN)
 
+
 @api_view(['GET', 'PUT', 'DELETE'])
 def activity_details(request, id):
+    """
+    Circle member(s) can update a single Circle Activity via a PUT request
+    Circle coordinator(s) can delete a single Circle Activity via a DELETE request
+    Circle members and coordinators can view a single Circle Activity via a GET request
+    """
+
 
     try:
         activity = Activity.objects.get(pk=id)
@@ -52,20 +63,21 @@ def activity_details(request, id):
             serializer = ActivitySerializer(activity)
             return Response(serializer.data)
 
-        elif request.method == 'PUT':
-                serializer = ActivitySerializer(activity, data=request.data)
-                if serializer.is_valid():
-                    serializer.save()
-                    return Response(serializer.data)        
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if request.method == 'PUT':
+            serializer = ActivitySerializer(activity, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)  
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        elif request.method == 'DELETE':
+        if request.method == 'DELETE':
             if request.user in circle.organizers:
                 activity.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
             return Response(status=status.HTTP_403_FORBIDDEN)
-            
+
     return Response(status=status.HTTP_403_FORBIDDEN)
+
         
 class ActivityCreateView(UserPassesTestMixin, LoginRequiredMixin, View):
     raise_exception = True
