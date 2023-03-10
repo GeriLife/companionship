@@ -15,13 +15,13 @@ from activities import views
 urlpatterns = [
 
     path(
-        "api", 
-        views.activity_list, 
+        "api",
+        views.activity_list,
         name="activity_list"
     ),
     path(
-        "api/<int:id>", 
-        views.activity_details, 
+        "api/<int:id>",
+        views.activity_details,
         name="activity_details"
     ),
     path(
