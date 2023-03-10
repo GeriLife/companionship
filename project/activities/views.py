@@ -18,9 +18,8 @@ from rest_framework import status
 def activity_list(request):
     """
     Circle member(s) can create a Circle Activity via a POST request
-    Circle members and coordinators can view all Circle Activities via a GET request    
+    Circle members and coordinators can view all Circle Activities via a GET request
     """
-
     circle_id = Activity.objects.values_list("circle_id", flat=True).first()
     circle = Circle.objects.get(id=circle_id)
 
@@ -47,8 +46,6 @@ def activity_details(request, id):
     Circle coordinator(s) can delete a single Circle Activity via a DELETE request
     Circle members and coordinators can view a single Circle Activity via a GET request
     """
-
-
     try:
         activity = Activity.objects.get(pk=id)
     except Activity.DoesNotExist:
@@ -67,7 +64,7 @@ def activity_details(request, id):
             serializer = ActivitySerializer(activity, data=request.data)
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data)  
+                return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         if request.method == 'DELETE':
@@ -78,7 +75,7 @@ def activity_details(request, id):
 
     return Response(status=status.HTTP_403_FORBIDDEN)
 
-        
+
 class ActivityCreateView(UserPassesTestMixin, LoginRequiredMixin, View):
     raise_exception = True
 
