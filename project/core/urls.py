@@ -35,11 +35,16 @@ api_urlpatterns = [
         "accounts/",
         include("dj_rest_auth.urls"),
     ),
+    # path(
+    #     "activities/",
+    #     include("dj_rest_auth.urls"),
+    # ),
 ]
 
 urlpatterns = [
     path("api/v1/", include(api_urlpatterns)),
     path("api/v1/", include(router.urls)),
+    path("api/v1/", include('activities.urls')),
     path("__debug__/", include("debug_toolbar.urls")),
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("admin/", admin.site.urls),
