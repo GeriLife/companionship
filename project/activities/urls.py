@@ -12,10 +12,10 @@ from .views import (
 )
 
 router = routers.SimpleRouter()
-router.register(r'activities', ActivityViewSet)
+router.register(r"activities", ActivityViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
     path(
         "create",
         ActivityCreateView.as_view(),
