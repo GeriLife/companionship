@@ -1,5 +1,4 @@
-from django.urls import include, path
-from rest_framework import routers
+from django.urls import path
 
 from .views import (
     ActivityAddParticipantView,
@@ -8,14 +7,9 @@ from .views import (
     ActivityRemoveParticipantView,
     ActivitySetDoneView,
     ActivityUpdateView,
-    ActivityViewSet,
 )
 
-router = routers.SimpleRouter()
-router.register(r'activities', ActivityViewSet)
-
 urlpatterns = [
-    path('', include(router.urls)),
     path(
         "create",
         ActivityCreateView.as_view(),

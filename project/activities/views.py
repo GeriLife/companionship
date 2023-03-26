@@ -1,16 +1,12 @@
-from circles.models import Circle, Companion
+from circles.models import Circle
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import View
-from rest_framework import viewsets, permissions, status
-from rest_framework.decorators import action
-from rest_framework.response import Response
 
 from .forms import ActivityModelForm
 from .models import Activity
-from .serializers import ActivitySerializer
 
 
 class ActivityCreateView(UserPassesTestMixin, LoginRequiredMixin, View):
@@ -223,50 +219,3 @@ class ActivitySetDoneView(UserPassesTestMixin, LoginRequiredMixin, View):
                 kwargs={"pk": self.activity.circle.id},
             )
         )
-
-
-class ActivityViewSet(viewsets.ModelViewSet):
-    queryset = Activity.objects.all()
-    serializer_class = ActivitySerializer
-
-    @action(detail=True, methods=['post'])
-    def join_activity(self, request, pk=None):
-        """ Add current user to participants of an activity """
-        activity = self.get_object()
-        user = request.user
-
-        # Check user is Companion in Circle
-        try:
-            circle = Circle.objects.filter(activities=activity).first()
-            companion = Companion.objects.get(user=user, circle=circle)
-        except Companion.DoesNotExist:
-            return Response({'status': 'error', 'message': 'Sorry, you are not in this Circle'})
-
-        activity.participants.add(user)
-        activity.save()
-
-        return Response({'status': 'success'})
-
-    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
-    def assign_companion(self, request, pk=None):
-        """
-        Assign a companion to an activity
-        """
-        activity = self.get_object()
-        if not request.user.companion.is_organizer:
-            return Response({'error': 'You do not have permission to assign companions to this activity.'},
-                            status=status.HTTP_403_FORBIDDEN)
-
-        companion_id = request.data.get('companion_id')
-        if not companion_id:
-            return Response({'error': 'Please provide a valid companion ID.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            companion = activity.circle.companion.get(id=companion_id)
-        except Circle.DoesNotExist:
-            return Response({'error': 'Companion not found in Circle.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        activity.participants.add(companion)
-        activity.save()
-
-        return Response({'status': 'success'})
