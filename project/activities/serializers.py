@@ -1,4 +1,3 @@
-from circles.models import Circle
 from rest_framework import serializers
 
 from .models import Activity

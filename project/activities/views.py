@@ -279,8 +279,8 @@ class ActivityViewSet(viewsets.ModelViewSet):
             return Response(
                 {
                     "status": "error",
-                    "message": "Sorry, you need to be the organizer of this Circle to add a"
-                    " participant",
+                    "message": "Sorry, you need to be the organizer of this Circle to "
+                               "add a participant",
                 }
             )
 
@@ -290,7 +290,8 @@ class ActivityViewSet(viewsets.ModelViewSet):
         except Companion.DoesNotExist:
             return Response(
                 {
-                    "error": "The participant you are trying to add is not in this Circle."
+                    "error": "The participant you are trying to add is not in this "
+                             "Circle."
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -301,7 +302,8 @@ class ActivityViewSet(viewsets.ModelViewSet):
             return Response(
                 {
                     "status": "error",
-                    "message": "This companion is already a participant of this activity",
+                    "message": "This companion is already a participant of this "
+                               "activity",
                 }
             )
 
