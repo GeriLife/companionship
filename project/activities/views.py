@@ -9,7 +9,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .forms import ActivityModelForm
-from .models import Activity, User
+from .models import Activity
 from .serializers import ActivitySerializer
 
 
@@ -234,17 +234,13 @@ class ActivityViewSet(viewsets.ModelViewSet):
         """ Add current user to participants of an activity """
         activity = self.get_object()
         user = request.user
-        circle = activity.circle
 
         # Check user is Companion in Circle
         try:
+            circle = Circle.objects.filter(activities=activity).first()
             companion = Companion.objects.get(user=user, circle=circle)
         except Companion.DoesNotExist:
             return Response({'status': 'error', 'message': 'Sorry, you are not in this Circle'})
-
-        # Check if companion is already a participant of the activity
-        if user in activity.participants.all():
-            return Response({'status': 'error', 'message': 'You are already participating in this activity'})
 
         activity.participants.add(user)
         activity.save()
@@ -257,31 +253,20 @@ class ActivityViewSet(viewsets.ModelViewSet):
         Assign a companion to an activity
         """
         activity = self.get_object()
-        user = request.user
-        circle = activity.circle
-        assignee_id = request.data.get('assignee_id')
+        if not request.user.companion.is_organizer:
+            return Response({'error': 'You do not have permission to assign companions to this activity.'},
+                            status=status.HTTP_403_FORBIDDEN)
 
-        # Check current user is the Circle organizer
+        companion_id = request.data.get('companion_id')
+        if not companion_id:
+            return Response({'error': 'Please provide a valid companion ID.'}, status=status.HTTP_400_BAD_REQUEST)
+
         try:
-            assigner = Companion.objects.get(user__id=user.id, is_organizer=True, circle=circle)
-        except Companion.DoesNotExist:
-            return Response({'status': 'error', 'message': 'Sorry, you need to be the organizer of this Circle to add a'
-                                                           ' participant'})
+            companion = activity.circle.companion.get(id=companion_id)
+        except Circle.DoesNotExist:
+            return Response({'error': 'Companion not found in Circle.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Check 'assignee' is in the Circle
-        try:
-            assignee = Companion.objects.get(user__id=assignee_id, circle=circle)
-        except Companion.DoesNotExist:
-            return Response({'error': 'The participant you are trying to add is not in this Circle.'},
-                            status=status.HTTP_400_BAD_REQUEST)
-
-        # Check 'assignee' is not already in the activity
-        assignee_email = User.objects.get(id=assignee_id)
-        if assignee_email in activity.participants.all():
-            return Response({'status': 'error', 'message': 'This companion is already a participant of this activity'})
-
-        # Assign Companion to activity
-        activity.participants.add(assignee_id)
+        activity.participants.add(companion)
         activity.save()
 
         return Response({'status': 'success'})

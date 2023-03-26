@@ -35,6 +35,10 @@ api_urlpatterns = [
         "accounts/",
         include("dj_rest_auth.urls"),
     ),
+    # path(
+    #     "activities/",
+    #     include("dj_rest_auth.urls"),
+    # ),
 ]
 
 urlpatterns = [
