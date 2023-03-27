@@ -262,9 +262,7 @@ class ActivityViewSet(viewsets.ModelViewSet):
         detail=True, methods=["post"], permission_classes=[permissions.IsAuthenticated]
     )
     def assign_companion(self, request, pk=None):
-        """
-        Assign a companion to an activity
-        """
+        # Assign a companion to an activity
         activity = self.get_object()
         user = request.user
         circle = activity.circle
