@@ -10,8 +10,11 @@ from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Circle, Companion, JoinRequest
+from .serializers import CircleSerializer
 
 
 class CompanionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -241,3 +244,15 @@ class JoinRequestUpdateView(View):
             join_request.delete()
 
             return redirect(circle)
+
+
+# Only returns circles that user is a companion of
+class CircleViewSet(viewsets.ModelViewSet):
+    serializer_class = CircleSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        circles = Circle.objects.filter(companions_through__user=user)
+
+        return circles
