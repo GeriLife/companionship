@@ -25,7 +25,7 @@ isort = "^5.11.4"
 
 [tool.poetry.group.dev.dependencies]
 coverage = "^6.4.4"
-ipython = "^8.5.0"
+ipython = "^8.18.1"
 django-debug-toolbar = "^3.7.0"
 django-linear-migrations = "^2.5.1"
 rich = "^12.6.0"
